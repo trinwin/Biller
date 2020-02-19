@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
+from django.conf.urls import url
+from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^home', lambda request: HttpResponse("landing page"), name='landing-page'),
+    url(r'^dashboard/', lambda request: HttpResponse("Hi, dashboard page"), name='dashboard'),
+    url(r'^auth/', include('Authentication.urls'))
 ]
