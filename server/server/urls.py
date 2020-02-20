@@ -21,7 +21,7 @@ from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^home', lambda request: HttpResponse("landing page"), name='landing-page'),
     url(r'^dashboard/', lambda request: HttpResponse("Hi, dashboard page"), name='dashboard'),
-    url(r'^auth/', include('Authentication.urls'))
+    url(r'^auth/', include('Authentication.urls')),
+    url(r'^', lambda request: HttpResponse("landing page"), name='landing-page'),
 ]
