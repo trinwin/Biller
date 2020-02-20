@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^dashboard/', lambda request: HttpResponse("Hi, dashboard page"), name='dashboard'),
     url(r'^auth/', include('Authentication.urls')),
-    url(r'^', lambda request: HttpResponse("landing page"), name='landing-page'),
+    path('', lambda request: HttpResponse("landing page"), name='landing-page'),
 ]
