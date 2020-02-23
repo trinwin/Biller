@@ -1,0 +1,17 @@
+.register-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.register-inputs {
+  max-width: 470px;
+}
+
+
+.register-button {
+  width: 100%;
+}
+
+.register-input {
+  color: "rgba(0,0,0,.25)";
+}

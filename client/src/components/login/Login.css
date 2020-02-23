@@ -1,0 +1,20 @@
+.login-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.login-sign-up {
+  text-align: center;
+}
+
+.login-forgot {
+  float: right;
+}
+
+.login-button {
+  width: 100%;
+}
+
+.icon {
+  font-size: "50px";
+}
