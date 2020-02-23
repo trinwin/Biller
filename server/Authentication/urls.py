@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^api/obtain-token/', TokenObtainPairView.as_view()),
     url(r'^api/refresh-token/', TokenRefreshView.as_view()),
     url(r'^register/', views.register_page, name='register'),
-    url(r'^hello-world/', views.hello_world),
+    url(r'^logout/', views.logout, name='logout'),
 ]

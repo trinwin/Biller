@@ -3,9 +3,11 @@ from .models import User
 from .forms import CustomerUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.admin import UserAdmin
 
-# Register your models here.
 
 class CustomUserAdmin(UserAdmin):
+    """
+    Specify display for custom user model in Django admin panel
+    """
     add_form = CustomerUserCreationForm
     form = CustomUserChangeForm
     model = User 
@@ -28,4 +30,5 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
 
+# Register it with admin panel
 admin.site.register(User, CustomUserAdmin)

@@ -22,6 +22,8 @@ from django.http import HttpResponse
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^dashboard/', lambda request: HttpResponse("Hi, dashboard page"), name='dashboard'),
+
+    # Redirects all url that starts with auth/ to urls contained in Authentication module
     url(r'^auth/', include('Authentication.urls')),
     path('', lambda request: HttpResponse("landing page"), name='landing-page'),
 ]
