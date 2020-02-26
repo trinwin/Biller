@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import RouterComponent from './router/RouterComponent';
+import { setUserToken } from './store/actions/auth.action';
+import { USER_TOKEN } from './constants';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    const token = localStorage.getItem(USER_TOKEN);
+    if (token) {
+      this.props.setUserToken({ token });
+    }
+  }
+  render() {
+    const user = this.props.user || {};
+    return (
+      <div>
+        <RouterComponent user={user} />
+      </div>
+    );
+  }
 }
-
-export default App;
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ setUserToken }, dispatch);
+}
+export default connect(mapStateToProps, matchDispatchToProps)(App);
