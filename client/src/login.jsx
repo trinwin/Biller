@@ -12,8 +12,6 @@ class Login extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-      } else {
-        console.log("Received invalid form.");
       }
     });
   };
@@ -29,7 +27,7 @@ class Login extends React.Component {
           <Row>
             <Col xs={2} sm={4} md={6} lg={7} xl={6} />
             <Col xs={20} sm={16} md={12} lg={10} xl={12}>
-              <div style={{ background: "#fff", padding: 24, height: "80vh" }}>
+              <div className = "login-center-div">
                 <div style={{ padding: "5vh" }} />
                 <Form onSubmit = {this.handleClick} className = "login-form">
                   <Form.Item>
