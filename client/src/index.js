@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import './login.css';
-import Login from './login';
-import { Form } from "antd";
+import { Provider } from 'react-redux';
+import App from './App';
+import Store from './store/store';
 
-const LoginForm = Form.create({ name: 'normal_login' })(Login);  
-
-ReactDOM.render(<LoginForm />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={Store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
