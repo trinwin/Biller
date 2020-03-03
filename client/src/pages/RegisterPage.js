@@ -4,27 +4,26 @@ import { bindActionCreators } from 'redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import { Layout } from "antd";
 
-import HeaderPage from "../components/header/Header";
 import { login } from '../api/login.api';
-import Login from '../components/login/Login';
+import HeaderPage from "../components/header/Header";
+import Register from '../components/register/Register';
 
-import "./LoginPage.css";
+import "./RegisterPage.css";
 
 const { Content, Footer } = Layout;
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
   constructor() {
     super();
-
     this.onClick = this.onClick.bind(this);
   }
 
   onClick = e => {
     console.log("Recieved values: ", e);
-    this.props.login({
-      email: e.username,
-      password: e.password
-    });
+    // this.props.login({
+    //   email: e.username,
+    //   password: e.password
+    // });
   };
 
   render() {
@@ -37,11 +36,11 @@ class LoginPage extends Component {
       <Layout>
         <HeaderPage />
           <Content style={{ marginTop: "20vh" }}> 
-          <div className = "login-center">
-            <div role="presentation" className = "login-box">
-              <Login 
+          <div className = "register-center">
+            <div role="presentation" className = "register-box">
+            <Register 
                 onClick={e => this.onClick(e)}
-              />       
+              />     
             </div>
           </div>
           </Content>
@@ -65,4 +64,4 @@ function matchDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   matchDispatchToProps
-)(withRouter(LoginPage));
+)(withRouter(RegisterPage));

@@ -10,6 +10,11 @@
 .login-forgot {
   float: right;
 }
+
 .login-button {
   width: 100%;
+}
+
+.icon {
+  font-size: "50px";
 }
