@@ -6,34 +6,17 @@ import { Layout } from "antd";
 
 import { register } from '../api/register.api';
 import HeaderPage from "../components/header/Header";
-import Register from '../components/register/Register';
-import history from '../router/History';
 
 import "./RegisterPage.css";
 
 
 const { Content, Footer } = Layout;
 
-class RegisterPage extends Component {
+class SetupPage extends Component {
   constructor() {
     super();
     this.onClick = this.onClick.bind(this);
   }
-
-  onClick = e => {
-    console.log("Recieved values: ", e);
-
-    this.props.register({
-      email: e.username,
-      password: e.password,
-      firstname: e.firstname,
-      lastname: e.lastname
-    })
-
-    if(this.props.success) {
-      history.push('/setup');  
-    }
-  };
 
   render() {
     const user = this.props.user || {};
@@ -45,13 +28,7 @@ class RegisterPage extends Component {
       <Layout>
         <HeaderPage />
         <Content style={{ marginTop: "20vh" }}> 
-          <div className = "register-center">
-            <div role="presentation" className = "register-box">
-              <Register 
-                onClick={e => this.onClick(e)}
-              />     
-            </div>
-          </div>
+          <p>Test!</p> 
         </Content>
         <Footer style={{ textAlign: "center" }}>Copyrights reserved by whatever I think I don't know.</Footer>
       </Layout>
@@ -73,4 +50,4 @@ function matchDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   matchDispatchToProps
-)(withRouter(RegisterPage));
+)(withRouter(SetupPage));

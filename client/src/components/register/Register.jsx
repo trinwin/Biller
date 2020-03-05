@@ -36,7 +36,15 @@ const Register = props => {
       <Form.Item
         name="password"
         hasFeedback
-        rules={[{ required: true, message: 'You require a password!' }]}
+        rules={[{ required: true, message: 'You require a password!' }, 
+        () => ({
+          validator(rule, value) {
+            if (value.length >= 6) {
+              return Promise.resolve();
+            }
+            return Promise.reject('Your password must be 6 or more characters!');
+          },
+        }),]}
       >
         <Input type = "password" placeholder="Password" />
       </Form.Item>
