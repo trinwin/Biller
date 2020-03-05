@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Input, Form, Checkbox } from "antd";
-import { Link } from 'react-router-dom';
+import { Button, Input, Form, Row, Col } from "antd";
 import "antd/dist/antd.css";
 
 import "./Register.css";
@@ -13,8 +12,8 @@ const Register = props => {
 
   return (
     <Form
-      name="login"
-      className="login-form"
+      name="register"
+      className="register-form"
       onFinish={onFinish}
     >
       <Form.Item/>
@@ -60,12 +59,27 @@ const Register = props => {
         <Input type = "password" placeholder="Confirm Password" />
       </Form.Item>
 
-      <Form.Item
-        name="name"
-        hasFeedback
-        rules={[{ required: true, message: 'Please enter your name!' }]}
-      >
-        <Input placeholder="Full Name" />
+      <Form.Item>
+        <Row>
+          <Col span={12}>
+          <Form.Item
+            name="firstname"
+            hasFeedback
+            rules={[{ required: true, message: 'Please enter your first name!' }]}
+          >
+             <Input placeholder="First Name" />
+          </Form.Item>
+          </Col>
+          <Col span={12}> 
+          <Form.Item
+            name="lastname"
+            hasFeedback
+            rules={[{ required: true, message: 'Please enter your last name!' }]}
+          > 
+            <Input placeholder="Last Name" />
+          </Form.Item>
+          </Col>
+        </Row>
       </Form.Item>
 
       <Form.Item/>
@@ -82,5 +96,4 @@ const Register = props => {
     </Form>
   );
 }
-
 export default Register;

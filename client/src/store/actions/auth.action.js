@@ -3,6 +3,8 @@ import {
   SET_USER_TOKEN,
   LOGIN_FAILED,
   LOGIN_SUCCESSFULLY,
+  REGISTER_FAILED,
+  REGISTER_SUCCESSFULLY,
   LOGOUT,
 } from '../../constants';
 
@@ -15,6 +17,17 @@ export const loginFailed = error => ({
   type: LOGIN_FAILED,
   payload: error,
 });
+
+export const registerSuccessfully = user => ({
+  type: REGISTER_SUCCESSFULLY,
+  payload: user,
+});
+
+export const registerFailed = error => ({
+  type: REGISTER_FAILED,
+  payload: error,
+});
+
 
 export const setUserToken = user => ({
   type: SET_USER_TOKEN,

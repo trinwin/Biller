@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import { Layout } from "antd";
 
-import { login } from '../api/login.api';
+import { register } from '../api/register.api';
 import HeaderPage from "../components/header/Header";
 import Register from '../components/register/Register';
+import history from '../router/History';
 
 import "./RegisterPage.css";
+
 
 const { Content, Footer } = Layout;
 
@@ -19,11 +21,12 @@ class RegisterPage extends Component {
   }
 
   onClick = e => {
-    console.log("Recieved values: ", e);
-    // this.props.login({
-    //   email: e.username,
-    //   password: e.password
-    // });
+    history.push('/login');  
+    // console.log("Recieved values: ", e);
+    //  this.props.register({
+    //    email: e.username,
+    //    password: e.password
+    // })
   };
 
   render() {
@@ -58,7 +61,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ login }, dispatch);
+  return bindActionCreators({ register }, dispatch);
 }
 
 export default connect(
