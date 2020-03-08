@@ -19,6 +19,7 @@
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "prettier": "^1.19.1",
+    "querystring": "^0.2.0",
     "rc-queue-anim": "^1.8.3",
     "rc-scroll-anim": "^2.7.4",
     "rc-tween-one": "^2.6.8",
