@@ -1,8 +1,10 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.core.exceptions import ObjectDoesNotExist
+import django.core.exceptions as exceptions
+import django.db as dbexceptions
 from .models import User
+from .forms import UserValidationForm
 # Create your tests here.
 
 class UserTestCase(TestCase):
@@ -38,19 +40,42 @@ class UserTestCase(TestCase):
     
     def test_duplicate_accounts(self):
         User.objects.create_user(email="normal@user.com", password="foo")
-        try:
-            User.objects.create_user(email="normal@user.com", password="foo")
-        except:
-            pass
+        with self.assertRaises(dbexceptions.IntegrityError) as exception_manager:
+            User.objects.create_user(email="normal@user.com", password="oof")
+
     
     def test_invalid_password(self):
+        with self.assertRaisesMessage(exceptions.ValidationError,"Passwords need to be longer than 8"):
+            user = User(email="test@user.com", password="foo")
+            user.full_clean()
         User.objects.create_user(email="normal@user.com", password="foo")
         user = authenticate(email='normal@user.com', password="foo")
+        self.assertNotEqual(None, user)
         user = authenticate(email="normal@user.com", password="")
-        if user is None:
-            pass
-        else:
-            raise ObjectDoesNotExist
+        self.assertEqual(None, user)
+    
+    def test_invalid_email(self):
+        with self.assertRaisesMessage(exceptions.ValidationError,"Email domain not recognized"):
+            user = User(email = 'abc@abc.com', password = 'foo', first_name = 'first', last_name = 'last')
+            user.full_clean()
+        with self.assertRaisesMessage(exceptions.ValidationError,"Illegal email naming convention"):
+            user = User(email = '-abc@yahoo.com', password = 'foo', first_name = 'first', last_name = 'last')
+            user.full_clean()
+        with self.assertRaisesMessage(exceptions.ValidationError,"Illegal character in email"):
+            user = User(email = 'abc<@yahoo.com', password = 'foo', first_name = 'first', last_name = 'last')
+            user.full_clean()
+    
+    def test_invalid_name(self):
+        with self.assertRaisesMessage(exceptions.ValidationError,"Names can only contain alphabet letters"):
+            user = User(email = 'abc@yahoo.com', password = 'foo', first_name = 'first123', last_name = 'last')
+            user.full_clean()
+        with self.assertRaisesMessage(exceptions.ValidationError,'This field cannot be blank.'):
+            user = User(email = 'abc@yahoo.com', password = 'foo', last_name = 'last')
+            user.full_clean()
+        with self.assertRaisesMessage(exceptions.ValidationError,'This field cannot be blank.'):
+            user = User(email = 'abc@yahoo.com', password = 'foo', first_name = 'first')
+            user.full_clean()
+        
 
             
 
