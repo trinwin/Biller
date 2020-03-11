@@ -34,8 +34,8 @@ const Login = props => {
       </Form.Item>
 
       <Form.Item>
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox /> Remember me 
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
         <Link to="/register" className = "login-forgot">Forget your password?</Link>

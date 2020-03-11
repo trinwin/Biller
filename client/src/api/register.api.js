@@ -4,6 +4,7 @@ import { HOST, REGISTER_URI } from '../constants';
 
 // eslint-disable-next-line import/prefer-default-export
 export const register = userData => dispatch => {
+  console.log(userData);
   axios
     .post(`${HOST}${REGISTER_URI}`, userData)
     .then(res => {
