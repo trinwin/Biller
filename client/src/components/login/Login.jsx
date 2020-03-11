@@ -34,8 +34,13 @@ const Login = props => {
       </Form.Item>
 
       <Form.Item>
+<<<<<<< HEAD
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
+=======
+        <Form.Item name="remember" valuePropName="checked">
+          <Checkbox /> Remember me 
+>>>>>>> 94a686cca077120d4d64bd1ca07a86072d6f4347
         </Form.Item>
 
         <Link to="/register" className = "login-forgot">Forget your password?</Link>
