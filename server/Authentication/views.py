@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, Http404. JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -9,6 +9,7 @@ import django.core.exceptions as exceptions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from .models import User
+from rest_framework.exceptions import APIException
 from rest_framework import status
 
 
@@ -22,32 +23,28 @@ def login_page(request):
     # Trinh forgets this remove if u want :)
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('dashboard'))
-
     # Only accepts POST requests
     if request.method == "POST":
 
         email = request.data.get("email")
         password = request.data.get("password")
         # print(request.data)
-        print(email)
-        print(password)
         # Authenticate the user's email and password
         user = authenticate(username=email, password=password)
-        print(user)
         if user is None:
             user = User.objects.filter(email=email)
             if len(user) == 0:
-                return JsonResponse({'message': "Account does not exist"}, 401)
+                return Response({'message': "Account does not exist"}, status = status.HTTP_404_NOT_FOUND)
             if not user[0].check_password(password):
-                return Response({'message': "Invalid password"})
+                return Response({'message': "Invalid password"}, status = status.HTTP_404_NOT_FOUND)
         # Log the user in, creates a new JWT and saves it in the user's session
         auth_login(request, user)
         JWT_Token = RefreshToken.for_user(user)
         request.user.refresh_token = str(JWT_Token)
         request.user.access_token = str(JWT_Token.access_token)
-        return Response({'email': email, 'refresh_token': request.user.refresh_token,
+        return Response({'email': email, 'refresh_token': request.user.refresh_token,\
                          'access_token': request.user.access_token})
-    return Response({'message': "Login must take a POST request"})
+    return Response({'message': "Login must take a POST request"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @csrf_exempt
@@ -64,11 +61,11 @@ def register_page(request):
     # Only accepts POST requests
     if request.method == 'POST':
 
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        password2 = request.POST.get('password2')
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
+        email = request.data.get("email")
+        password = request.data.get("password")
+        password2 = request.data.get('password2')
+        first_name = request.data.get("first_name")
+        last_name = request.data.get("last_name")
 
         # If password and password confirmation matches
         if password == password2:
@@ -90,14 +87,14 @@ def register_page(request):
                 JWT_Token = RefreshToken.for_user(user)
                 request.user.refresh_token = str(JWT_Token)
                 request.user.access_token = str(JWT_Token.access_token)
-                return Response({'email': email, 'refresh_token': request.user.refresh_token,
+                return Response({'email': email, 'refresh_token': request.user.refresh_token,\
                                  'access_token': request.user.access_token})
             else:
-                return Response({'message': "An account with this email already exists."})
+                return Response({'message': "An account with this email already exists."}, status = status.HTTP_404_NOT_FOUND)
         else:
-            return Response({'message': "Password confirmation does not match."})
+            return Response({'message': "Password confirmation does not match."}, status = status.HTTP_404_NOT_FOUND)
 
-    return Response({'message': "Register must take a POST request."})
+    return Response({'message': "Register must take a POST request."}, status = status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @csrf_exempt

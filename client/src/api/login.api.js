@@ -18,6 +18,7 @@ export const login = userData => dispatch => {
     })
     .catch(err => {
       console.log(`error: ${err}`);
+      console.log(err.response.data)
       dispatch(loginFailed(err));
     });
 };
