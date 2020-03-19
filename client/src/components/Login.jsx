@@ -5,9 +5,11 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const Login = Form.create({
   name: 'global_state',
+
   onFieldsChange(props, changedFields) {
     props.onChange(changedFields);
   },
+
   mapPropsToFields(props) {
     return {
       email: Form.createFormField({
@@ -20,14 +22,17 @@ const Login = Form.create({
       }),
     };
   },
+
   onValuesChange(_, values) {
     console.log(values);
   },
+
   onSubmit(props) {
     props.onSubmit();
   },
 })(props => {
   const { getFieldDecorator, validateFields } = props.form;
+
   const handleSubmit = e => {
     e.preventDefault();
     validateFields((err, values) => {
@@ -37,13 +42,14 @@ const Login = Form.create({
       }
     });
   };
+
   return (
     <Form name="normal_login" className="login-form" onSubmit={handleSubmit}>
       <Link to="/">
         <img src={require('../assets/logo.png')} alt="logo" />
       </Link>
 
-      <h1>Login</h1>
+      <h2>Login</h2>
       <Form.Item name="email" hasFeedback>
         {getFieldDecorator('email', {
           rules: [
@@ -85,7 +91,12 @@ const Login = Form.create({
         )}
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          type="primary"
+          size="large"
+          htmlType="submit"
+          className="login-form-button"
+        >
           Log in
         </Button>
         Or <Link to="/register">Register now!</Link>
