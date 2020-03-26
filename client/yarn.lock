@@ -9,6 +9,7 @@
   dependencies:
     tinycolor2 "^1.4.1"
 
+<<<<<<< HEAD
 "@ant-design/compatible@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@ant-design/compatible/-/compatible-1.0.1.tgz#7f8a89e916f70c2982e7039ae7610d0d0162fc28"
@@ -24,6 +25,8 @@
     rc-form "^2.4.10"
     rc-util "^4.10.0"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 "@ant-design/create-react-context@^0.2.4":
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/@ant-design/create-react-context/-/create-react-context-0.2.5.tgz#f5f5a9163b4772097712837397ad30e22e79f858"
@@ -40,6 +43,7 @@
     "@ant-design/colors" "^3.1.0"
     babel-runtime "^6.26.0"
 
+<<<<<<< HEAD
 "@ant-design/icons-svg@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@ant-design/icons-svg/-/icons-svg-4.0.0.tgz#6683db0df97c0c6900bb28a280faf391522ec734"
@@ -56,6 +60,8 @@
     insert-css "^2.0.0"
     rc-util "^4.9.0"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 "@ant-design/icons@~2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@ant-design/icons/-/icons-2.1.1.tgz#7b9c08dffd4f5d41db667d9dbe5e0107d0bd9a4a"
@@ -1811,6 +1817,7 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
+<<<<<<< HEAD
 antd-migration-helper@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/antd-migration-helper/-/antd-migration-helper-0.3.3.tgz#6df4e42a76cf6dee542c8d9296b7c647d9c41ab4"
@@ -1831,6 +1838,12 @@ antd@^3.26.13:
   version "3.26.13"
   resolved "https://registry.yarnpkg.com/antd/-/antd-3.26.13.tgz#fd6b618a33d5dec0f649263f30eae691425f7e47"
   integrity sha512-7DjaXAUig51kzVw9T9Mi4slmq0eFl6qGk7t3kjA5t3Sv/Yn2llwNWT0lJDbseooesRRWeFLNByfZV37cUCRJYQ==
+=======
+antd@^3.26.11:
+  version "3.26.12"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-3.26.12.tgz#2f075670780ac0490b2945d8bca883edcd93158c"
+  integrity sha512-aXiRDDpDx1jH/gKJDE2dgZPT1C7qurOZ1OSt9RklQT2K6CFlveF8HJY7Jz1/xHikXA+kmy6kr/OACJiaxBFRkA==
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
   dependencies:
     "@ant-design/create-react-context" "^0.2.4"
     "@ant-design/icons" "~2.1.1"
@@ -2274,7 +2287,11 @@ babel-preset-react-app@^9.1.1:
     babel-plugin-macros "2.8.0"
     babel-plugin-transform-react-remove-prop-types "0.4.24"
 
+<<<<<<< HEAD
 babel-runtime@6.x, babel-runtime@^6.22.0, babel-runtime@^6.23.0, babel-runtime@^6.26.0:
+=======
+babel-runtime@6.x, babel-runtime@^6.23.0, babel-runtime@^6.26.0:
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   integrity sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
@@ -3544,7 +3561,11 @@ debug@=3.1.0:
   dependencies:
     ms "2.0.0"
 
+<<<<<<< HEAD
 debug@^3.0.0, debug@^3.1.0, debug@^3.1.1, debug@^3.2.5:
+=======
+debug@^3.0.0, debug@^3.1.1, debug@^3.2.5:
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
   integrity sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
@@ -3937,6 +3958,7 @@ enhanced-resolve@^4.1.0:
     memory-fs "^0.5.0"
     tapable "^1.0.0"
 
+<<<<<<< HEAD
 enquire-js@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/enquire-js/-/enquire-js-0.2.1.tgz#f2478cf5808d42f54e8231f20fa133493e7f0fcb"
@@ -3944,6 +3966,8 @@ enquire-js@^0.2.1:
   dependencies:
     enquire.js "^2.1.6"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 enquire.js@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/enquire.js/-/enquire.js-2.1.6.tgz#3e8780c9b8b835084c3f60e166dbc3c2a3c89814"
@@ -6715,11 +6739,14 @@ lodash._reinterpolate@^3.0.0:
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
 
+<<<<<<< HEAD
 lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha1-soqmKIorn8ZRA1x3EfZathkDMaY=
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 lodash.debounce@^4.0.0, lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
@@ -6765,11 +6792,14 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
+<<<<<<< HEAD
 lodash.upperfirst@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/lodash.upperfirst/-/lodash.upperfirst-4.3.1.tgz#1365edf431480481ef0d1c68957a5ed99d49f7ce"
   integrity sha1-E2Xt9DFIBIHvDRxolXpe2Z1J984=
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 "lodash@>=3.5 <5", lodash@^4.16.5, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
@@ -8797,7 +8827,11 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
+<<<<<<< HEAD
 raf@3.x, raf@^3.4.0, raf@^3.4.1, raf@~3.4.0:
+=======
+raf@^3.4.0, raf@^3.4.1:
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
   integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
@@ -9066,6 +9100,7 @@ rc-progress@~2.5.0:
     babel-runtime "6.x"
     prop-types "^15.5.8"
 
+<<<<<<< HEAD
 rc-queue-anim@^1.8.3:
   version "1.8.4"
   resolved "https://registry.yarnpkg.com/rc-queue-anim/-/rc-queue-anim-1.8.4.tgz#ce6a3f9ebc864bb88140aa38cdef0ce180247483"
@@ -9076,6 +9111,8 @@ rc-queue-anim@^1.8.3:
     rc-tween-one "^2.5.0"
     react-lifecycles-compat "^3.0.4"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 rc-rate@~2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/rc-rate/-/rc-rate-2.5.1.tgz#55fc5fd23ea9dcc72250b9a889803479f4842961"
@@ -9095,6 +9132,7 @@ rc-resize-observer@^0.1.0:
     rc-util "^4.13.0"
     resize-observer-polyfill "^1.5.1"
 
+<<<<<<< HEAD
 rc-scroll-anim@^2.7.4:
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/rc-scroll-anim/-/rc-scroll-anim-2.7.4.tgz#d268528b0de1cf9fb5c1b4691f8235ab552424d2"
@@ -9107,6 +9145,8 @@ rc-scroll-anim@^2.7.4:
     react-lifecycles-compat "^3.0.4"
     tween-functions "1.x"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 rc-select@~9.2.0:
   version "9.2.3"
   resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-9.2.3.tgz#64340e2d6ef64e8bc3cfc6f468ffd28625589ac2"
@@ -9266,6 +9306,7 @@ rc-trigger@^3.0.0:
     rc-animate "^3.0.0-rc.1"
     rc-util "^4.15.7"
 
+<<<<<<< HEAD
 rc-tween-one@^2.4.0, rc-tween-one@^2.5.0, rc-tween-one@^2.6.8:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/rc-tween-one/-/rc-tween-one-2.6.8.tgz#75edf141af491a28b18812dc419efa6b0238e2a7"
@@ -9278,6 +9319,8 @@ rc-tween-one@^2.4.0, rc-tween-one@^2.5.0, rc-tween-one@^2.6.8:
     style-utils "~0.2.0"
     tween-functions "~1.2.0"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 rc-upload@~2.9.1:
   version "2.9.4"
   resolved "https://registry.yarnpkg.com/rc-upload/-/rc-upload-2.9.4.tgz#8e34a73a468d7907fe31982c38100e4593857d32"
@@ -9300,6 +9343,7 @@ rc-util@^4.0.4, rc-util@^4.1.1, rc-util@^4.13.0, rc-util@^4.15.3, rc-util@^4.15.
     react-lifecycles-compat "^3.0.4"
     shallowequal "^1.1.0"
 
+<<<<<<< HEAD
 rc-util@^4.10.0, rc-util@^4.9.0:
   version "4.20.1"
   resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.20.1.tgz#a5976eabfc3198ed9b8e79ffb8c53c231db36e77"
@@ -9312,6 +9356,8 @@ rc-util@^4.10.0, rc-util@^4.9.0:
     react-lifecycles-compat "^3.0.4"
     shallowequal "^1.1.0"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 react-app-polyfill@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-1.0.6.tgz#890f8d7f2842ce6073f030b117de9130a5f385f0"
@@ -9384,6 +9430,7 @@ react-error-overlay@^6.0.6:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.6.tgz#ac4d9dc4c1b5c536c2c312bf66aa2b09bfa384e2"
   integrity sha512-Yzpno3enVzSrSCnnljmr4b/2KUQSMZaPuqmS26t9k4nW7uwJk6STWmH9heNjPuvqUTO3jOSPkHoKgO4+Dw7uIw==
 
+<<<<<<< HEAD
 react-github-button@^0.1.11:
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/react-github-button/-/react-github-button-0.1.11.tgz#fc61e1f1e1371169d3618c1ba37306ba04081e56"
@@ -9391,6 +9438,8 @@ react-github-button@^0.1.11:
   dependencies:
     prop-types "^15.5.10"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
@@ -9533,6 +9582,7 @@ react-scripts@3.4.0:
   optionalDependencies:
     fsevents "2.1.2"
 
+<<<<<<< HEAD
 react-side-effect@^1.0.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.2.0.tgz#0e940c78faba0c73b9b0eba9cd3dda8dfb7e7dae"
@@ -9540,6 +9590,8 @@ react-side-effect@^1.0.2:
   dependencies:
     shallowequal "^1.0.1"
 
+=======
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
 react-slick@~0.25.2:
   version "0.25.2"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.25.2.tgz#56331b67d47d8bcfe2dceb6acab1c8fd5bd1f6bc"
@@ -9803,7 +9855,11 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
+<<<<<<< HEAD
 request@^2.79.0, request@^2.83.0, request@^2.87.0, request@^2.88.0:
+=======
+request@^2.83.0, request@^2.87.0, request@^2.88.0:
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==
@@ -10237,7 +10293,11 @@ shallow-equal@^1.0.0:
   resolved "https://registry.yarnpkg.com/shallow-equal/-/shallow-equal-1.2.1.tgz#4c16abfa56043aa20d050324efa68940b0da79da"
   integrity sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA==
 
+<<<<<<< HEAD
 shallowequal@^1.0.1, shallowequal@^1.0.2, shallowequal@^1.1.0:
+=======
+shallowequal@^1.0.2, shallowequal@^1.1.0:
+>>>>>>> 94a686c... Changed router. Added basic register redirection/API
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
