@@ -1,20 +1,23 @@
-.login-form {
-  max-width: 500px;
-  margin: 0 auto;
+.login-inputs {
+    max-width: 470px;
 }
 
-.login-sign-up {
-  text-align: center;
-}
-
-.login-forgot {
-  float: right;
-}
 
 .login-button {
-  width: 100%;
+    width: 100%;
 }
 
-.icon {
-  font-size: "50px";
+.login-input {
+    color: "rgba(0,0,0,.25)";
+}
+
+.input-form {
+    max-width: 400px;
+    min-width: 300px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
 }

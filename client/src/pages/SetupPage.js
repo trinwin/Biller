@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import { Layout } from "antd";
+import { Layout, Steps } from "antd";
 
 import { register } from '../api/register.api';
-import HeaderPage from "../components/header/Header";
+import SetupForm from "../components/setup/SetupForm"
+import "./Pages.css"
 
-import "./RegisterPage.css";
-
-
-const { Content, Footer } = Layout;
+const { Content, Sider } = Layout;
+const { Step } = Steps;
 
 class SetupPage extends Component {
   constructor() {
     super();
-    this.onClick = this.onClick.bind(this);
   }
 
   render() {
@@ -25,12 +23,17 @@ class SetupPage extends Component {
     return token ? (
       <Redirect to="/" user={user} />
     ) : (
-      <Layout>
-        <HeaderPage />
-        <Content style={{ marginTop: "20vh" }}> 
-          <p>Test!</p> 
+      <Layout className="input-form2">
+        <Sider theme="light">
+          <Steps direction="vertical" current={1}>
+            <Step title="Finished" description="You've registered a Biller account!" />
+            <Step title="In Progress" description="Link accounts." />
+            <Step title="Waiting" description="This is a description." />
+          </Steps>
+          </Sider>
+        <Content> 
+          <SetupForm/>
         </Content>
-        <Footer style={{ textAlign: "center" }}>Copyrights reserved by whatever I think I don't know.</Footer>
       </Layout>
     );
   }

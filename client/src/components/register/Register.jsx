@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Input, Form, Row, Col } from "antd";
+import { Link } from 'react-router-dom';
 import "antd/dist/antd.css";
 
 import "./Register.css";
@@ -7,16 +8,19 @@ import "./Register.css";
 const Register = props => {
   const onFinish = values => {
     console.log('Sent values:', values);
-    props.onClick(values)
+    props.onSubmission(values)
   };
 
   return (
     <Form
       name="register"
-      className="register-form"
+      className="input-form"
       onFinish={onFinish}
     >
-      <Form.Item/>
+      <Link to="/" className="register-sign-up" >
+        <img src={require('../../assets/logo.png')} alt="logo" />
+      </Link>
+
       <Form.Item
         name="username"
         hasFeedback
@@ -36,7 +40,7 @@ const Register = props => {
       <Form.Item
         name="password"
         hasFeedback
-        rules={[{ required: true, message: 'You require a password!' }, 
+        rules={[ 
         () => ({
           validator(rule, value) {
             if (value.length >= 6) {
@@ -89,8 +93,6 @@ const Register = props => {
           </Col>
         </Row>
       </Form.Item>
-
-      <Form.Item/>
 
       <Form.Item>
         <Button

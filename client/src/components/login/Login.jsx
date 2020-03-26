@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Form, Checkbox } from "antd";
+import { Button, Input, Form } from "antd";
 import { Link } from 'react-router-dom';
 import "antd/dist/antd.css";
 
@@ -8,16 +8,19 @@ import "./Login.css";
 const Login = props => {
   const onFinish = values => {
     console.log('Sent values:', values);
-    props.onClick(values)
+    props.onSubmit(values)
   };
 
   return (
     <Form
       name="login"
-      className="login-form"
+      className="input-form"
       onFinish={onFinish}
     >
-      <Form.Item/>
+      <Link to="/" className="login-sign-up" >
+        <img src={require('../../assets/logo.png')} alt="logo" />
+      </Link>
+
       <Form.Item
         name="username"
         rules={[{ required: true, message: 'Please input your email!' }]}
@@ -34,19 +37,6 @@ const Login = props => {
       </Form.Item>
 
       <Form.Item>
-<<<<<<< HEAD
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-=======
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox /> Remember me 
->>>>>>> 94a686cca077120d4d64bd1ca07a86072d6f4347
-        </Form.Item>
-
-        <Link to="/register" className = "login-forgot">Forget your password?</Link>
-      </Form.Item>
-
-      <Form.Item>
         <Button
           type="primary"
           htmlType="submit"
@@ -56,7 +46,9 @@ const Login = props => {
         </Button>
       </Form.Item>
 
-      <Form.Item className = "login-sign-up">
+      <Form.Item>
+        <Link to="/register">Forget your password?</Link>
+        <br/>
         <Link to="/register">Don't have an account? Sign up here.</Link>
       </Form.Item>
     </Form>
