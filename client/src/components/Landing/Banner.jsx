@@ -33,7 +33,7 @@ class Banner extends React.PureComponent {
                   type="primary"
                   shape="round"
                   onClick={() => {
-                    window.location.href = '/signup';
+                    window.location.href = '/register';
                   }}
                 >
                   Sign up
