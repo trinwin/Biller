@@ -7,7 +7,7 @@ import Page2 from './Page3';
 import Page3 from './Page2';
 import Footer from './Footer';
 
-import './static/style.js';
+import '../static/style.js';
 
 class Landing extends React.PureComponent {
   render() {

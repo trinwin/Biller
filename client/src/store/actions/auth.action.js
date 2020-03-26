@@ -28,7 +28,6 @@ export const registerFailed = error => ({
   payload: error,
 });
 
-
 export const setUserToken = user => ({
   type: SET_USER_TOKEN,
   payload: user,

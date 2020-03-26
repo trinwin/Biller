@@ -2,9 +2,6 @@ import React from 'react';
 import { Button, Input, Form, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-// import './node_modules/antd/dist/antd.css';
-
-import './Register.css';
 
 const Register = props => {
   const onFinish = values => {
@@ -15,7 +12,7 @@ const Register = props => {
   return (
     <Form name="register" className="input-form" onFinish={onFinish}>
       <Link to="/" className="register-sign-up">
-        <img src={require('../../assets/logo.png')} alt="logo" />
+        <img src={require('../assets/logo.png')} alt="logo" />
       </Link>
 
       <Form.Item

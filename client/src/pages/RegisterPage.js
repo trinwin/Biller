@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import { Layout } from 'antd';
 
 import { register } from '../api/register.api';
-import Register from '../components/Register/Register.jsx';
+import Register from '../components/Register.jsx';
 import history from '../router/History';
 
 import './Pages.css';

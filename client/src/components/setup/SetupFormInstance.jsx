@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button } from 'antd';
-import ModalForm from "./ModalForm";
-import "./SetupForm.css";
+import React, { useState } from './node_modules/react';
+import { Button } from './node_modules/antd';
+import ModalForm from './ModalForm';
+import './SetupForm.css';
 
 const SetupFormInstance = ({ btnName }) => {
   const [visible, setVisible] = useState(false);
@@ -20,7 +20,7 @@ const SetupFormInstance = ({ btnName }) => {
         onClick={() => {
           setVisible(true);
         }}
-        style={{ width: "55%", flex: 1}}
+        style={{ width: '55%', flex: 1 }}
         shape="round"
         block
       >
@@ -37,4 +37,4 @@ const SetupFormInstance = ({ btnName }) => {
   );
 };
 
-export default SetupFormInstance
+export default SetupFormInstance;
