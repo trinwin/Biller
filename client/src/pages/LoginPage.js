@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, withRouter } from 'react-router-dom';
@@ -6,51 +6,26 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { login } from '../api/login.api';
 import Login from '../components/Login.jsx';
 
-class LoginPage extends Component {
-  state = {
-    fields: {
-      email: {
-        value: '',
-      },
-      password: {
-        value: '',
-      },
-    },
-  };
-
-  handleFormChange = changedFields => {
-    this.setState(({ fields }) => ({
-      fields: { ...fields, ...changedFields },
-    }));
-  };
-
-  handleFormSubmitSuccess = values => {
-    console.log('values are ok', values);
-    this.props.login({
+const LoginPage = props => {
+  const onClick = values => {
+    console.log(values);
+    props.login({
       email: values.email,
       password: values.password,
     });
   };
 
-  render() {
-    const fields = this.state.fields;
-    const user = this.props.user || {};
-    const { token } = user;
+  const user = props.user || {};
+  const { access_token } = user;
+  console.log('user: ', user);
+  console.log('access_token: ', access_token);
 
-    return token ? (
-      <Redirect to="/" user={user} />
-    ) : (
-      <div>
-        <Login
-          {...fields}
-          onChange={this.handleFormChange}
-          onSubmit={this.handleFormSubmitSuccess}
-        />
-        <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre>
-      </div>
-    );
-  }
-}
+  return access_token ? (
+    <Redirect to="/" user={user} />
+  ) : (
+    <Login onClick={e => onClick(e)} />
+  );
+};
 
 // Store
 function mapStateToProps(state) {

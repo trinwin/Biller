@@ -17,7 +17,7 @@ class HomePage extends Component {
 
   render() {
     const user = this.props.user || {};
-    return user && user.token ? (
+    return user && user.access_token ? (
       <Home logout={e => this.onClick(e)} />
     ) : (
       <Landing />

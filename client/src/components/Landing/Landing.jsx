@@ -11,7 +11,6 @@ import './static/style.js';
 
 class Landing extends React.PureComponent {
   render() {
-    console.log('hello');
     return (
       <div className="home-page">
         <Header key="header" />

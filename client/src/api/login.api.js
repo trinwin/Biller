@@ -5,16 +5,18 @@ import { setTokenToLocalStorage } from '../utils';
 
 // eslint-disable-next-line import/prefer-default-export
 export const login = userData => dispatch => {
+  console.log('userData sent to login: ', userData);
   axios
     .post(`${HOST}${LOGIN_URI}`, userData)
     .then(res => {
+      console.log('res: ', res);
       // Set userToken to Local Storage
-      setTokenToLocalStorage(USER_TOKEN, res.data.token).then(() => {
+      setTokenToLocalStorage(USER_TOKEN, res.data.refresh_token).then(() => {
         dispatch(loginSuccessfully(res.data));
       });
     })
     .catch(err => {
-      console.log(`error: ${err}`);
+      console.log('err: ', err.response.data);
       dispatch(loginFailed(err));
     });
 };

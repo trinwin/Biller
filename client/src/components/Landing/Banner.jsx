@@ -23,8 +23,8 @@ class Banner extends React.PureComponent {
             ease="easeOutQuart"
           >
             <h1 key="h2">Biller</h1>
-            <p key="p">Your Personal Bill Assistant</p>
             <p key="p">
+              Your Personal Bill Assistant. <br />
               Join us for free today and never worry about your bill again
             </p>
             <span key="button">

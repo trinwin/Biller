@@ -1,94 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+// import '@ant-design/compatible/assets/index.css';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const Login = Form.create({
-  name: 'global_state',
-
-  onFieldsChange(props, changedFields) {
-    props.onChange(changedFields);
-  },
-
-  mapPropsToFields(props) {
-    return {
-      email: Form.createFormField({
-        ...props.email,
-        value: props.email.value,
-      }),
-      password: Form.createFormField({
-        ...props.password,
-        value: props.password.value,
-      }),
-    };
-  },
-
-  onValuesChange(_, values) {
-    console.log(values);
-  },
-
-  onSubmit(props) {
-    props.onSubmit();
-  },
-})(props => {
-  const { getFieldDecorator, validateFields } = props.form;
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-        props.onSubmit(values);
-      }
-    });
+const Login = props => {
+  const onFinish = values => {
+    console.log('Sent values:', values);
+    props.onClick(values);
   };
 
   return (
-    <Form name="normal_login" className="login-form" onSubmit={handleSubmit}>
+    <Form name="normal_login" className="login-form" onFinish={onFinish}>
       <Link to="/">
         <img src={require('../assets/logo.png')} alt="logo" />
       </Link>
 
-      <h2>Login</h2>
-      <Form.Item name="email" hasFeedback>
-        {getFieldDecorator('email', {
-          rules: [
-            {
-              type: 'email',
-              message: 'The input is not valid email!',
-            },
-            { required: true, message: 'Please input your email!' },
-          ],
-        })(
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Email"
-            name="email"
-          />
-        )}
+      <h1>Login</h1>
+      <Form.Item
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+        hasFeedback
+      >
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Email"
+          name="email"
+          type="email"
+        />
       </Form.Item>
-      <Form.Item name="password" hasFeedback>
-        {getFieldDecorator('password', {
-          rules: [
-            {
-              required: true,
-              message: 'Password is required!',
-            },
-            { min: 8, whitespace: true, message: 'Min length: 8' },
-            // {
-            //   pattern: new RegExp('^(?=.*d).{4,8}$'),
-            //   message:
-            //     'Password must be between 4 and 8 digits long and include at least one numeric digit.',
-            // },
-          ],
-        })(
-          <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-            name="password"
-          />
-        )}
+      <Form.Item
+        name="password"
+        rules={[
+          { required: true, message: 'Please input your Password!' },
+          { min: 8, whitespace: true, message: 'Min length: 8' },
+        ]}
+        hasFeedback
+      >
+        <Input.Password
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+          name="password"
+        />
       </Form.Item>
       <Form.Item>
         <Button
@@ -103,6 +57,6 @@ const Login = Form.create({
       </Form.Item>
     </Form>
   );
-});
+};
 
 export default Login;
