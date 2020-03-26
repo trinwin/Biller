@@ -59,12 +59,15 @@ def register_page(request):
 
     # Only accepts POST requests
     if request.method == 'POST':
-
+        print(request.data)
         email = request.data.get("email")
         password = request.data.get("password")
-        password2 = request.data.get('password2')
+        password2 = request.data.get('confirm')
         first_name = request.data.get("first_name")
         last_name = request.data.get("last_name")
+
+        print(password)
+        print(password2)
 
         # If password and password confirmation matches
         if password == password2:

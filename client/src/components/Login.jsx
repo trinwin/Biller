@@ -26,7 +26,6 @@ const Login = props => {
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="Email"
           name="email"
-          type="email"
         />
       </Form.Item>
       <Form.Item
