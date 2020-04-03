@@ -1,9 +1,6 @@
-import React, { Component } from './node_modules/react';
-import { Form, Button, Popconfirm } from './node_modules/antd';
-import {
-  MinusCircleOutlined,
-  PlusOutlined,
-} from './node_modules/@ant-design/icons';
+import React, { Component } from 'react';
+import { Form, Button, Popconfirm } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import SetupFormInstance from './SetupFormInstance';
 import './SetupForm.css';
 

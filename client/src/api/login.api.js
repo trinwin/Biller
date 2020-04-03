@@ -11,7 +11,7 @@ export const login = userData => dispatch => {
     .then(res => {
       console.log('res: ', res);
       // Set userToken to Local Storage
-      setTokenToLocalStorage(USER_TOKEN, res.data.refresh_token).then(() => {
+      setTokenToLocalStorage(USER_TOKEN, res.data.access_token).then(() => {
         dispatch(loginSuccessfully(res.data));
       });
     })

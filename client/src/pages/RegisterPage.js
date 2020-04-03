@@ -14,7 +14,7 @@ class RegisterPage extends Component {
     console.log('Recieved values: ', e);
 
     this.props.register({
-      email: e.username,
+      email: e.email,
       password: e.password,
       confirm: e.confirm,
       firstname: e.firstname,

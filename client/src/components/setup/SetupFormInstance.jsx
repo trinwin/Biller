@@ -1,5 +1,5 @@
-import React, { useState } from './node_modules/react';
-import { Button } from './node_modules/antd';
+import React, { useState } from 'react';
+import { Button } from 'antd';
 import ModalForm from './ModalForm';
 import './SetupForm.css';
 

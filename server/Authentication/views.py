@@ -63,11 +63,8 @@ def register_page(request):
         email = request.data.get("email")
         password = request.data.get("password")
         password2 = request.data.get('confirm')
-        first_name = request.data.get("first_name")
-        last_name = request.data.get("last_name")
-
-        print(password)
-        print(password2)
+        first_name = request.data.get("firstname")
+        last_name = request.data.get("lastname")
 
         # If password and password confirmation matches
         if password == password2:
@@ -76,10 +73,9 @@ def register_page(request):
             try:
                 user.full_clean()
             except exceptions.ValidationError as err:
-                return Response(err.message_dict)
+                return Response({'message': "Request data is not correct"}, status=status.HTTP_404_NOT_FOUND)
 
             user = authenticate(username=email, password=password)
-
             # If no such user is found in the database
             if user is None and len(User.objects.filter(email=email)) == 0:
                 # Create a new user object and then logs them in
@@ -89,6 +85,7 @@ def register_page(request):
                 JWT_Token = RefreshToken.for_user(user)
                 request.user.refresh_token = str(JWT_Token)
                 request.user.access_token = str(JWT_Token.access_token)
+
                 return Response({'email': email, 'refresh_token': request.user.refresh_token,
                                  'access_token': request.user.access_token})
             else:

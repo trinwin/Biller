@@ -1,5 +1,5 @@
-import React from './node_modules/react';
-import { Modal, Form, Input, Select } from './node_modules/antd';
+import React from 'react';
+import { Modal, Form, Input, Select } from 'antd';
 import './SetupForm.css';
 
 const ModalForm = ({ visible, onCreate, onCancel }) => {
