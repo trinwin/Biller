@@ -1,7 +1,11 @@
 from django.contrib import admin
 from .models import User
 from .forms import CustomerUserCreationForm, CustomUserChangeForm
+<<<<<<< HEAD
 from Plaid_API.models import BankAccounts, Transactions, Bill
+=======
+from Plaid_API.models import BankAccounts
+>>>>>>> 6c4e449... Implemented Plaid API & Transaction Schema
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -34,5 +38,8 @@ class CustomUserAdmin(UserAdmin):
 # Register it with admin panel
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(BankAccounts)
+<<<<<<< HEAD
 admin.site.register(Transactions)
 admin.site.register(Bill)
+=======
+>>>>>>> 6c4e449... Implemented Plaid API & Transaction Schema

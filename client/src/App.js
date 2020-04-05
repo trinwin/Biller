@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RouterComponent from './router/RouterComponent';
@@ -30,3 +30,17 @@ function matchDispatchToProps(dispatch) {
   return bindActionCreators({ setUserToken }, dispatch);
 }
 export default connect(mapStateToProps, matchDispatchToProps)(App);
+*/
+import React from "react";
+import "./App.css";
+import Link from "./components/Link";
+
+function App() {
+  return (
+    <div className="App">
+      <Link />
+    </div>
+  );
+}
+
+export default App;

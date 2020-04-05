@@ -5,6 +5,7 @@ from Authentication.models import User as User_Model
 class BankAccounts(models.Model):
     user = models.ForeignKey(User_Model, on_delete=models.CASCADE)
     access_token = models.CharField(max_length = 100, blank = False)    
+<<<<<<< HEAD
     account_id = models.CharField(max_length = 100, blank= False, primary_key = True)
     type = models.CharField(max_length = 100, blank= False)
     name = models.CharField(max_length = 255, blank= False, null = True)
@@ -26,3 +27,6 @@ class Bill(models.Model):
     notified = models.BooleanField(default = False)
     def __str__(self):
         return str(self.due_date) + " " + str(self.amount)
+=======
+    account_id = models.CharField(max_length = 100, blank= False)
+>>>>>>> 6c4e449... Implemented Plaid API & Transaction Schema
