@@ -5,6 +5,9 @@ import RouterComponent from './router/RouterComponent';
 import { setUserToken } from './store/actions/auth.action';
 import { USER_TOKEN } from './constants';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './shards-dashboard/styles/shards-dashboards.1.1.0.min.css';
+
 class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem(USER_TOKEN);

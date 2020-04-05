@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
+import DashboardRoutes from './DashboardRoutes';
+import withTracker from '../withTracker';
+
 // Page
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
