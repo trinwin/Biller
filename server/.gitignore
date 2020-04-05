@@ -1,8 +1,5 @@
 # Byte-compiled / optimized / DLL files
-<<<<<<< HEAD
 Authentication/__pycache__
-=======
->>>>>>> e5c9bab... Finished all schema, and Plaid API calls
 __pycache__/
 server/__pycache__/
 *.py[cod]

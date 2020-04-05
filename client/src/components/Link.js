@@ -41,8 +41,8 @@ class Link extends Component {
           onExit={this.handleOnExit}
           onSuccess={this.handleOnSuccess}
           className="test"
-          countryCodes= {['US']}
-          apiVersion='v2'
+          countryCodes={['US']}
+          apiVersion="v2"
         >
           Open Link and connect your bank!
         </PlaidLink>

@@ -1,4 +1,3 @@
-
 from django.db import models
 from Authentication.models import User as User_Model
 
