@@ -19,10 +19,7 @@ from rest_framework import status
 @authentication_classes([])
 @permission_classes([])
 def login_page(request):
-    # If user is authenticated, redirects them to dashboard page
-    # Trinh forgets this remove if u want :)
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('dashboard'))
+
     # Only accepts POST requests
     if request.method == "POST":
         email = request.data.get("email")
@@ -38,6 +35,7 @@ def login_page(request):
                 return Response({'message': "Invalid password"}, status=status.HTTP_404_NOT_FOUND)
         # Log the user in, creates a new JWT and saves it in the user's session
         auth_login(request, user)
+        print(request.user.is_authenticated)
         JWT_Token = RefreshToken.for_user(user)
         request.user.refresh_token = str(JWT_Token)
         request.user.access_token = str(JWT_Token.access_token)
@@ -52,10 +50,6 @@ def login_page(request):
 @authentication_classes([])
 @permission_classes([])
 def register_page(request):
-    # If user is logged in already, redirects to dashboard
-    # Forget about this delete if u want to
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('dashboard'))
 
     # Only accepts POST requests
     if request.method == 'POST':
@@ -96,11 +90,12 @@ def register_page(request):
     return Response({'message': "Register must take a POST request."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-@csrf_exempt
+
 @api_view(['POST'])
+@csrf_exempt
 def logout(request):
     # If user is already logged in, log them out and redirects to landing page
     if request.user.is_authenticated:
         auth_logout(request)
 
-    return HttpResponseRedirect(reverse('landing-page'))
+    return Response({'message': 'Logged out successfully'})
