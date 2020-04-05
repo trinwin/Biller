@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import User
 from .forms import CustomerUserCreationForm, CustomUserChangeForm
+from Plaid_API.models import BankAccounts
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -32,3 +33,4 @@ class CustomUserAdmin(UserAdmin):
 
 # Register it with admin panel
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(BankAccounts)

@@ -2,12 +2,14 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 import django.core.exceptions as exceptions
+from rest_framework.test import APITestCase
+from rest_framework.test import APIClient
 import django.db as dbexceptions
 from .models import User
 from .forms import UserValidationForm
 # Create your tests here.
 
-class UserTestCase(TestCase):
+class UserTestCases(TestCase):
     def test_create_user(self):
         User = get_user_model()
         user = User.objects.create_user(email='normal@user.com', password='foo')
@@ -75,7 +77,27 @@ class UserTestCase(TestCase):
         with self.assertRaisesMessage(exceptions.ValidationError,'This field cannot be blank.'):
             user = User(email = 'abc@yahoo.com', password = 'foo', first_name = 'first')
             user.full_clean()
+
+class LoginTestCases(APITestCase):
+    def setUp(self):
+        self.login_information = {
+            'email': 'xtranx2@yahoo.com',
+            'password': 'password'
+        }
+        User.objects.create_user(**self.login_information)
+
+    def test_login(self):
+    
+        self.client = APIClient()
+        self.assertTrue(self.client.login(**self.login_information))  
+        response = self.client.post('/auth/login/', self.login_information) 
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['email'], self.login_information['email'])
+
+        #Already logged in
+        response = self.client.post('/auth/login/', self.login_information) 
         
+
 
             
 
