@@ -7,6 +7,7 @@ import { logout } from '../store/actions/auth.action';
 
 import Landing from '../components/landing/Landing.jsx';
 import Home from '../components/Home';
+import '../components/static/style.js';
 
 class HomePage extends Component {
   onClick = e => {

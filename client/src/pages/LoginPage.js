@@ -5,6 +5,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 
 import { login } from '../api/login.api';
 import Login from '../components/Login.jsx';
+import '../components/static/style.js';
 
 const LoginPage = props => {
   const onClick = values => {
