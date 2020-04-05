@@ -1,5 +1,5 @@
 # Byte-compiled / optimized / DLL files
-Authentication/__pycache__/
+Authentication/__pycache__/git
 __pycache__/
 *.py[cod]
 *.pyc
