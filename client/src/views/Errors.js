@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Button } from "shards-react";
+import React from 'react';
+import { Container, Button } from 'shards-react';
 
 const Errors = () => (
   <Container fluid className="main-content-container px-4 pb-4">

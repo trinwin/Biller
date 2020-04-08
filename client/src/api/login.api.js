@@ -3,6 +3,8 @@ import { loginSuccessfully, loginFailed } from '../store/actions/auth.action';
 import { HOST, LOGIN_URI, USER_TOKEN } from '../constants';
 import { setTokenToLocalStorage } from '../utils';
 
+/* After user login BE automatically call api to update all data in all accounts - Costly */
+
 // eslint-disable-next-line import/prefer-default-export
 export const login = userData => dispatch => {
   console.log('userData sent to login: ', userData);

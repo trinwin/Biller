@@ -4,9 +4,9 @@ import { Container, Row, Col } from 'shards-react';
 
 import PageTitle from '../components/common/PageTitle';
 import SmallStats from '../components/common/SmallStats';
-import UsersOverview from '../components/blog/UsersOverview';
+import MonthlyBills from '../components/blog/MonthlyBills';
 import UsersByDevice from '../components/blog/UsersByDevice';
-import TopReferrals from '../components/common/TopReferrals';
+import TopCategories from '../components/common/TopCategories';
 
 const BillOverview = ({ smallStats }) => (
   <Container fluid className="main-content-container px-4">
@@ -41,7 +41,7 @@ const BillOverview = ({ smallStats }) => (
     <Row>
       {/* Bills Overview */}
       <Col lg="8" md="12" sm="12" className="mb-4">
-        <UsersOverview />
+        <MonthlyBills />
       </Col>
 
       {/* Users by Device --> Category*/}
@@ -51,7 +51,7 @@ const BillOverview = ({ smallStats }) => (
 
       {/* Top Bills*/}
       <Col lg="3" md="12" sm="12" className="mb-4">
-        <TopReferrals />
+        <TopCategories />
       </Col>
     </Row>
   </Container>

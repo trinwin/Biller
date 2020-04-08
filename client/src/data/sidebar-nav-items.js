@@ -1,30 +1,30 @@
 export default function() {
   return [
     {
-      title: "Dashboard",
-      to: "/dashboard",
-      htmlBefore: '<i class="material-icons">edit</i>',
-      htmlAfter: ""
+      title: 'Overview',
+      to: '/dashboard',
+      htmlBefore: '<i class="material-icons">dashboard</i>',
+      htmlAfter: '',
     },
     {
-      title: "Forms & Components",
-      htmlBefore: '<i class="material-icons">view_module</i>',
-      to: "/components-overview"
+      title: 'Transactions',
+      htmlBefore: '<i class="material-icons">attach_money</i>',
+      to: '/tables',
     },
     {
-      title: "Tables",
-      htmlBefore: '<i class="material-icons">table_chart</i>',
-      to: "/tables"
-    },
-    {
-      title: "User Profile",
+      title: 'User Profile',
       htmlBefore: '<i class="material-icons">person</i>',
-      to: "/user-profile"
+      to: '/user-profile',
     },
     {
-      title: "Errors",
+      title: 'Forms & Components',
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: '/components-overview',
+    },
+    {
+      title: 'Errors',
       htmlBefore: '<i class="material-icons">error</i>',
-      to: "/errors"
-    }
+      to: '/errors',
+    },
   ];
 }
