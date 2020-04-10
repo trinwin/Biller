@@ -12,10 +12,6 @@ const { Content, Sider } = Layout;
 const { Step } = Steps;
 
 class SetupPage extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     const user = this.props.user || {};
     const { token } = user;
