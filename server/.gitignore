@@ -1,8 +1,5 @@
 # Byte-compiled / optimized / DLL files
-<<<<<<< HEAD
-=======
-Authentication/__pycache__/git
->>>>>>> 0e68cf3... Move gitignore file
+Authentication/__pycache__
 __pycache__/
 server/__pycache__/
 *.py[cod]
