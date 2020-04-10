@@ -15,6 +15,19 @@
     opacity: 0.5;
 }
 
-.setup-input-form {
-    text-align: center;
+.plaid-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plaid-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plaid-delete {
+    display: flex;
+    justify-content: flex-end;
 }
