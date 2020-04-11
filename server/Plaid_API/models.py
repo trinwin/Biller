@@ -1,4 +1,3 @@
-
 from django.db import models
 from Authentication.models import User as User_Model
 
@@ -31,3 +30,6 @@ class Bill(models.Model):
 
     def __str__(self):
         return str(self.due_date) + " " + str(self.amount)
+
+
+© 2020 GitHub, Inc.
