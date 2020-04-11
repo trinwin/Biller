@@ -18,10 +18,9 @@ class SetupPage extends Component {
     return token ? (
       <Redirect to="/" user={user} />
     ) : (
-      <Layout className="input-form2">
-        <Content style={{marginBottom: "40vh"}}>
+      <Layout className="setup-form">
+        <Content style={{ marginBottom: '54vh' }}>
           <SetupForm />
-          <RangeDatePicker />
         </Content>
       </Layout>
     );
