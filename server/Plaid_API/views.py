@@ -7,6 +7,7 @@ from .models import BankAccounts
 from Authentication.models import User as User_Model
 from .models import Transactions, Bill
 from django.db.models import Sum
+from dateutil.relativedelta import relativedelta
 import datetime
 import json
 import time
@@ -18,9 +19,9 @@ PLAID_CLIENT_ID = '5e69b65f584f98001426e625'
 PLAID_SECRET = 'fb3902da2745d2ea1d60dd553fbb47'
 PLAID_PUBLIC_KEY = '716f1a504cda22791ca574fbcb4736'
 
-PLAID_ENV = os.getenv('PLAID_ENV', 'sandboxt')
+PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 PLAID_PRODUCTS = os.getenv('PLAID_PRODUCTS', 'transactions')
-PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US')
+PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US,CA,GB,FR,ES')
 PLAID_OAUTH_REDIRECT_URL = os.getenv('PLAID_OAUTH_REDIRECT_URL','')
 PLAID_OAUTH_NONCE = os.getenv('PLAID_OAUTH_NONCE', '')
 
@@ -34,7 +35,7 @@ client = plaid.Client(client_id = PLAID_CLIENT_ID, secret = PLAID_SECRET, public
 #@authentication_classes([])
 #@permission_classes([])
 def get_access_token(request):
-    
+
     # Must provides the user's email
     email = request.data.get('email')
     if email is None:
@@ -92,13 +93,20 @@ def get_access_token(request):
                 date = datetime.date(int(d[0]), int(d[1]), int(d[2]))
                 # If the name of the transaction it > 255
                 # slice it so that the length is 255 max
+                amount = transaction["amount"]
+                if account['subtype'] == 'credit card' or account['subtype'] == 'credit'\
+                    or account['type'] == 'credit card' or account['type'] == 'credit':
+                    if amount > 0:
+                        amount = -amount
+                    else:
+                        amount = abs(amount)
                 if len(transaction['name']) < 255:
                     Transactions.objects.create(account_id=new_account, name=transaction['name'],\
-                        category=transaction['category'][0], amount=transaction['amount'],\
+                        category=transaction['category'][0], amount=amount,\
                             date= date, transaction_id = transaction['transaction_id'])
                 else:
                     Transactions.objects.create(account_id=new_account, name=transaction['name'][0:254],\
-                        category=transaction['category'][0], amount=transaction['amount'],\
+                        category=transaction['category'][0], amount=amount,\
                             date= date, transaction_id = transaction['transaction_id'])           
     except plaid.errors.PlaidError as err:
         return Response({"err": err.message}, status = status.HTTP_403_FORBIDDEN)
@@ -115,9 +123,9 @@ def get_access_token(request):
 #@permission_classes([])
 
 # JSON Format is 
-# [[account.name, account.type, account.balance, {transaction.name: [transaction info]}], 
-#  [another list like the one above], ...]
-def get_transactions(request):
+# [[account.name, account.type, account.balance, [transaction.name, transaction.category
+# # transaction.date, transaction.amount], ... more transactions]
+def get_transactions_of_each_account(request):
 
     email = request.data.get("email")
     if email is None:
@@ -133,32 +141,72 @@ def get_transactions(request):
     response = []
     # For each account, find the transactions associated with it
     for account in accounts:
-        transactions = Transactions.objects.filter(account_id = account)
+        transactions = Transactions.objects.filter(account_id = account).order_by("date")
         if len(transactions) != 0:
             temp = []
             # Append the account name, type, balance to the list
             temp.append(account.name)
             temp.append(account.type)
             temp.append(str(account.balance))
-            dict = {}
             # For each transaction, add it to a dictionary where the key is
             # the transaction name and the value is a list containing
             # category, date, and amount
+            print("-------------------")
             for transaction in transactions:
-                dict[transaction.name] = [transaction.category, str(transaction.date), transaction.amount]
-            # Append the dictionary to the list
-            temp.append(dict)
+                print(transaction.date,"-",transaction.name)
+                list = []
+                list.append(transaction.name)
+                list.append(transaction.category)
+                list.append(str(transaction.date))
+                list.append(transaction.amount)
+                #Append dictionary to the list
+                temp.append(list)
             # Append the list to the response json
             response.append(temp)
+    for r in response:
+        print(r)
+
+    return Response({'transactions': response})
+
+@csrf_exempt
+@api_view(['GET'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+#@authentication_classes([])
+#@permission_classes([])
+
+# JSON FORMAT IS
+# [[transaction.name, transaction.category, transaction.date, transaction.amount],
+#   ... more transactions]
+def get_transactions(request):
+
+    email = request.data.get("email")
+    if email is None:
+        return Response({"err": "Email not provided"}, status= status.HTTP_406_NOT_ACCEPTABLE)
+
+    user = User_Model.objects.filter(email = email)
+    # If email is not found in database, error
+    if user is None or len(user) == 0:
+        return Response({"err": "User not found"}, status = status.HTTP_404_NOT_FOUND)
+
+    accounts = BankAccounts.objects.filter(user=user[0])
+    transactions = Transactions.objects.filter(account_id__in=list(accounts)).order_by("date")
+    response = []
+    for transaction in transactions:
+        temp = []
+        temp.append(transaction.name)
+        temp.append(transaction.category)
+        temp.append(str(transaction.date))
+        temp.append(transaction.amount)
+        response.append(temp)
     print(response)
 
-    return Response({'transactions': json.dumps(response)})
+    return Response({'transactions': response})
 
 @csrf_exempt
 @api_view(['GET'])
 # The 2 decorators below is for bypassing JWT authentication for testing purposes
-#@authentication_classes([])
-#@permission_classes([])
+@authentication_classes([])
+@permission_classes([])
 
 def net_worth(request):
 
@@ -182,7 +230,8 @@ def net_worth(request):
         if account.type != 'credit card' or account.type != 'credit':
             net_worth += account.balance
         else:
-            pass
+            # If it is a credit card account, subtracts the balance
+            net_worth -= account.balance
 
     return Response({"net worth": net_worth})
 
@@ -197,11 +246,12 @@ def net_worth(request):
 # [{'category': category_name, total: total_amount}, 
 #  {'category2': category2_name, total2: total2_amount}, ...]
 def category_expenses(request):
- 
+
     # Provide user's email or fail
     email = request.data.get("email")
     if email is None:
         return Response({"err": "Email not provided"}, status= status.HTTP_406_NOT_ACCEPTABLE)
+
     # If email is not found in db, fail
     user = User_Model.objects.filter(email = email)
 
@@ -221,25 +271,26 @@ def category_expenses(request):
     print(list(transactions))
     print(json.dumps(list(transactions)))
 
-    return Response({'category_expense': json.dumps(list(transactions))})
+    return Response({'category_expense': list(transactions)})
 
 
 
 @csrf_exempt
 @api_view(['GET'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
-#@authentication_classes([])
-#@permission_classes([])
+@authentication_classes([])
+@permission_classes([])
 
 # JSON FORMAT IS
 # [{account.name: [bill.amount, bill.due_date, bill.notified]},
 #  {account2.name: [bill2.amount, bill2.due_date, bill2.notified]},...]
 def bills(request):
-
+    """
     email = request.data.get("email")
     if email is None:
         return Response({"err": "Email not provided"}, status= status.HTTP_406_NOT_ACCEPTABLE)
-
+    """
+    email = "xtranx2@yahoo.com"
     user = User_Model.objects.filter(email = email)
     # If email is not found in database, error
     if user is None or len(user) == 0:
@@ -262,4 +313,49 @@ def bills(request):
     print(response)
     print(json.dumps(response))
 
-    return Response({'bills': json.dumps(response)})
+    return Response({'bills': response})
+
+@csrf_exempt
+@api_view(['GET'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+#@authentication_classes([])
+#@permission_classes([])
+def monthly_total_expenses(request):
+
+    email = request.data.get("email")
+    if email is None:
+        return Response({"err": "Email not provided"}, status= status.HTTP_406_NOT_ACCEPTABLE)
+
+    user = User_Model.objects.filter(email = email)
+    if user is None or len(user) == 0:
+        return Response({"err": "User not found"}, status = status.HTTP_404_NOT_FOUND)
+
+    #Query for the accounts associated with the user
+    accounts = BankAccounts.objects.filter(user = user[0])
+
+    date_range = []
+    # Find the last 6 months and year
+    # Store as a tuple (month, year) in list date_range
+    for i in range(6):
+        time = datetime.date.today() + relativedelta(months=-i)
+        time = str(time).split("-")
+        date_range.append((time[1], time[0]))
+    print(date_range)
+
+    total_expenses = 0
+    response = []
+    for month, year in date_range:
+        # Find the transactions for each month, year 
+        transactions = Transactions.objects.filter(date__year=year, date__month=month, \
+                                                    account_id__in=list(accounts))
+        # Calculate the total amount of these transactions
+        for transaction in transactions:
+            total_expenses += transaction.amount
+            print(str(transaction.date) + ' ' + str(transaction.amount))
+            
+        print("Total Expenses: ", total_expenses)
+        print("------------------------------")
+        # Add the total expense of each month/year to response
+        response.append([month + '-' + year, total_expenses])
+
+    return Response({'monthly_expenses': response})
