@@ -6,7 +6,6 @@ import { Layout } from 'antd';
 
 import { register } from '../api/register.api';
 import SetupForm from '../components/setup/SetupForm';
-import RangeDatePicker from '../components/RangeDatePicker'
 
 import './Pages.css';
 
@@ -20,10 +19,9 @@ class SetupPage extends Component {
     return token ? (
       <Redirect to="/" user={user} />
     ) : (
-      <Layout className="input-form2">
-        <Content style={{marginBottom: "40vh"}}>
+      <Layout className="setup-form">
+        <Content style={{marginBottom: "54vh"}}>
           <SetupForm />
-          <RangeDatePicker />
         </Content>
       </Layout>
     );
