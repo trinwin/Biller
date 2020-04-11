@@ -21,7 +21,7 @@ class SetupPage extends Component {
       <Redirect to="/" user={user} />
     ) : (
       <Layout className="input-form2">
-        <Content>
+        <Content style={{marginBottom: "40vh"}}>
           <SetupForm />
           <RangeDatePicker />
         </Content>
