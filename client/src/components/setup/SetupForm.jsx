@@ -1,30 +1,30 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Button, List } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import  PlaidInstance from "./PlaidInstance"
-import "./SetupForm.css"
+import PlaidInstance from './PlaidInstance';
+import './SetupForm.css';
 
 class SetupForm extends Component {
-    constructor() {
-      super();
-      this.state = {
-        forms: []
-      }
-    }
+  constructor() {
+    super();
+    this.state = {
+      forms: [],
+    };
+  }
 
-    componentDidMount() {
-      //Load from database all user accounts
-    }
+  componentDidMount() {
+    //Load from database all user accounts
+  }
 
-    onAdd = () => {
-      this.setState(previousState => ({
-        forms: [...previousState.forms, {}]
-      }));
-    }
+  onAdd = () => {
+    this.setState(previousState => ({
+      forms: [...previousState.forms, {}],
+    }));
+  };
 
-    render(){
-      return (
-      <div style={{margin:"5%"}} >
+  render() {
+    return (
+      <div style={{ margin: '5%' }}>
         <List
           grid={{
             gutter: [48, 16],
@@ -53,10 +53,8 @@ class SetupForm extends Component {
           <PlusOutlined /> Add an account
         </Button>
       </div>
-      );
-     
-    }
+    );
+  }
 }
 
 export default SetupForm;
-
