@@ -19,7 +19,7 @@ PLAID_CLIENT_ID = '5e69b65f584f98001426e625'
 PLAID_SECRET = 'fb3902da2745d2ea1d60dd553fbb47'
 PLAID_PUBLIC_KEY = '716f1a504cda22791ca574fbcb4736'
 
-PLAID_ENV = os.getenv('PLAID_ENV', 'sandboxt')
+PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 PLAID_PRODUCTS = os.getenv('PLAID_PRODUCTS', 'transactions')
 PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US,CA,GB,FR,ES')
 PLAID_OAUTH_REDIRECT_URL = os.getenv('PLAID_OAUTH_REDIRECT_URL', '')
@@ -119,8 +119,6 @@ def get_access_token(request):
                         amount=amount, date=date, transaction_id=transaction['transaction_id'])
     except plaid.errors.PlaidError as err:
         return Response({"err": err.message}, status=status.HTTP_403_FORBIDDEN)
-
-    # This is where I get the user's bank accounts and associated transactions to return
 
     # This is where I get the user's bank accounts and associated transactions to return
 

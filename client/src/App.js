@@ -31,9 +31,9 @@ function matchDispatchToProps(dispatch) {
 }
 export default connect(mapStateToProps, matchDispatchToProps)(App);
 */
-import React from "react";
-import "./App.css";
-import Link from "./components/Link";
+import React from 'react';
+// import './App.css';
+import Link from './components/Link';
 
 function App() {
   return (
