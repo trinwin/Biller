@@ -21,12 +21,6 @@
     align-items: center;
 }
 
-.plaid-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .plaid-delete {
     display: flex;
     justify-content: flex-end;

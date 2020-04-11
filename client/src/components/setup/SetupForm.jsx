@@ -50,8 +50,8 @@ class SetupForm extends Component {
           className="setup-button-form"
           size="large"
         >
-          <PlusOutlined /> Add an account
-        </Button>
+          <PlusOutlined /> Connect with Plaid
+        </PlaidLink>
       </div>
     );
   }
