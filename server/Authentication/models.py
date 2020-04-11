@@ -8,7 +8,7 @@ class User(AbstractUser):
     # Remove username field use email as primary key
     username = None 
     email = models.EmailField('Email address',  unique = True, validators=[validate_email])
-    password = models.CharField(max_length = 30, validators=[validate_password])
+    password = models.CharField(max_length = 128, validators=[validate_password])
     first_name = models.CharField(max_length = 25, validators=[validate_name])
     last_name = models.CharField(max_length = 25, validators=[validate_name])
 

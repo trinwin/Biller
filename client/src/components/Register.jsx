@@ -24,7 +24,6 @@ const Register = props => {
           prefix={<UserOutlined className="site-form-item-icon" />}
           type="email"
           placeholder="Email"
-          type="email"
         />
       </Form.Item>
 

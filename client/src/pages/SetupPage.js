@@ -5,17 +5,13 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { Layout, Steps } from 'antd';
 
 import { register } from '../api/register.api';
-import SetupForm from '../components/Setup/SetupForm';
+import SetupForm from '../components/setup/SetupForm';
 import './Pages.css';
 
 const { Content, Sider } = Layout;
 const { Step } = Steps;
 
 class SetupPage extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     const user = this.props.user || {};
     const { token } = user;
