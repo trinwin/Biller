@@ -20,6 +20,22 @@ class RoutesComponent extends Component {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/setup" component={SetupPage} />
         <Route exact path="/link" component={Link} />
+        {DashboardRoutes.map((route, index) => {
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              component={withTracker(props => {
+                return (
+                  <route.layout {...props}>
+                    <route.component {...props} />
+                  </route.layout>
+                );
+              })}
+            />
+          );
+        })}
       </div>
     );
   }
