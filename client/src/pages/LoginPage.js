@@ -17,12 +17,16 @@ const LoginPage = props => {
   };
 
   const user = props.user || {};
-  const { access_token } = user;
+  const { token, has_profile } = user;
   console.log('user: ', user);
-  console.log('access_token: ', access_token);
+  console.log('token: ', token);
 
-  return access_token ? (
-    <Redirect to="/" user={user} />
+  return token ? (
+    has_profile ? (
+      <Redirect to="/dashboard" user={user} />
+    ) : (
+      <Redirect to="/setup" user={user} />
+    )
   ) : (
     <Login onClick={e => onClick(e)} />
   );

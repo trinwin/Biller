@@ -1,10 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import {
   SET_USER_TOKEN,
-  LOGIN_FAILED,
   LOGIN_SUCCESSFULLY,
-  REGISTER_FAILED,
+  LOGIN_FAILED,
   REGISTER_SUCCESSFULLY,
+  REGISTER_FAILED,
   LOGOUT,
 } from '../../constants';
 

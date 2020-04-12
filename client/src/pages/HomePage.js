@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { USER_TOKEN } from '../constants';
+import { USER_EMAIL, USER_TOKEN } from '../constants';
 import { logout } from '../store/actions/auth.action';
 
 import Landing from '../components/landing/Landing.jsx';
@@ -12,13 +12,14 @@ import '../components/static/style.js';
 class HomePage extends Component {
   onClick = e => {
     e.preventDefault();
+    localStorage.removeItem(USER_EMAIL);
     localStorage.removeItem(USER_TOKEN);
     this.props.logout();
   };
 
   render() {
     const user = this.props.user || {};
-    return user && user.access_token ? (
+    return user && user.token ? (
       <Home logout={e => this.onClick(e)} />
     ) : (
       <Landing />

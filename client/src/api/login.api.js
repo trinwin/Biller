@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { loginSuccessfully, loginFailed } from '../store/actions/auth.action';
-import { HOST, LOGIN_URI, USER_TOKEN } from '../constants';
+import { HOST, LOGIN_URI, USER_EMAIL, USER_TOKEN } from '../constants';
 import { setTokenToLocalStorage } from '../utils';
 
 /* After user login BE automatically call api to update all data in all accounts - Costly */
@@ -13,7 +13,8 @@ export const login = userData => dispatch => {
     .then(res => {
       console.log('res: ', res);
       // Set userToken to Local Storage
-      setTokenToLocalStorage(USER_TOKEN, res.data.access_token).then(() => {
+      setTokenToLocalStorage(USER_TOKEN, res.data.token).then(() => {
+        setTokenToLocalStorage(USER_EMAIL, res.data.email);
         dispatch(loginSuccessfully(res.data));
       });
     })
