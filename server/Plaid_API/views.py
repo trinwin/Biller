@@ -16,10 +16,10 @@ import os
 # Create your views here.
 
 PLAID_CLIENT_ID = '5e69b65f584f98001426e625'
-PLAID_SECRET = 'fb3902da2745d2ea1d60dd553fbb47'
+PLAID_SECRET = '4a91b824095bb42f8661a2906e82f0'
 PLAID_PUBLIC_KEY = '716f1a504cda22791ca574fbcb4736'
 
-PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
+PLAID_ENV = os.getenv('PLAID_ENV', 'development')
 PLAID_PRODUCTS = os.getenv('PLAID_PRODUCTS', 'transactions')
 PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US,CA,GB,FR,ES')
 PLAID_OAUTH_REDIRECT_URL = os.getenv('PLAID_OAUTH_REDIRECT_URL', '')
@@ -35,13 +35,13 @@ client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET, public_key
 @authentication_classes([])
 @permission_classes([])
 def get_access_token(request):
-
+    """
     # Must provides the user's email
-    # email = request.data.get('email')
-    # if email is None:
-    #     return Response({'err': "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
-
-    email = 'thn.trinity@gmail.com'
+    email = request.data.get('email')
+    if email is None:
+        return Response({'err': "Email not provided"}, status = status.HTTP_406_NOT_ACCEPTABLE)
+    """
+    email = "xtranx2@yahoo.com"
     body = json.loads(request.body)
     public_token = body['public_token']
     # Exchanges the public token for an access token
