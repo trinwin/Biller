@@ -20,7 +20,7 @@ class SetupPage extends Component {
       <Redirect to="/" user={user} />
     ) : (
       <Layout className="setup-form">
-        <Content style={{marginBottom: "54vh"}}>
+        <Content>
           <SetupForm />
         </Content>
       </Layout>

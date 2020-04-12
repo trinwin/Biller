@@ -24,6 +24,7 @@ class SetupForm extends Component {
 
   componentDidMount() {
     // Load from database all user accounts
+    document.body.style.backgroundColor = "#F0F2F5";
   }
 
   onDelete = () => {
