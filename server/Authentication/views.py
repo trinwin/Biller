@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from .models import User
 from rest_framework.exceptions import APIException
 from rest_framework import status
+from Plaid_API.models import BankAccounts
 
 
 @csrf_exempt
@@ -37,12 +38,14 @@ def login_page(request):
                 return Response({'message': "Invalid password"}, status=status.HTTP_404_NOT_FOUND)
         # Log the user in, creates a new JWT and saves it in the user's session
         auth_login(request, user)
-        print(request.user.is_authenticated)
+
         JWT_Token = RefreshToken.for_user(user)
         request.user.refresh_token = str(JWT_Token)
         request.user.access_token = str(JWT_Token.access_token)
-        return Response({'email': email, 'refresh_token': request.user.refresh_token,
-                         'access_token': request.user.access_token})
+
+        has_account = True if len(BankAccounts.objects.filter(user=user)) > 0 else False
+        return Response({'email': email, 'token': request.user.access_token,
+                         'has_profile': has_account})
     return Response({'message': "Login must take a POST request"},
                     status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -84,9 +87,7 @@ def register_page(request):
                 JWT_Token = RefreshToken.for_user(user)
                 request.user.refresh_token = str(JWT_Token)
                 request.user.access_token = str(JWT_Token.access_token)
-
-                return Response({'email': email, 'refresh_token': request.user.refresh_token,
-                                 'access_token': request.user.access_token})
+                return Response({'email': email, 'token': request.user.access_token})
             else:
                 return Response(
                     {'message': "An account with this email already exists."},
