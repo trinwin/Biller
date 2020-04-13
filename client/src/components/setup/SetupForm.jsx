@@ -8,8 +8,14 @@ class SetupForm extends Component {
   constructor() {
     super();
     this.state = {
-      forms: [],
-    };
+      forms: [{
+        accountNum: "123",
+        bankName: "Test Bank",
+      }]
+    }
+
+    this.onSuccess = this.onSuccess.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   componentDidMount() {
@@ -18,37 +24,46 @@ class SetupForm extends Component {
 
   onAdd = () => {
     this.setState(previousState => ({
-      forms: [...previousState.forms, {}],
+      forms: [...previousState.forms, {
+        accountNum: metadata.accounts.length,
+        bankName: metadata.institution.name,
+      }]
     }));
   };
 
   render() {
     return (
-      <div style={{ margin: '5%' }}>
-        <List
-          grid={{
-            gutter: [48, 16],
-            xs: 1,
-            sm: 1,
-            md: 1,
-            lg: 2,
-            xl: 2,
-            xxl: 2,
-          }}
-          dataSource={this.state.forms}
-          renderItem={item => (
-            <List.Item>
-              <PlaidInstance />
-            </List.Item>
-          )}
-        />
-        <Button
-          type="dashed"
-          onClick={() => {
-            this.onAdd();
-          }}
-          className="setup-button-form"
-          size="large"
+
+    <div style={{margin:"5vh"}} >
+      <List
+        grid={{
+          gutter: [48, 16],
+          xs: 1,
+          sm: 1,
+          md: 1,
+          lg: 2,
+          xl: 2,
+          xxl: 2,
+        }}
+        dataSource={this.state.forms}
+        renderItem={item => (
+          <List.Item>
+            <PlaidInstance
+              bankName = {item.bankName}
+              accountNum = {item.accountNum}
+              onDelete = {this.onDelete}
+            />
+          </List.Item>
+        )}
+      />
+      <div className="plaid-div" >
+        <PlaidLink
+          style={{ padding: '20px', fontSize: '16px', cursor: 'pointer', border: 'dashed 2px rgb(120, 120, 120)' }}
+          clientName = 'SJSU-Biller-Project'
+          env = 'sandbox'
+          product = {['auth', 'transactions']}
+          publicKey = '716f1a504cda22791ca574fbcb4736'
+          onSuccess = {this.onSuccess}
         >
           <PlusOutlined /> Connect with Plaid
         </PlaidLink>
