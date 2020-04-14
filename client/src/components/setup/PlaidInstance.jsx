@@ -6,7 +6,7 @@ import "./SetupForm.css";
 
 const PlaidInstance = props => {
     return (
-      <Card title={"Account: " + props.accountName}>
+      <Card>
         <Card>
           <Row gutter={16}>
             <Col span={12}>
