@@ -1,15 +1,15 @@
 /* eslint-disable import/prefer-default-export */
 import {
-  SET_USER_TOKEN,
-  LOGIN_SUCCESSFULLY,
+  SET_USER_INFO,
+  LOGIN_SUCCESS,
   LOGIN_FAILED,
-  REGISTER_SUCCESSFULLY,
+  REGISTER_SUCCESS,
   REGISTER_FAILED,
   LOGOUT,
 } from '../../constants';
 
 export const loginSuccessfully = user => ({
-  type: LOGIN_SUCCESSFULLY,
+  type: LOGIN_SUCCESS,
   payload: user,
 });
 
@@ -19,7 +19,7 @@ export const loginFailed = error => ({
 });
 
 export const registerSuccessfully = user => ({
-  type: REGISTER_SUCCESSFULLY,
+  type: REGISTER_SUCCESS,
   payload: user,
 });
 
@@ -28,8 +28,8 @@ export const registerFailed = error => ({
   payload: error,
 });
 
-export const setUserToken = user => ({
-  type: SET_USER_TOKEN,
+export const setUserInfo = user => ({
+  type: SET_USER_INFO,
   payload: user,
 });
 

@@ -61,7 +61,7 @@ def get_access_token(request):
     try:
         # Using the access token, retrieve the user's financial accounts
         response = client.Accounts.get(access_token)
-        start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-180))
+        start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-365))
         end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
         # For each accounts, create a new BankAccount object in database
         # Save the user's email, access token, and account_id for each object
@@ -350,7 +350,7 @@ def monthly_total_expenses(request):
     date_range = []
     # Find the last 6 months and year
     # Store as a tuple (month, year) in list date_range
-    for i in range(6):
+    for i in range(11):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0]))

@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Row,
   Col,
@@ -7,10 +7,10 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter
-} from "shards-react";
+  CardFooter,
+} from 'shards-react';
 
-import Chart from "../../utils/chart";
+import Chart from '../../utils/chart';
 
 class UsersByDevice extends React.Component {
   constructor(props) {
@@ -21,26 +21,26 @@ class UsersByDevice extends React.Component {
 
   componentDidMount() {
     const chartConfig = {
-      type: "pie",
+      type: 'pie',
       data: this.props.chartData,
       options: {
         ...{
           legend: {
-            position: "bottom",
+            position: 'bottom',
             labels: {
               padding: 25,
-              boxWidth: 20
-            }
+              boxWidth: 20,
+            },
           },
           cutoutPercentage: 0,
           tooltips: {
             custom: false,
-            mode: "index",
-            position: "nearest"
-          }
+            mode: 'index',
+            position: 'nearest',
+          },
         },
-        ...this.props.chartOptions
-      }
+        ...this.props.chartOptions,
+      },
     };
 
     new Chart(this.canvasRef.current, chartConfig);
@@ -66,7 +66,7 @@ class UsersByDevice extends React.Component {
               <FormSelect
                 size="sm"
                 value="last-week"
-                style={{ maxWidth: "130px" }}
+                style={{ maxWidth: '130px' }}
                 onChange={() => {}}
               >
                 <option value="last-week">Last Week</option>
@@ -102,25 +102,25 @@ UsersByDevice.propTypes = {
   /**
    * The chart data.
    */
-  chartData: PropTypes.object
+  chartData: PropTypes.object,
 };
 
 UsersByDevice.defaultProps = {
-  title: "Users by device",
+  title: 'Accounts',
   chartData: {
     datasets: [
       {
-        hoverBorderColor: "#ffffff",
+        hoverBorderColor: '#ffffff',
         data: [68.3, 24.2, 7.5],
         backgroundColor: [
-          "rgba(0,123,255,0.9)",
-          "rgba(0,123,255,0.5)",
-          "rgba(0,123,255,0.3)"
-        ]
-      }
+          'rgba(0,123,255,0.9)',
+          'rgba(0,123,255,0.5)',
+          'rgba(0,123,255,0.3)',
+        ],
+      },
     ],
-    labels: ["Desktop", "Tablet", "Mobile"]
-  }
+    labels: ['Checking', 'Savings', 'Credit Card'],
+  },
 };
 
 export default UsersByDevice;
