@@ -67,7 +67,7 @@ BillOverview.propTypes = {
 BillOverview.defaultProps = {
   smallStats: [
     {
-      label: 'Chase Card',
+      label: 'Net Worth',
       value: '2,390',
       percentage: '4.7%',
       increase: true,
@@ -85,7 +85,7 @@ BillOverview.defaultProps = {
       ],
     },
     {
-      label: 'PG&E',
+      label: 'Number of Accounts',
       value: '182',
       percentage: '12.4',
       increase: true,
@@ -103,7 +103,7 @@ BillOverview.defaultProps = {
       ],
     },
     {
-      label: 'Transaction',
+      label: 'Checking',
       value: '8,147',
       percentage: '3.8%',
       increase: false,
@@ -122,7 +122,7 @@ BillOverview.defaultProps = {
       ],
     },
     {
-      label: '...',
+      label: 'Savings',
       value: '29',
       percentage: '2.71%',
       increase: false,
@@ -141,7 +141,7 @@ BillOverview.defaultProps = {
       ],
     },
     {
-      label: '...',
+      label: 'PG&E',
       value: '17,281',
       percentage: '2.4%',
       increase: false,

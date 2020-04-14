@@ -1,5 +1,5 @@
 import {
-  PLAID_LOGIN_SUCCESSFULLY,
+  PLAID_LOGIN_SUCCESS,
   PLAID_LOGIN_FAILED,
   PLAID_GET_TRANSACTIONS_SUCCESS,
   PLAID_GET_TRANSACTIONS_FAILED,
@@ -16,7 +16,7 @@ import {
 } from '../../constants';
 
 export const plaidLoginSuccessfully = user => ({
-  type: PLAID_LOGIN_SUCCESSFULLY,
+  type: PLAID_LOGIN_SUCCESS,
   payload: user,
 });
 
@@ -32,5 +32,55 @@ export const plaidTransactionsSuccess = user => ({
 
 export const plaidTransactionsFailed = error => ({
   type: PLAID_GET_TRANSACTIONS_FAILED,
+  payload: error,
+});
+
+export const plaidTransactionsEachSuccess = user => ({
+  type: PLAID_GET_TRANSACTIONS_EACH_SUCCESS,
+  payload: user,
+});
+
+export const plaidTransactionsEachFailed = error => ({
+  type: PLAID_GET_TRANSACTIONS_EACH_FAILED,
+  payload: error,
+});
+
+export const plaidCategoriesSuccess = user => ({
+  type: PLAID_GET_CATEGORY_SUCCESS,
+  payload: user,
+});
+
+export const plaidCategoriesFailed = error => ({
+  type: PLAID_GET_CATEGORY_FAILED,
+  payload: error,
+});
+
+export const plaidNetWorthSuccess = user => ({
+  type: PLAID_GET_NET_WORTH_SUCCESS,
+  payload: user,
+});
+
+export const plaidNetWorthFailed = error => ({
+  type: PLAID_GET_NET_WORTH_FAILED,
+  payload: error,
+});
+
+export const plaidMonthlyExpensesSuccess = user => ({
+  type: PLAID_GET_MONTHLY_EXPENSE_SUCCESS,
+  payload: user,
+});
+
+export const plaidMonthlyExpensesFailed = error => ({
+  type: PLAID_GET_MONTHLY_EXPENSE_FAILED,
+  payload: error,
+});
+
+export const plaidBillsSuccess = user => ({
+  type: PLAID_GET_ALL_BILLS_SUCCESS,
+  payload: user,
+});
+
+export const plaidBillsFailed = error => ({
+  type: PLAID_GET_ALL_BILLS_FAILED,
   payload: error,
 });

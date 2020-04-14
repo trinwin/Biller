@@ -3,7 +3,7 @@ export const HOST = 'http://localhost:8000';
 export const USER_EMAIL = 'USER_EMAIL';
 // User Token
 export const USER_TOKEN = 'USER_TOKEN';
-export const SET_USER_TOKEN = 'SET_USER_TOKEN';
+export const SET_USER_INFO = 'SET_USER_INFO';
 
 // Server URI
 export const LOGIN_URI = '/auth/login/';
@@ -12,17 +12,17 @@ export const PLAID_ACCESS_TOKEN_URI = '/plaid/access-token/';
 export const PLAID_TRANSACTIONS_URI = '/plaid/transactions/';
 export const PLAID_TRANSACTIONS_EACH_URI =
   '/plaid/transactions-of-each-account/';
-export const PLAID_CATEGOTIES_URI = '/plaid/categories/';
+export const PLAID_CATEGORIES_URI = '/plaid/categories/';
 export const PLAID_NET_WORTH_URI = '/plaid/net-worth/';
 export const PLAID_MONTHLY_EXPENSES_URI = '/plaid/monthly-total-expenses/';
 export const PLAID_BILLS_URI = '/plaid/bills/';
 
 // Auth
 export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const LOGIN_SUCCESSFULLY = 'LOGIN_SUCCESSFULLY';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESSFULLY';
 
 export const REGISTER_FAILED = 'REGISTER_FAILED';
-export const REGISTER_SUCCESSFULLY = 'REGISTER_SUCCESSFULLY';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESSFULLY';
 
 export const LOGOUT = 'LOGOUT';
 
@@ -33,7 +33,7 @@ export const PLAID_PUlLIC_KEY = '66974676d9f0b1bcf30d24f66881e0';
 export const PLAID_DEV_ENV = 'development';
 export const PLAID_SB_ENV = 'sandbox';
 
-export const PLAID_LOGIN_SUCCESSFULLY = 'PLAID_LOGIN_SUCCESSFULLY';
+export const PLAID_LOGIN_SUCCESS = 'PLAID_LOGIN_SUCCESSFULLY';
 export const PLAID_LOGIN_FAILED = 'PLAID_LOGIN_FAILED';
 
 export const PLAID_GET_TRANSACTIONS_SUCCESS = 'PLAID_GET_TRANSACTIONS_SUCCESS';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RouterComponent from './router/RouterComponent';
-import { setUserToken } from './store/actions/auth.action';
+import { setUserInfo } from './store/actions/auth.action';
 import { USER_EMAIL, USER_TOKEN } from './constants';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     const email = localStorage.getItem(USER_EMAIL);
     const token = localStorage.getItem(USER_TOKEN);
     if (token) {
-      this.props.setUserToken({ token });
+      this.props.setUserInfo({ email, token });
     }
   }
   render() {
@@ -28,6 +28,6 @@ function mapStateToProps(state) {
   };
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ setUserToken }, dispatch);
+  return bindActionCreators({ setUserInfo }, dispatch);
 }
 export default connect(mapStateToProps, matchDispatchToProps)(App);
