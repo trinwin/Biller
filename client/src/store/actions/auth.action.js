@@ -5,6 +5,7 @@ import {
   LOGIN_FAILED,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
+  UPDATE_PROFILE,
   LOGOUT,
 } from '../../constants';
 
@@ -30,6 +31,11 @@ export const registerFailed = error => ({
 
 export const setUserInfo = user => ({
   type: SET_USER_INFO,
+  payload: user,
+});
+
+export const updateProfile = user => ({
+  type: UPDATE_PROFILE,
   payload: user,
 });
 

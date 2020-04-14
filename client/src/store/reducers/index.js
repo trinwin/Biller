@@ -4,5 +4,5 @@ import plaidReducer from './plaidReducer';
 
 export default combineReducers({
   user: userReducer,
-  plaids: plaidReducer,
+  plaid: plaidReducer,
 });

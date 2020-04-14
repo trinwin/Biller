@@ -15,11 +15,11 @@ import plaid
 import os
 # Create your views here.
 
-PLAID_CLIENT_ID = '5e69b65f584f98001426e625'
-PLAID_SECRET = '4a91b824095bb42f8661a2906e82f0'
-PLAID_PUBLIC_KEY = '716f1a504cda22791ca574fbcb4736'
+PLAID_CLIENT_ID = '5e3f5d74d52ab600127a745f'
+PLAID_SECRET = '970b66705dee5c0b32183ad6b05624'
+PLAID_PUBLIC_KEY = '66974676d9f0b1bcf30d24f66881e0'
 
-PLAID_ENV = os.getenv('PLAID_ENV', 'development')
+PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 PLAID_PRODUCTS = os.getenv('PLAID_PRODUCTS', 'transactions')
 PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US,CA,GB,FR,ES')
 PLAID_OAUTH_REDIRECT_URL = os.getenv('PLAID_OAUTH_REDIRECT_URL', '')
@@ -32,24 +32,23 @@ client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET, public_key
 @csrf_exempt
 @api_view(['POST'])
 # These 2 decorators are for bypassing JWT token authentication for testing purposes
-@authentication_classes([])
-@permission_classes([])
+# @authentication_classes([])
+# @permission_classes([])
 def get_access_token(request):
-    """
     # Must provides the user's email
     email = request.data.get('email')
     if email is None:
-        return Response({'err': "Email not provided"}, status = status.HTTP_406_NOT_ACCEPTABLE)
-    """
-    email = "xtranx2@yahoo.com"
-    body = json.loads(request.body)
-    public_token = body['public_token']
+        return Response({'err': "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    #body = json.loads(request.body)
+
+    public_token = request.data.get('public_token')
     # Exchanges the public token for an access token
     # Create a "link" to the user's bank account
     try:
         response = client.Item.public_token.exchange(public_token)
     except plaid.errors.PlaidError as err:
-        return Response({"err": err.message}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response({"plaid_err": err.message}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     # Get the access token and query for the user object with the user's email
     access_token = response['access_token']

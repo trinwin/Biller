@@ -1,6 +1,7 @@
 export const HOST = 'http://localhost:8000';
 
 export const USER_EMAIL = 'USER_EMAIL';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 // User Token
 export const USER_TOKEN = 'USER_TOKEN';
 export const SET_USER_INFO = 'SET_USER_INFO';
