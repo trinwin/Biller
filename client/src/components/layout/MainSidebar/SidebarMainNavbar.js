@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand } from 'shards-react';
 
 import { Dispatcher, Constants } from '../../../flux';
@@ -39,9 +40,11 @@ class SidebarMainNavbar extends React.Component {
                 alt="Shards Dashboard"
               />
               {!hideLogoText && (
-                <span className="d-none d-md-inline ml-1">
-                  Biller Dashboard
-                </span>
+                <Link to="/">
+                  <span className="d-none d-md-inline ml-1">
+                    Biller Dashboard
+                  </span>
+                </Link>
               )}
             </div>
           </NavbarBrand>

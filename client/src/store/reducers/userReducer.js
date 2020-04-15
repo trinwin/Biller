@@ -12,7 +12,7 @@ export default function(state = { loading: false, errors: null }, action) {
   console.log(action.type);
   switch (action.type) {
     case LOGIN_SUCCESS:
-      action.payload.has_profile = false;
+      // action.payload.has_profile = false;
       return { ...state, ...action.payload, ...{ loading: false } };
     case LOGIN_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };

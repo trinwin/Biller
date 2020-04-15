@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { PlaidLink } from 'react-plaid-link';
 import {
-  plaidLogin,
-  plaidTransactions,
-  plaidTransactionsEach,
-  plaidCategories,
-  plaidNetWorth,
+  // plaidLogin,
+  // plaidTransactions,
+  // plaidTransactionsEach,
+  // plaidCategories,
+  // plaidNetWorth,
   plaidMonthlyExpenses,
 } from '../api/plaid.api';
 import { PLAID_PRODUCT, PLAID_DEV_ENV, PLAID_PUlLIC_KEY } from '../constants';
-import axios from 'axios';
 
 class Link extends Component {
   constructor() {

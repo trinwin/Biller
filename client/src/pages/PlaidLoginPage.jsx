@@ -6,22 +6,22 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { PlaidLink } from 'react-plaid-link';
+import { plaidLogin } from '../api/plaid.api';
+import { updateProfile } from '../store/actions/auth.action';
+import PlaidInstance from '../components/setup/PlaidInstance';
 import {
   PLAID_PRODUCT,
   PLAID_SB_ENV,
-  PLAID_DEV_ENV,
+  // PLAID_DEV_ENV,
   PLAID_PUlLIC_KEY,
 } from '../constants';
-
-import { updateProfile } from '../store/actions/auth.action';
-import PlaidInstance from '../components/setup/PlaidInstance';
 import './Pages.css';
 
 const { Content } = Layout;
 
 class SetupForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       forms: [],
       has_profile: false,
@@ -35,19 +35,31 @@ class SetupForm extends Component {
 
   onExit() {}
 
-  onSuccess(token, metadata) {
-    console.log(token);
-    this.props.updateProfile({ has_profile: true });
+  onSuccess(public_token, metadata) {
+    console.log(public_token);
 
-    this.setState(previousState => ({
-      forms: [
-        ...previousState.forms,
-        {
-          accountNum: metadata.accounts.length,
-          bankName: metadata.institution.name,
-        },
-      ],
-    }));
+    this.props.plaidLogin({
+      email: this.props.user.email,
+      token: this.props.user.token,
+      public_token,
+    });
+
+    console.log('err: ' + this.props.plaid.errors);
+    if (!this.props.plaid.errors) {
+      this.props.updateProfile({ has_profile: true });
+    }
+
+    if (this.props.user.has_profile) {
+      this.setState(previousState => ({
+        forms: [
+          ...previousState.forms,
+          {
+            accountNum: metadata.accounts.length,
+            bankName: metadata.institution.name,
+          },
+        ],
+      }));
+    }
   }
 
   render() {
@@ -116,11 +128,12 @@ class SetupForm extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
+    plaid: state.plaid,
   };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ updateProfile }, dispatch);
+  return bindActionCreators({ updateProfile, plaidLogin }, dispatch);
 }
 
 export default connect(
