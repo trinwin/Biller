@@ -40,7 +40,7 @@ def get_access_token(request):
     if email is None:
         return Response({'err': "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    body = json.loads(request.body)
+    #body = json.loads(request.body)
 
     public_token = request.data.get('public_token')
     # Exchanges the public token for an access token
@@ -48,7 +48,7 @@ def get_access_token(request):
     try:
         response = client.Item.public_token.exchange(public_token)
     except plaid.errors.PlaidError as err:
-        return Response({"err": err.message}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response({"plaid_err": err.message}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     # Get the access token and query for the user object with the user's email
     access_token = response['access_token']
