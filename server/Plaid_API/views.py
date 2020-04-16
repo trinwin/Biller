@@ -15,10 +15,16 @@ import plaid
 import os
 # Create your views here.
 
-PLAID_CLIENT_ID = '5e3f5d74d52ab600127a745f'
-PLAID_SECRET = 'cea7f58c49bee7ea072f959ceb5ad7'
-# PLAID_SECRET = '970b66705dee5c0b32183ad6b05624'
-PLAID_PUBLIC_KEY = '66974676d9f0b1bcf30d24f66881e0'
+
+PLAID_CLIENT_ID = ""
+PLAID_SECRET = ""
+PLAID_PUBLIC_KEY = ""
+
+with open("Plaid_API_Keys", 'r') as Plaid_File:
+    PLAID_CLIENT_ID = Plaid_File.readline().strip()
+    PLAID_SECRET = Plaid_File.readline().strip()
+    PLAID_PUBLIC_KEY = Plaid_File.readline().strip()
+
 
 # PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 PLAID_ENV = os.getenv('PLAID_ENV', 'development')
@@ -29,40 +35,6 @@ PLAID_OAUTH_NONCE = os.getenv('PLAID_OAUTH_NONCE', '')
 
 client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET, public_key=PLAID_PUBLIC_KEY,
                       environment=PLAID_ENV, api_version='2019-05-29')
-
-
-@csrf_exempt
-@api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
-@authentication_classes([])
-@permission_classes([])
-def test(request):
-    access_token = "access-development-e752548b-1070-4f7e-9879-c004184b33a7"
-    try:
-        response = client.Accounts.get(access_token)
-        print(response)
-        start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-365))
-        print(start_date)
-        end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
-        print(end_date)
-        for account in response['accounts']:
-            print("---------------------------------------")
-            if account['official_name'] != None:
-                print("Official Name: ", account['official_name'])
-            else:
-                print("Name: ", account['name'])
-            transactions = client.Transactions.get(access_token, start_date, end_date,
-                                                   account_ids=[account["account_id"]])
-            for transaction in transactions['transactions']:
-                print(
-                    transaction["name"],
-                    " ", transaction["category"],
-                    " ", transaction["amount"],
-                    " ", transaction["date"])
-            print("---------------------------------------")
-    except plaid.errors.PlaidError as err:
-        return Response({"plaid_err": err.message})
-    return Response({})
 
 
 @csrf_exempt
@@ -196,6 +168,7 @@ def get_transactions_of_each_account(request):
             print("-------------------")
             t = []
             for transaction in transactions:
+                print(transaction.date, "-", transaction.name)
                 list = {}
                 list['name'] = transaction.name
                 list['category'] = transaction.category
@@ -293,7 +266,6 @@ def category_expenses(request):
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    # email = 'thn.trinity@gmail.com'
     # If email is not found in db, fail
     user = User_Model.objects.filter(email=email)
 
@@ -316,8 +288,8 @@ def category_expenses(request):
 @csrf_exempt
 @api_view(['GET'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
-@authentication_classes([])
-@permission_classes([])
+# @authentication_classes([])
+# @permission_classes([])
 # JSON FORMAT IS
 # [{account.name: [bill.amount, bill.due_date, bill.notified]},
 #  {account2.name: [bill2.amount, bill2.due_date, bill2.notified]},...]
@@ -604,12 +576,7 @@ def change_due_date(request):
     print(days_between)
     if days_between <= 7 and days_between >= -1:
         email_notification(account[0], bill)
-        # response.append(
-        #     {'name': account[0].name,
-        #      'amount': bill.amount,
-        #      'due_date': str(bill.due_date),
-        #      'notified': bill.notified})
-
+        sss
     return Response(
         {'name': account[0].name,
          'amount': bill.amount,
@@ -664,6 +631,41 @@ def graph_data(request):
         data.append(total_balance)
     data.reverse()
     return Response({'graph_data': data})
+
+
+@csrf_exempt
+@api_view(['GET'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+@authentication_classes([])
+@permission_classes([])
+def test(request):
+    access_token = "access-development-e752548b-1070-4f7e-9879-c004184b33a7"
+    try:
+        response = client.Accounts.get(access_token)
+        print(response)
+        start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-365))
+        print(start_date)
+        end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+        print(end_date)
+        for account in response['accounts']:
+            print("---------------------------------------")
+            if account['official_name'] != None:
+                print("Official Name: ", account['official_name'])
+            else:
+                print("Name: ", account['name'])
+            transactions = client.Transactions.get(access_token, start_date, end_date,
+                                                   account_ids=[account["account_id"]])
+            for transaction in transactions['transactions']:
+                print(
+                    transaction["name"],
+                    " ", transaction["category"],
+                    " ", transaction["amount"],
+                    " ", transaction["date"],
+                    " ", transaction["transaction_id"])
+            print("---------------------------------------")
+    except plaid.errors.PlaidError as err:
+        return Response({"plaid_err": err.message})
+    return Response({'response': transactions})
 
 
 def calculate_days_between(day_one: str, day_two: str):

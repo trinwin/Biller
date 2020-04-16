@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from datetime import timedelta
+import djcelery
+djcelery.setup_loader()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,6 +69,7 @@ INSTALLED_APPS = [
     'Authentication',
     'Plaid_API',
     'corsheaders',
+    'djcelery',
 ]
 
 AUTH_USER_MODEL = 'Authentication.User'
