@@ -10,5 +10,9 @@ urlpatterns = [
     url(r'^categories/', views.category_expenses, name="category-expenses"),
     url(r'^net-worth/', views.net_worth, name="net-worth"),
     url(r'^monthly-total-expenses/', views.monthly_total_expenses, name="monthly-total-expenses"),
+    url(r'^monthly-total-income/', views.monthly_total_income, name="monthly-total-income"),
     url(r'^bills/', views.bills, name="bills"),
+    url(r'^change-due-date/', views.change_due_date, name="change-due-date"),
+    url(r'^graph-data/', views.graph_data, name="graph-data"),
+    url(r'^test/', views.test, name="test"),
 ]

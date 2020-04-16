@@ -9,7 +9,7 @@ export default function() {
     {
       title: 'Transactions',
       htmlBefore: '<i class="material-icons">attach_money</i>',
-      to: '/tables',
+      to: '/transactions',
     },
     {
       title: 'User Profile',

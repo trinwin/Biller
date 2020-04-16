@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Card,
   CardHeader,
@@ -12,8 +12,8 @@ import {
   FormInput,
   FormSelect,
   FormTextarea,
-  Button
-} from "shards-react";
+  Button,
+} from 'shards-react';
 
 const UserAccountDetails = ({ title }) => (
   <Card small className="mb-4">
@@ -32,7 +32,7 @@ const UserAccountDetails = ({ title }) => (
                   <FormInput
                     id="feFirstName"
                     placeholder="First Name"
-                    value="Sierra"
+                    value="Trinh"
                     onChange={() => {}}
                   />
                 </Col>
@@ -42,7 +42,7 @@ const UserAccountDetails = ({ title }) => (
                   <FormInput
                     id="feLastName"
                     placeholder="Last Name"
-                    value="Brooks"
+                    value="Nguyen"
                     onChange={() => {}}
                   />
                 </Col>
@@ -55,7 +55,7 @@ const UserAccountDetails = ({ title }) => (
                     type="email"
                     id="feEmail"
                     placeholder="Email Address"
-                    value="sierra@example.com"
+                    value="thn.trinity@example.com"
                     onChange={() => {}}
                     autoComplete="email"
                   />
@@ -130,11 +130,11 @@ UserAccountDetails.propTypes = {
   /**
    * The component's title.
    */
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 UserAccountDetails.defaultProps = {
-  title: "Account Details"
+  title: 'Account Details',
 };
 
 export default UserAccountDetails;

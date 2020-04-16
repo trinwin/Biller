@@ -2,11 +2,11 @@
 import { DefaultLayout } from '../layouts';
 
 // Route Views
-import BillOverview from '../views/BillOverview';
+import BillOverview from '../views/BillOverView/BillOverview';
 import UserProfileLite from '../views/UserProfileLite';
 import Errors from '../views/Errors';
 import ComponentsOverview from '../views/ComponentsOverview';
-import Tables from '../views/Tables';
+import Transactions from '../views/Transactions';
 
 export default [
   {
@@ -30,8 +30,8 @@ export default [
     component: ComponentsOverview,
   },
   {
-    path: '/tables',
+    path: '/transactions',
     layout: DefaultLayout,
-    component: Tables,
+    component: Transactions,
   },
 ];

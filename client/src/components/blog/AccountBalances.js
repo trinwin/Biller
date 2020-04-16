@@ -12,14 +12,14 @@ import {
 
 import Chart from '../../utils/chart';
 
-class UsersByDevice extends React.Component {
+class AccountBalances extends React.Component {
   constructor(props) {
     super(props);
 
     this.canvasRef = React.createRef();
   }
 
-  componentDidMount() {
+  renderChart() {
     const chartConfig = {
       type: 'pie',
       data: this.props.chartData,
@@ -46,12 +46,19 @@ class UsersByDevice extends React.Component {
     new Chart(this.canvasRef.current, chartConfig);
   }
 
+  componentDidUpdate() {
+    this.renderChart();
+  }
+
+  componentDidMount() {
+    this.renderChart();
+  }
+
   render() {
-    const { title } = this.props;
     return (
       <Card small className="h-100">
         <CardHeader className="border-bottom">
-          <h6 className="m-0">{title}</h6>
+          <h6 className="m-0">Account Balances</h6>
         </CardHeader>
         <CardBody className="d-flex py-0">
           <canvas
@@ -86,7 +93,7 @@ class UsersByDevice extends React.Component {
   }
 }
 
-UsersByDevice.propTypes = {
+AccountBalances.propTypes = {
   /**
    * The component's title.
    */
@@ -105,22 +112,22 @@ UsersByDevice.propTypes = {
   chartData: PropTypes.object,
 };
 
-UsersByDevice.defaultProps = {
-  title: 'Accounts',
-  chartData: {
-    datasets: [
-      {
-        hoverBorderColor: '#ffffff',
-        data: [68.3, 24.2, 7.5],
-        backgroundColor: [
-          'rgba(0,123,255,0.9)',
-          'rgba(0,123,255,0.5)',
-          'rgba(0,123,255,0.3)',
-        ],
-      },
-    ],
-    labels: ['Checking', 'Savings', 'Credit Card'],
-  },
-};
+// UsersByDevice.defaultProps = {
+//   title: 'Accounts',
+//   chartData: {
+//     datasets: [
+//       {
+//         hoverBorderColor: '#ffffff',
+//         data: [2000, 0, 250],
+//         backgroundColor: [
+//           'rgba(0,123,255,0.9)',
+//           'rgba(0,123,255,0.5)',
+//           'rgba(0,123,255,0.3)',
+//         ],
+//       },
+//     ],
+//     labels: ['Checking', 'Savings', 'Credit Card'],
+//   },
+// };
 
-export default UsersByDevice;
+export default AccountBalances;
