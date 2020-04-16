@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^net-worth/', views.net_worth, name="net-worth"),
     url(r'^monthly-total-expenses/', views.monthly_total_expenses, name="monthly-total-expenses"),
     url(r'^bills/', views.bills, name="bills"),
+    url(r'^test/', views.test, name="test"),
 ]

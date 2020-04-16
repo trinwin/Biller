@@ -12,20 +12,22 @@ import {
   FormSelect,
 } from 'shards-react';
 
-const TopCategories = ({ title, referralData }) => (
+const TopCategories = props => (
   <Card small>
     <CardHeader className="border-bottom">
-      <h6 className="m-0">{title}</h6>
+      <h6 className="m-0">Categories</h6>
       <div className="block-handle" />
     </CardHeader>
 
     <CardBody className="p-0">
       <ListGroup small flush className="list-group-small">
-        {referralData.map((item, idx) => (
+        {props.category_expense.map((item, idx) => (
           <ListGroupItem key={idx} className="d-flex px-3">
-            <span className="text-semibold text-fiord-blue">{item.title}</span>
+            <span className="text-semibold text-fiord-blue">
+              {item.category}
+            </span>
             <span className="ml-auto text-right text-semibold text-reagent-gray">
-              {item.value}
+              ${item.total.toFixed(0)}
             </span>
           </ListGroupItem>
         ))}

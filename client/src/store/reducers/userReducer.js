@@ -9,7 +9,6 @@ import {
 } from '../../constants';
 
 export default function(state = { loading: false, errors: null }, action) {
-  console.log(action.type);
   switch (action.type) {
     case LOGIN_SUCCESS:
       // action.payload.has_profile = false;
