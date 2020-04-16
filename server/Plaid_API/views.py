@@ -30,6 +30,40 @@ client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET, public_key
 
 
 @csrf_exempt
+@api_view(['GET'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+@authentication_classes([])
+@permission_classes([])
+def test(request):
+    access_token = "access-development-e752548b-1070-4f7e-9879-c004184b33a7"
+    try:
+        response = client.Accounts.get(access_token)
+        print(response)
+        start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-365))
+        print(start_date)
+        end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+        print(end_date)
+        for account in response['accounts']:
+            print("---------------------------------------")
+            if account['official_name'] != None:
+                print("Official Name: ", account['official_name'])
+            else:
+                print("Name: ", account['name'])
+            transactions = client.Transactions.get(access_token, start_date, end_date,
+                                                   account_ids=[account["account_id"]])
+            for transaction in transactions['transactions']:
+                print(
+                    transaction["name"],
+                    " ", transaction["category"],
+                    " ", transaction["amount"],
+                    " ", transaction["date"])
+            print("---------------------------------------")
+    except plaid.errors.PlaidError as err:
+        return Response({"plaid_err": err.message})
+    return Response({})
+
+
+@csrf_exempt
 @api_view(['POST'])
 # These 2 decorators are for bypassing JWT token authentication for testing purposes
 # @authentication_classes([])
@@ -244,7 +278,7 @@ def net_worth(request):
             # If it is a credit card account, subtracts the balance
             net_worth -= account.balance
 
-    return Response({"net worth": net_worth})
+    return Response({"net_worth": net_worth})
 
 
 @csrf_exempt
@@ -349,7 +383,7 @@ def monthly_total_expenses(request):
     date_range = []
     # Find the last 6 months and year
     # Store as a tuple (month, year) in list date_range
-    for i in range(11):
+    for i in range(12):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0]))
@@ -369,6 +403,6 @@ def monthly_total_expenses(request):
         print("Total Expenses: ", total_expenses)
         print("------------------------------")
         # Add the total expense of each month/year to response
-        response.append([month + '-' + year, total_expenses])
+        response.append([month + '-' + year[2:], total_expenses])
 
-    return Response({'monthly_expenses': response})
+    return Response({'monthly_expenses': reversed(response)})

@@ -6,10 +6,12 @@ import { PlaidLink } from 'react-plaid-link';
 import {
   // plaidLogin,
   // plaidTransactions,
-  // plaidTransactionsEach,
+  plaidTransactionsEach,
   // plaidCategories,
   // plaidNetWorth,
-  plaidMonthlyExpenses,
+  // plaidMonthlyExpenses,
+  // test,
+  // plaidBills,
 } from '../api/plaid.api';
 import { PLAID_PRODUCT, PLAID_DEV_ENV, PLAID_PUlLIC_KEY } from '../constants';
 
@@ -22,17 +24,17 @@ class Link extends Component {
 
   handleOnSuccess(public_token) {
     console.log(public_token);
-    this.props.plaidLogin({
+    this.props.plaidCategories({
       email: this.props.email,
       token: this.props.token,
-      public_token,
+      // public_token,
     });
   }
 
   handleOnExit() {}
 
   handleClick() {
-    this.props.plaidMonthlyExpenses({
+    this.props.plaidTransactionsEach({
       email: this.props.user.email,
       token: this.props.user.token,
     });
@@ -68,7 +70,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ plaidMonthlyExpenses }, dispatch);
+  return bindActionCreators({ plaidTransactionsEach }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(withRouter(Link));
