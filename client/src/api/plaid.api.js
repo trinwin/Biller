@@ -14,6 +14,8 @@ import {
   plaidMonthlyExpensesFailed,
   plaidBillsSuccess,
   plaidBillsFailed,
+  plaidBillUpdateFailed,
+  plaidBillUpdateSuccess,
 } from '../store/actions/plaid.action';
 import {
   HOST,
@@ -144,5 +146,20 @@ export const test = userData => dispatch => {
     .catch(err => {
       console.log('err: ', err.response);
       //   dispatch(plaidBillsFailed(err));
+    });
+};
+
+export const changeDueDate = userData => dispatch => {
+  //   console.log('userData sent to plaidBills: ', userData);
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
+  axios
+    .get(`${HOST}/plaid/change_due_date/`, userData, config)
+    .then(res => {
+      //   console.log('res: ', res.data);
+      dispatch(plaidBillUpdateFailed(res.data));
+    })
+    .catch(err => {
+      console.log('err: ', err.response);
+      dispatch(plaidBillUpdateSuccess(err));
     });
 };

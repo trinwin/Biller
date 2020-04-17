@@ -50,12 +50,12 @@ const Register = props => {
           { required: true, message: 'Please confirm your password!' },
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (!value || getFieldValue('password') === value) {
+              if (!value || getFieldValue('password') === value)
                 return Promise.resolve();
-              }
-              return Promise.reject(
+              
+              return Promise.reject(new Error(
                 'The two passwords that you entered do not match!'
-              );
+              ));
             },
           }),
         ]}

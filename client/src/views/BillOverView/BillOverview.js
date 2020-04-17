@@ -11,6 +11,7 @@ import SmallStats from '../../components/common/SmallStats';
 import MonthlyBills from '../../components/blog/MonthlyBills';
 import UsersByDevice from '../../components/blog/UsersByDevice';
 import TopCategories from '../../components/common/TopCategories';
+import BillDueDate from '../../components/common/BillDueDate';
 
 import chartOptions from './BillOverViewHelper';
 
@@ -19,6 +20,7 @@ class BillOverview extends Component {
     const token = localStorage.getItem(USER_TOKEN);
     const { plaid } = this.props || {};
     const category_expense = plaid.category_expense || [];
+    const bills = plaid.bills || [];
     // const transactions = plaid.transactions || [];
     // const net_worth = plaid.net_worth || -1;
     const monthly_expenses = this.props.monthly_expenses
@@ -96,6 +98,11 @@ class BillOverview extends Component {
           {/* Top Bills*/}
           <Col lg="3" md="12" sm="12" className="mb-4">
             <TopCategories category_expense={category_expense} />
+          </Col>
+
+          {/* Top Bills2*/}
+          <Col lg="3" md="12" sm="12" className="mb-4">
+            <BillDueDate dueDates = {bills}/>
           </Col>
         </Row>
       </Container>

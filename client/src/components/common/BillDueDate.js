@@ -1,53 +1,26 @@
 import React from 'react';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  ListGroup,
-  ListGroupItem,
-  CardFooter,
-  Row,
-  Col,
-  Button,
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
+import { Card, CardHeader, CardBody, ListGroup, ListGroupItem, 
+  CardFooter, Row, Col, Button
 } from 'shards-react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import update from 'immutability-helper';
+import { changeDueDate } from '../../api/plaid.api';
 
 const dateFormat = 'MM/DD';
 
 
 class BillDueDate extends React.Component {
-  constructor(){
-    super();
-
+  constructor( bills ){
+    super( bills );
+    
     this.state = {
       title: 'Bill Due Dates',
-      accountDueDates: [ 
-        {
-          name: 'Chase Test Credit',
-          key: null,
-          date: '12/2',
-        },
-        {
-          name: 'Chase Test Credit VIP',
-          key: null,
-          date: '5/2',
-        },
-        {
-          name: 'PG&E Test',
-          key: null,
-          date: '6/2',
-        },
-      ],
-    }
-
-    this.onDateChange = this.onDateChange.bind(this);
-    this.onDateUpdate = this.onDateUpdate.bind(this);
-  }
-
-  componentDidMount () {
-
+      accountDueDates: getDates(bills),
+    };
   }
 
   onDateChange = (index, dateString) => {
@@ -57,6 +30,7 @@ class BillDueDate extends React.Component {
 
   onDateUpdate = () => {
     console.log(this.state.accountDueDates);
+    this.props.changeDueDate(this.state.accountDueDates);
   }
 
   render() { 
@@ -107,4 +81,44 @@ class BillDueDate extends React.Component {
   }
 };
 
-export default BillDueDate;
+// Get Bills from constructor
+function getDates(bills){
+  const iter = (bills.length > 3)? 3 : bills.length;
+  let arr = [];
+  for(let i=0; i<iter; i += 1){
+    const bankDateObj = {
+      name: bills[i].name,
+      date: bills[i].date, 
+      setDate: bills[i].setDate 
+    };
+
+    arr.push(bankDateObj);
+  }
+
+  const bankDateObj = {
+    name: "TEST",
+    date: "5/5",
+    setDate: false,
+  };
+
+
+  arr.push(bankDateObj);
+  
+  return arr;
+}
+
+// Store
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ changeDueDate }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps
+)(withRouter(BillDueDate));
