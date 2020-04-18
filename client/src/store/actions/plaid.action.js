@@ -13,6 +13,8 @@ import {
   PLAID_GET_MONTHLY_EXPENSE_FAILED,
   PLAID_GET_ALL_BILLS_SUCCESS,
   PLAID_GET_ALL_BILLS_FAILED,
+  PLAID_UPDATE_DUE_DATE_SUCCESS,
+  PLAID_UPDATE_DUE_DATE_FAILED,
 } from '../../constants';
 
 export const plaidLoginSuccessfully = token => ({
@@ -82,5 +84,15 @@ export const plaidBillsSuccess = bills => ({
 
 export const plaidBillsFailed = error => ({
   type: PLAID_GET_ALL_BILLS_FAILED,
+  payload: error,
+});
+
+export const plaidBillUpdateFailed = error => ({
+  type: PLAID_UPDATE_DUE_DATE_SUCCESS,
+  payload: error,
+});
+
+export const plaidBillUpdateSuccess = error => ({
+  type: PLAID_UPDATE_DUE_DATE_FAILED,
   payload: error,
 });

@@ -1,36 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
-import { Card, CardHeader, CardBody, ListGroup, ListGroupItem, 
-  CardFooter, Row, Col, Button
-} from 'shards-react';
+import { Card, CardHeader, CardBody, ListGroup, ListGroupItem, CardFooter, Row, Col } from 'shards-react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import update from 'immutability-helper';
 import { changeDueDate } from '../../api/plaid.api';
 
-const dateFormat = 'MM/DD';
-
+const dateFormat = 'MM-DD';
 
 class BillDueDate extends React.Component {
-  constructor( bills ){
+  constructor( bills, email ){
     super( bills );
     
     this.state = {
       title: 'Bill Due Dates',
-      accountDueDates: getDates(bills),
+      accountDueDates: getDates(bills, email),
     };
   }
 
   onDateChange = (index, dateString) => {
-    console.log(index + " " + dateString);
-    this.setState(update(this.state.accountDueDates[index], {date: {$set: dateString }}));
-  }
+    const { email } = this.props.user;
+    const account_name = this.state.accountDueDates[index].name;
+    const due_date = moment().format("YYYY").toString() + dateString;
 
-  onDateUpdate = () => {
-    console.log(this.state.accountDueDates);
-    this.props.changeDueDate(this.state.accountDueDates);
+    this.setState(update(this.state.accountDueDates[index], {date: {$set: dateString }}));
+
+    this.props.changeDueDate({account_name, due_date, email});
   }
 
   render() { 
@@ -61,14 +57,7 @@ class BillDueDate extends React.Component {
         </CardBody>
 
         <CardFooter className="border-top">
-          <Row>
-            {/* Update Button */}
-            <Col>
-              <Button theme="primary" className="mb-2 mr-1" onClick = {this.onDateUpdate}>
-                Update
-              </Button>
-            </Col>
-
+          <Row>     
             {/* View All Due Dates */}
             <Col className="text-right view-report">
               {/* eslint-disable-next-line */}
@@ -85,22 +74,25 @@ class BillDueDate extends React.Component {
 function getDates(bills){
   const iter = (bills.length > 3)? 3 : bills.length;
   let arr = [];
+  
   for(let i=0; i<iter; i += 1){
     const bankDateObj = {
-      name: bills[i].name,
-      date: bills[i].date, 
-      setDate: bills[i].setDate 
+      name: bills[i],
+      date: bills[i][1], 
+      setDate: bills[i][2] 
     };
+
+    if(bankDateObj.date == null)
+      bankDateObj.date = moment().format(dateFormat).toString();
 
     arr.push(bankDateObj);
   }
 
   const bankDateObj = {
     name: "TEST",
-    date: "5/5",
+    date: moment().format(dateFormat).toString(),
     setDate: false,
   };
-
 
   arr.push(bankDateObj);
   
@@ -109,9 +101,8 @@ function getDates(bills){
 
 // Store
 function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
+  const { user } = state;
+  return { user };
 }
 
 function matchDispatchToProps(dispatch) {
@@ -121,4 +112,4 @@ function matchDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   matchDispatchToProps
-)(withRouter(BillDueDate));
+)(BillDueDate);
