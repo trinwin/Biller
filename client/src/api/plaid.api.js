@@ -26,6 +26,7 @@ import {
   PLAID_NET_WORTH_URI,
   PLAID_MONTHLY_EXPENSES_URI,
   PLAID_BILLS_URI,
+  PLAID_BILLS_DATE_UPDATE,
 } from '../constants';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -120,16 +121,16 @@ export const plaidMonthlyExpenses = userData => dispatch => {
 };
 
 export const plaidBills = userData => dispatch => {
-  //   console.log('userData sent to plaidBills: ', userData);
+  console.log('userData sent to plaidBills: ', userData);
   const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_BILLS_URI}`, userData, config)
     .then(res => {
-      //   console.log('res: ', res.data);
+      console.log('bills res: ', res.data);
       dispatch(plaidBillsSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
+      console.log('bills err: ', err.response.data);
       dispatch(plaidBillsFailed(err));
     });
 };
@@ -150,16 +151,17 @@ export const test = userData => dispatch => {
 };
 
 export const changeDueDate = userData => dispatch => {
-  //   console.log('userData sent to plaidBills: ', userData);
+  console.log('userData sent to change date: ', userData);
   const config = { headers: { Authorization: `Bearer ${userData.token}` } };
+  console.log(config);
   axios
-    .get(`${HOST}/plaid/change_due_date/`, userData, config)
+    .post(`${HOST}${PLAID_BILLS_DATE_UPDATE}`, userData, config)
     .then(res => {
-      //   console.log('res: ', res.data);
-      dispatch(plaidBillUpdateFailed(res.data));
+      console.log('res: ', res.data);
+      dispatch(plaidBillUpdateSuccess(res.data));
     })
     .catch(err => {
       console.log('err: ', err.response);
-      dispatch(plaidBillUpdateSuccess(err));
+      dispatch(plaidBillUpdateFailed(err));
     });
 };

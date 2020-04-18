@@ -17,6 +17,7 @@ export const PLAID_CATEGORIES_URI = '/plaid/categories/';
 export const PLAID_NET_WORTH_URI = '/plaid/net-worth/';
 export const PLAID_MONTHLY_EXPENSES_URI = '/plaid/monthly-total-expenses/';
 export const PLAID_BILLS_URI = '/plaid/bills/';
+export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/'
 
 // Auth
 export const LOGIN_FAILED = 'LOGIN_FAILED';
@@ -58,3 +59,6 @@ export const PLAID_GET_MONTHLY_EXPENSE_FAILED =
 
 export const PLAID_GET_ALL_BILLS_SUCCESS = 'PLAID_GET_ALL_BILLS_SUCCESS';
 export const PLAID_GET_ALL_BILLS_FAILED = 'PLAID_GET_ALL_BILLS_FAILED';
+
+export const PLAID_UPDATE_DUE_DATE_SUCCESS = 'PLAID_UPDATE_DUE_DATE_SUCCESS';
+export const PLAID_UPDATE_DUE_DATE_FAILED = 'PLAID_UPDATE_DUE_DATE_FAILED';

@@ -77,7 +77,7 @@ export const plaidMonthlyExpensesFailed = error => ({
   payload: error,
 });
 
-export const plaidBillsSuccess = bills => ({
+export const plaidBillsSuccess = bill => ({
   type: PLAID_GET_ALL_BILLS_SUCCESS,
   payload: bill,
 });
@@ -87,12 +87,12 @@ export const plaidBillsFailed = error => ({
   payload: error,
 });
 
+export const plaidBillUpdateSuccess = bill => ({
+  type: PLAID_UPDATE_DUE_DATE_FAILED,
+  payload: bill,
+});
+
 export const plaidBillUpdateFailed = error => ({
   type: PLAID_UPDATE_DUE_DATE_SUCCESS,
   payload: error,
-});
-
-export const plaidBillUpdateSuccess = error => ({
-  type: PLAID_UPDATE_DUE_DATE_FAILED,
-  payload: bill,
 });

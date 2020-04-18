@@ -4,32 +4,35 @@ import { bindActionCreators } from 'redux';
 import { Card, CardHeader, CardBody, ListGroup, ListGroupItem, CardFooter, Row, Col } from 'shards-react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
-import update from 'immutability-helper';
-import { changeDueDate } from '../../api/plaid.api';
+import { USER_TOKEN } from '../../constants';
+import { changeDueDate, plaidBills } from '../../api/plaid.api';
 
 const dateFormat = 'MM-DD';
 
 class BillDueDate extends React.Component {
-  constructor( bills, email ){
-    super( bills );
-    
+  constructor(){
+    super( );
     this.state = {
       title: 'Bill Due Dates',
-      accountDueDates: getDates(bills, email),
     };
   }
 
-  onDateChange = (index, dateString) => {
+  componentDidMount () {
+   
+  }
+
+  onDateChange = (item, dateString) => {
+    const token = localStorage.getItem(USER_TOKEN);
     const { email } = this.props.user;
-    const account_name = this.state.accountDueDates[index].name;
-    const due_date = moment().format("YYYY").toString() + dateString;
+    const { name } = item;
+    const date = moment().format("YYYY").toString() + "-" + dateString;
 
-    this.setState(update(this.state.accountDueDates[index], {date: {$set: dateString }}));
-
-    this.props.changeDueDate({account_name, due_date, email});
+    this.props.changeDueDate({ account_name: name, due_date: date, email: email, token: token});
   }
 
   render() { 
+    const accountDueDates = this.props.accountDueDates || [];
+
     return (
       <Card small>
         <CardHeader className="border-bottom">
@@ -39,7 +42,7 @@ class BillDueDate extends React.Component {
 
         <CardBody className="p-0">
           <ListGroup small flush className="list-group-small">
-            {this.state.accountDueDates.map((item, idx) => (
+            {(accountDueDates != null)? accountDueDates.map((item, idx) => (
               <ListGroupItem key={idx} className="d-flex px-3">
                 <span className="text-semibold text-fiord-blue">{item.name}</span>
                 <span className="ml-auto text-right text-semibold text-reagent-gray">
@@ -48,11 +51,11 @@ class BillDueDate extends React.Component {
                     format = { dateFormat }
                     defaultValue = { moment(item.date, dateFormat) }       
                     allowClear = { false }
-                    onChange = {( _dateObj , datestring) => this.onDateChange(idx, datestring)}
+                    onChange = {( _dateObj , datestring) => this.onDateChange(item, datestring)}
                   />
                 </span>
               </ListGroupItem>
-            ))}
+            )) : < span />}
           </ListGroup>
         </CardBody>
 
@@ -71,42 +74,45 @@ class BillDueDate extends React.Component {
 };
 
 // Get Bills from constructor
-function getDates(bills){
-  const iter = (bills.length > 3)? 3 : bills.length;
-  let arr = [];
-  
-  for(let i=0; i<iter; i += 1){
-    const bankDateObj = {
-      name: bills[i],
-      date: bills[i][1], 
-      setDate: bills[i][2] 
-    };
+function createDate(bankName, bankDate, dateSet){
+  //const tempDate =  properties[1];
+  //const tempSet =  properties[1];
 
-    if(bankDateObj.date == null)
-      bankDateObj.date = moment().format(dateFormat).toString();
-
-    arr.push(bankDateObj);
-  }
-
-  const bankDateObj = {
-    name: "TEST",
-    date: moment().format(dateFormat).toString(),
-    setDate: false,
+  return {
+    name: bankName,
+    date: moment(bankDate, "YYYY-MM-DD").format(dateFormat).toString(),
+    isSet: dateSet,
   };
-
-  arr.push(bankDateObj);
-  
-  return arr;
 }
 
 // Store
 function mapStateToProps(state) {
-  const { user } = state;
-  return { user };
+  const { bills } = state.plaid || [];
+  let arr = [];
+
+  if(bills != null && bills.length !== 0){
+    Object.keys(bills).forEach(function(key) {
+      let bankObj;
+
+      Object.keys(bills[key]).forEach(function(key2) {
+        bankObj = createDate(Object.getOwnPropertyNames(bills[key])[0], 
+        bills[key][key2][1],
+        bills[key][key2][2]);
+      })
+
+      arr.push(bankObj);
+    });
+  }
+
+  return {
+    user: state.user,
+    plaid: state.plaid,
+    accountDueDates: arr,
+  };
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ changeDueDate }, dispatch);
+  return bindActionCreators({ plaidBills, changeDueDate }, dispatch);
 }
 
 export default connect(
