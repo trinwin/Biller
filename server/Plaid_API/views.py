@@ -20,12 +20,8 @@ PLAID_SECRET = 'cea7f58c49bee7ea072f959ceb5ad7'
 # PLAID_SECRET = '970b66705dee5c0b32183ad6b05624'
 PLAID_PUBLIC_KEY = '66974676d9f0b1bcf30d24f66881e0'
 
-# PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
-<<<<<<< HEAD
 PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
-=======
-PLAID_ENV = os.getenv('PLAID_ENV', 'development')
->>>>>>> 16-user-dashboard
+# PLAID_ENV = os.getenv('PLAID_ENV', 'development')
 PLAID_PRODUCTS = os.getenv('PLAID_PRODUCTS', 'transactions')
 PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US,CA,GB,FR,ES')
 PLAID_OAUTH_REDIRECT_URL = os.getenv('PLAID_OAUTH_REDIRECT_URL', '')
@@ -414,17 +410,10 @@ def monthly_total_expenses(request):
 
 
 @csrf_exempt
-<<<<<<< HEAD
 @api_view(['POST'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
 @authentication_classes([])
 @permission_classes([])
-=======
-@api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
-# @authentication_classes([])
-# @permission_classes([])
->>>>>>> 16-user-dashboard
 def change_due_date(request):
 
     email = request.GET.get("email")
