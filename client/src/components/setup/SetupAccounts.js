@@ -6,12 +6,13 @@ import { Layout, List, Button } from 'antd';
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import {
   PLAID_PRODUCT,
-  PLAID_SB_ENV,
-  //   PLAID_DEV_ENV,
+  // PLAID_SB_ENV,
+  PLAID_DEV_ENV,
   PLAID_PUlLIC_KEY,
 } from '../../constants';
 
 import PlaidInstance from './PlaidInstance';
+import './setup.css';
 
 const { Content } = Layout;
 
@@ -36,7 +37,7 @@ const SetupAccounts = props => {
                 <PlaidInstance
                   bankName={item.bankName}
                   accountNum={item.accountNum}
-                  onDelete={this.onDelete}
+                  // onDelete={this.onDelete}
                 />
               </List.Item>
             )}
@@ -50,7 +51,7 @@ const SetupAccounts = props => {
                 border: 'dashed 2px rgb(120, 120, 120)',
               }}
               clientName="SJSU-Biller"
-              env={PLAID_SB_ENV}
+              env={PLAID_DEV_ENV}
               product={PLAID_PRODUCT}
               publicKey={PLAID_PUlLIC_KEY}
               onSuccess={props.onSuccess}

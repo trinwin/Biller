@@ -43,7 +43,7 @@ const Transaction = props => {
                       Amount
                     </th>
                     <th scope="col" className="border-0">
-                      Account
+                      Status
                     </th>
                   </tr>
                 </thead>
@@ -51,11 +51,11 @@ const Transaction = props => {
                   {props.transactions.map((transaction, idx) => (
                     <tr>
                       <td>{idx + 1}</td>
-                      <td style={{ width: '550px' }}>{transaction[0]}</td>
-                      <td>{transaction[1]}</td>
-                      <td>{transaction[2]}</td>
-                      <td>${transaction[3]}</td>
-                      <td>...</td>
+                      <td style={{ width: '550px' }}>{transaction.name}</td>
+                      <td>{transaction.category}</td>
+                      <td>{transaction.date}</td>
+                      <td>${transaction.amount}</td>
+                      <td>{transaction.pending ? 'Pending' : 'Completed'}</td>
                     </tr>
                   ))}
                 </tbody>

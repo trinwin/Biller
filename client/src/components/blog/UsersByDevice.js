@@ -111,7 +111,7 @@ UsersByDevice.defaultProps = {
     datasets: [
       {
         hoverBorderColor: '#ffffff',
-        data: [68.3, 24.2, 7.5],
+        data: [2000, 0, 250],
         backgroundColor: [
           'rgba(0,123,255,0.9)',
           'rgba(0,123,255,0.5)',

@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^net-worth/', views.net_worth, name="net-worth"),
     url(r'^monthly-total-expenses/', views.monthly_total_expenses, name="monthly-total-expenses"),
     url(r'^bills/', views.bills, name="bills"),
+    url(r'^change-due-date/', views.change_due_date, name="change-due-date"),
+    url(r'^graph-data/', views.graph_data, name="graph-data"),
     url(r'^test/', views.test, name="test"),
 ]
