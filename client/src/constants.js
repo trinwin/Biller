@@ -2,6 +2,7 @@ export const HOST = 'http://localhost:8000';
 
 export const USER_EMAIL = 'USER_EMAIL';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const ACCOUNTS_INFO = 'ACCOUNTS_INFO';
 // User Token
 export const USER_TOKEN = 'USER_TOKEN';
 export const SET_USER_INFO = 'SET_USER_INFO';
@@ -18,6 +19,7 @@ export const PLAID_NET_WORTH_URI = '/plaid/net-worth/';
 export const PLAID_MONTHLY_EXPENSES_URI = '/plaid/monthly-total-expenses/';
 export const PLAID_BILLS_URI = '/plaid/bills/';
 export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/'
+export const PLAID_GRAPH_DATA_URI = '/plaid/graph-data/';
 
 // Auth
 export const LOGIN_FAILED = 'LOGIN_FAILED';
@@ -62,3 +64,6 @@ export const PLAID_GET_ALL_BILLS_FAILED = 'PLAID_GET_ALL_BILLS_FAILED';
 
 export const PLAID_UPDATE_DUE_DATE_SUCCESS = 'PLAID_UPDATE_DUE_DATE_SUCCESS';
 export const PLAID_UPDATE_DUE_DATE_FAILED = 'PLAID_UPDATE_DUE_DATE_FAILED';
+
+export const PLAID_GET_GRAPH_DATA_SUCCESS = 'PLAID_GET_GRAPH_DATA_SUCCESS';
+export const PLAID_GET_GRAPH_DATA_FAILED = 'PLAID_GET_GRAPH_DATA_FAILED';

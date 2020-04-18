@@ -6,16 +6,14 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { plaidLogin } from '../api/plaid.api';
 import SetupAccount from '../components/setup/SetupAccounts';
 import { updateProfile } from '../store/actions/auth.action';
-import { USER_TOKEN } from '../constants';
+import { USER_TOKEN, ACCOUNTS_INFO } from '../constants';
 
 import './Pages.css';
 
 class SetupForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      forms: [],
-    };
+
     this.onSuccess = this.onSuccess.bind(this);
   }
 
@@ -29,6 +27,7 @@ class SetupForm extends Component {
     console.log(public_token);
     const { user, plaid } = this.props;
     const { email, token } = user;
+    console.log('[SetupForm] user: ', user);
 
     this.props.plaidLogin({
       email,
@@ -36,32 +35,31 @@ class SetupForm extends Component {
       public_token,
     });
 
+    const previousForms = JSON.parse(localStorage.getItem(ACCOUNTS_INFO)) || [];
+    const forms = [
+      ...previousForms,
+      {
+        accountNum: metadata.accounts.length,
+        bankName: metadata.institution.name,
+      },
+    ];
+
     console.log('plaid.errors: ' + plaid.errors);
     if (!plaid.errors) {
       this.props.updateProfile({ has_profile: true });
-    }
-
-    if (this.props.user.has_profile) {
-      this.setState(previousState => ({
-        forms: [
-          ...previousState.forms,
-          {
-            accountNum: metadata.accounts.length,
-            bankName: metadata.institution.name,
-          },
-        ],
-      }));
+      localStorage.setItem(ACCOUNTS_INFO, JSON.stringify(forms));
     }
   }
 
   render() {
     const token = localStorage.getItem(USER_TOKEN);
     const { user } = this.props;
-    const { forms } = this.state;
+    const forms = JSON.parse(localStorage.getItem(ACCOUNTS_INFO)) || [];
+
     console.log('forms: ', forms);
     return token ? (
       <SetupAccount
-        form={forms}
+        forms={forms}
         has_profile={user.has_profile}
         onSuccess={this.onSuccess}
       />

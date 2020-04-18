@@ -19,6 +19,7 @@ class Transactions(models.Model):
     date = models.DateField(auto_now=False, auto_now_add=False, blank=False)
     account_id = models.ForeignKey(BankAccounts, on_delete=models.CASCADE)
     amount = models.FloatField(blank=False)
+    pending_status = models.BooleanField(blank=False)
     transaction_id = models.CharField(max_length=100, blank=False, primary_key=True)
 
 

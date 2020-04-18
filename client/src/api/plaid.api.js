@@ -16,6 +16,8 @@ import {
   plaidBillsFailed,
   plaidBillUpdateFailed,
   plaidBillUpdateSuccess,
+  plaidGraphDataSuccess,
+  plaidGraphDataFailed,
 } from '../store/actions/plaid.action';
 import {
   HOST,
@@ -27,12 +29,15 @@ import {
   PLAID_MONTHLY_EXPENSES_URI,
   PLAID_BILLS_URI,
   PLAID_BILLS_DATE_UPDATE,
+  PLAID_GRAPH_DATA_URI,
+  USER_TOKEN,
 } from '../constants';
+
+const token = localStorage.getItem(USER_TOKEN);
+const config = { headers: { Authorization: `Bearer ${token}` } };
 
 // eslint-disable-next-line import/prefer-default-export
 export const plaidLogin = userData => dispatch => {
-  //   console.log('userData sent to plaid login: ', userData);
-  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .post(`${HOST}${PLAID_ACCESS_TOKEN_URI}`, userData, config)
     .then(res => {
@@ -40,97 +45,88 @@ export const plaidLogin = userData => dispatch => {
       dispatch(plaidLoginSuccessfully(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
+      console.log('err: ', err.response);
       dispatch(plaidLoginFailed(err));
     });
 };
 
 export const plaidTransactions = userData => dispatch => {
-  //   console.log('userData sent to plaidTransactions: ', userData);
-  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
-    .get(`${HOST}${PLAID_TRANSACTIONS_URI}`, userData, config)
+    .get(`${HOST}${PLAID_TRANSACTIONS_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidTransactionsSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
+      console.log('[plaidTransactions] err: ', err.response);
       dispatch(plaidTransactionsFailed(err));
     });
 };
 
 export const plaidTransactionsEach = userData => dispatch => {
-  //   console.log('userData sent to plaidTransactionsEach: ', userData);
-  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
-    .get(`${HOST}${PLAID_TRANSACTIONS_EACH_URI}`, userData, config)
+    .get(
+      `${HOST}${PLAID_TRANSACTIONS_EACH_URI}?email=${userData.email}`,
+      config
+    )
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidTransactionsEachSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
+      console.log('[plaidTransactionsEach] err: ', err.response);
       dispatch(plaidTransactionsEachFailed(err));
     });
 };
 
 export const plaidCategories = userData => dispatch => {
-  //   console.log('userData sent to plaidCategories: ', userData);
-  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
-    .get(`${HOST}${PLAID_CATEGORIES_URI}`, userData, config)
+    .get(`${HOST}${PLAID_CATEGORIES_URI}?email=${userData.email}`, config)
     .then(res => {
-      //   console.log('res: ', res.data);
+      console.log('res: ', res.data);
       dispatch(plaidCategoriesSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
+      console.log('[plaidCategories] err: ', err.response);
       dispatch(plaidCategoriesFailed(err));
     });
 };
 
 export const plaidNetWorth = userData => dispatch => {
-  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
-  //   console.log('userData sent to plaidNetWorth: ', userData, config);
   axios
-    .get(`${HOST}${PLAID_NET_WORTH_URI}`, userData, config)
+    .get(`${HOST}${PLAID_NET_WORTH_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidNetWorthSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
+      console.log('[plaidNetWorth] err: ', err.response);
       dispatch(plaidNetWorthFailed(err));
     });
 };
 
 export const plaidMonthlyExpenses = userData => dispatch => {
-  //   console.log('userData sent to plaidMonthlyExpenses: ', userData);
-  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
-    .get(`${HOST}${PLAID_MONTHLY_EXPENSES_URI}`, userData, config)
+    .get(`${HOST}${PLAID_MONTHLY_EXPENSES_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidMonthlyExpensesSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
+      console.log('[plaidMonthlyExpense] err: ', err.response);
       dispatch(plaidMonthlyExpensesFailed(err));
     });
 };
 
 export const plaidBills = userData => dispatch => {
-  console.log('userData sent to plaidBills: ', userData);
-  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
-    .get(`${HOST}${PLAID_BILLS_URI}`, userData, config)
+    .get(`${HOST}${PLAID_BILLS_URI}?email=${userData.email}`, config)
     .then(res => {
       console.log('bills res: ', res.data);
       dispatch(plaidBillsSuccess(res.data));
     })
     .catch(err => {
-      console.log('bills err: ', err.response.data);
+      console.log('[plaidBill] err: ', err.response);
       dispatch(plaidBillsFailed(err));
     });
 };
@@ -163,5 +159,22 @@ export const changeDueDate = userData => dispatch => {
     .catch(err => {
       console.log('err: ', err.response);
       dispatch(plaidBillUpdateFailed(err));
+    });
+};
+
+export const plaidGraphData = userData => dispatch => {
+  const account_type = 'checking';
+  axios
+    .get(
+      `${HOST}${PLAID_GRAPH_DATA_URI}?email=${userData.email}&account_type=${account_type}`,
+      config
+    )
+    .then(res => {
+      console.log('res: ', res.data);
+      dispatch(plaidGraphDataSuccess(res.data));
+    })
+    .catch(err => {
+      console.log('err: ', err.response);
+      dispatch(plaidGraphDataFailed(err));
     });
 };
