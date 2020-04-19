@@ -14,5 +14,4 @@ urlpatterns = [
     url(r'^bills/', views.bills, name="bills"),
     url(r'^change-due-date/', views.change_due_date, name="change-due-date"),
     url(r'^graph-data/', views.graph_data, name="graph-data"),
-    url(r'^test/', views.test, name="test"),
 ]
