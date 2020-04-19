@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
-import PlaidLink from 'react-plaid-link';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
+import { PlaidLink } from 'react-plaid-link';
+import {
+  // plaidLogin,
+  // plaidTransactions,
+  plaidTransactionsEach,
+  // plaidCategories,
+  // plaidNetWorth,
+  // plaidMonthlyExpenses,
+  // test,
+  // plaidBills,
+} from '../api/plaid.api';
+import { PLAID_PRODUCT, PLAID_DEV_ENV, PLAID_PUlLIC_KEY } from '../constants';
 
 class Link extends Component {
   constructor() {
     super();
 
-    this.state = {
-      transactions: [],
-    };
-
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleOnSuccess(public_token, metadata) {
+  handleOnSuccess(public_token) {
     console.log(public_token);
-    // send token to client server
-    axios.post('http://localhost:8000/plaid/access-token/', {
-      public_token: public_token,
+    this.props.plaidCategories({
+      email: this.props.email,
+      token: this.props.token,
+      // public_token,
     });
   }
 
   handleOnExit() {}
 
-  handleClick(res) {
-    axios.get('http://localhost:8000/plaid/transactions/').then(res => {
-      this.setState({ transactions: res.data });
-      console.log(res.data);
+  handleClick() {
+    this.props.plaidTransactionsEach({
+      email: this.props.user.email,
+      token: this.props.user.token,
     });
   }
 
@@ -35,9 +45,9 @@ class Link extends Component {
       <div>
         <PlaidLink
           clientName="Plaid Quickstart"
-          env="sandbox"
-          product={['transactions']}
-          publicKey="716f1a504cda22791ca574fbcb4736"
+          env={PLAID_DEV_ENV}
+          product={PLAID_PRODUCT}
+          publicKey={PLAID_PUlLIC_KEY}
           onExit={this.handleOnExit}
           onSuccess={this.handleOnSuccess}
           className="test"
@@ -52,4 +62,15 @@ class Link extends Component {
   }
 }
 
-export default Link;
+// Store
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ plaidTransactionsEach }, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(withRouter(Link));

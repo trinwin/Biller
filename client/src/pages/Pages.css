@@ -1,30 +1,42 @@
 .register-box {
-    display: block;
-    position: relative;
-    border-radius: 4px;
-    border: 5px #ddd solid;
-    background-color: rgb(255, 255, 255);
+  display: block;
+  position: relative;
+  border-radius: 4px;
+  border: 5px #ddd solid;
+  background-color: rgb(255, 255, 255);
 }
 
 .register-center {
-    display: 'flex';
-    width: 600px;
-    overflow-y: auto;
-    margin: 0 auto;
+  display: 'flex';
+  width: 600px;
+  overflow-y: auto;
+  margin: 0 auto;
 }
 
 .input-form {
-    max-width: 400px;
-    min-width: 300px;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2.5rem;
+  max-width: 400px;
+  min-width: 300px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
 }
 
 .setup-form {
-    min-height: 100vh;
-    font-size: 2.5rem;
+  min-height: 100vh;
+  font-size: 2.5rem;
+}
+
+.plaid-div {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.connect-dashboard-btn {
+  margin-top: 20px;
+  height: 55px;
+  font-size: 16px;
 }

@@ -31,7 +31,7 @@ class RegisterPage extends Component {
     const { token } = user;
 
     return token ? (
-      <Redirect to="/" user={user} />
+      <Redirect to="/setup" user={user} />
     ) : (
       <Register onSubmission={e => this.onSubmission(e)} />
     );

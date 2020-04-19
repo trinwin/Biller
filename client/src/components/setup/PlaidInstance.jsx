@@ -1,8 +1,6 @@
 import React from 'react';
 import { Statistic, Row, Col, Card } from 'antd';
 
-import './SetupForm.css';
-
 const PlaidInstance = props => {
   return (
     <Card>

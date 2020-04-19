@@ -1,25 +1,28 @@
 import {
-  LOGIN_SUCCESSFULLY,
+  SET_USER_INFO,
+  LOGIN_SUCCESS,
   LOGIN_FAILED,
-  LOGOUT,
-  SET_USER_TOKEN,
+  REGISTER_SUCCESS,
   REGISTER_FAILED,
-  REGISTER_SUCCESSFULLY,
+  UPDATE_PROFILE,
+  LOGOUT,
 } from '../../constants';
 
 export default function(state = { loading: false, errors: null }, action) {
-  console.log(action.type);
   switch (action.type) {
-    case LOGIN_SUCCESSFULLY:
+    case LOGIN_SUCCESS:
+      // action.payload.has_profile = false;
       return { ...state, ...action.payload, ...{ loading: false } };
     case LOGIN_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
-    case REGISTER_SUCCESSFULLY:
+    case REGISTER_SUCCESS:
       return { ...state, ...action.payload, ...{ loading: false } };
     case REGISTER_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
-    case SET_USER_TOKEN:
-      return action.payload;
+    case SET_USER_INFO:
+      return { ...action.payload };
+    case UPDATE_PROFILE:
+      return { ...state, ...action.payload, ...{ loading: false } };
     case LOGOUT:
       return {};
     default:

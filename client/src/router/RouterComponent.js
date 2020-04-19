@@ -8,7 +8,7 @@ class RouterComponent extends Component {
   render() {
     const user = this.props.user || {};
     return (
-      <Router basename="/" history={history}>
+      <Router basename={process.env.REACT_APP_BASENAME || ''} history={history}>
         <div>
           <RoutesComponent user={user} />
         </div>

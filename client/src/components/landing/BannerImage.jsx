@@ -8,15 +8,33 @@ export default function BannerImage() {
   return (
     <svg width="510px" height="460px" viewBox="0 0 510 460">
       <defs>
-        <linearGradient x1="22.5255245%" y1="93.2958148%" x2="80.4524476%" y2="10.3638558%" id="linearGradient-1">
+        <linearGradient
+          x1="22.5255245%"
+          y1="93.2958148%"
+          x2="80.4524476%"
+          y2="10.3638558%"
+          id="linearGradient-1"
+        >
           <stop stopColor="#FFBF00" offset="0%" />
           <stop stopColor="#FFE859" offset="100%" />
         </linearGradient>
-        <linearGradient x1="62.0164384%" y1="98.1821918%" x2="37.8746575%" y2="1.35479452%" id="linearGradient-2">
+        <linearGradient
+          x1="62.0164384%"
+          y1="98.1821918%"
+          x2="37.8746575%"
+          y2="1.35479452%"
+          id="linearGradient-2"
+        >
           <stop stopColor="#C4D3F3" offset="0%" />
           <stop stopColor="#FFFFFF" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-0.137647059%" y1="49.64875%" x2="100.094118%" y2="49.64875%" id="linearGradient-3">
+        <linearGradient
+          x1="-0.137647059%"
+          y1="49.64875%"
+          x2="100.094118%"
+          y2="49.64875%"
+          id="linearGradient-3"
+        >
           <stop stopColor="#9999C8" offset="0%" />
           <stop stopColor="#BABAD5" offset="41.51%" />
           <stop stopColor="#E6E6E6" offset="100%" />
@@ -32,25 +50,55 @@ export default function BannerImage() {
           <stop stopColor="#BABCD0" offset="41.51%" />
           <stop stopColor="#E6E6E6" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-473.613725%" y1="46.3643579%" x2="572.952941%" y2="53.5947422%" id="linearGradient-5">
+        <linearGradient
+          x1="-473.613725%"
+          y1="46.3643579%"
+          x2="572.952941%"
+          y2="53.5947422%"
+          id="linearGradient-5"
+        >
           <stop stopColor="#9EA6C7" offset="0%" />
           <stop stopColor="#BABFD3" offset="37.69%" />
           <stop stopColor="#E6E6E6" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-0.00824272185%" y1="50.02286%" x2="100.005963%" y2="50.02286%" id="linearGradient-6">
+        <linearGradient
+          x1="-0.00824272185%"
+          y1="50.02286%"
+          x2="100.005963%"
+          y2="50.02286%"
+          id="linearGradient-6"
+        >
           <stop stopColor="#4E4E80" offset="0.1322115%" />
           <stop stopColor="#282154" offset="100%" />
         </linearGradient>
-        <linearGradient x1="34.6973451%" y1="90.6770642%" x2="65.2292035%" y2="8.21834862%" id="linearGradient-7">
+        <linearGradient
+          x1="34.6973451%"
+          y1="90.6770642%"
+          x2="65.2292035%"
+          y2="8.21834862%"
+          id="linearGradient-7"
+        >
           <stop stopColor="#9999C8" offset="0%" />
           <stop stopColor="#C3C3D8" offset="51.54%" />
           <stop stopColor="#E6E6E6" offset="100%" />
         </linearGradient>
-        <linearGradient x1="0%" y1="0%" x2="99.9521741%" y2="99.9521741%" id="linearGradient-8">
+        <linearGradient
+          x1="0%"
+          y1="0%"
+          x2="99.9521741%"
+          y2="99.9521741%"
+          id="linearGradient-8"
+        >
           <stop stopColor="#F9FBFF" offset="0%" />
           <stop stopColor="#DEE7FF" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-11.7875%" y1="44.9375%" x2="99.4625%" y2="43.4875%" id="linearGradient-9">
+        <linearGradient
+          x1="-11.7875%"
+          y1="44.9375%"
+          x2="99.4625%"
+          y2="43.4875%"
+          id="linearGradient-9"
+        >
           <stop stopColor="#CCCCCC" offset="0%" />
           <stop stopColor="#CCCCCD" offset="0.7831617%" />
           <stop stopColor="#D0DBF1" offset="55.73%" />
@@ -68,7 +116,13 @@ export default function BannerImage() {
           <stop stopColor="#DCE7FF" offset="68.18%" />
           <stop stopColor="#D2E0FF" offset="100%" />
         </linearGradient>
-        <linearGradient x1="0.285717069%" y1="33.7243183%" x2="99.6539476%" y2="65.7354398%" id="linearGradient-11">
+        <linearGradient
+          x1="0.285717069%"
+          y1="33.7243183%"
+          x2="99.6539476%"
+          y2="65.7354398%"
+          id="linearGradient-11"
+        >
           <stop stopColor="#FF7D00" offset="0%" />
           <stop stopColor="#FFD405" offset="97.75%" />
           <stop stopColor="#FFD605" offset="100%" />
@@ -85,77 +139,161 @@ export default function BannerImage() {
           <stop stopColor="#FFD104" offset="58.06%" />
           <stop stopColor="#FFD605" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-4.4%" y1="52.6416667%" x2="100.78125%" y2="52.6416667%" id="linearGradient-13">
+        <linearGradient
+          x1="-4.4%"
+          y1="52.6416667%"
+          x2="100.78125%"
+          y2="52.6416667%"
+          id="linearGradient-13"
+        >
           <stop stopColor="#61B6D6" offset="0%" />
           <stop stopColor="#7FBFE7" offset="39.07%" />
           <stop stopColor="#ABCDFF" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-1.425%" y1="51.1833333%" x2="103.75625%" y2="51.1833333%" id="linearGradient-14">
+        <linearGradient
+          x1="-1.425%"
+          y1="51.1833333%"
+          x2="103.75625%"
+          y2="51.1833333%"
+          id="linearGradient-14"
+        >
           <stop stopColor="#61B6D6" offset="0%" />
           <stop stopColor="#7FBFE7" offset="39.07%" />
           <stop stopColor="#ABCDFF" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-4.9625%" y1="53.8333333%" x2="100.2125%" y2="53.8333333%" id="linearGradient-15">
+        <linearGradient
+          x1="-4.9625%"
+          y1="53.8333333%"
+          x2="100.2125%"
+          y2="53.8333333%"
+          id="linearGradient-15"
+        >
           <stop stopColor="#FF7D00" offset="0%" />
           <stop stopColor="#FFD405" offset="97.75%" />
           <stop stopColor="#FFD605" offset="100%" />
         </linearGradient>
-        <linearGradient x1="2.55614328%" y1="65.2827267%" x2="95.753642%" y2="43.8783949%" id="linearGradient-16">
+        <linearGradient
+          x1="2.55614328%"
+          y1="65.2827267%"
+          x2="95.753642%"
+          y2="43.8783949%"
+          id="linearGradient-16"
+        >
           <stop stopColor="#3797D3" offset="0%" />
           <stop stopColor="#3890D7" offset="24.94%" />
           <stop stopColor="#3A7CE0" offset="61.96%" />
           <stop stopColor="#3D60EE" offset="100%" />
         </linearGradient>
-        <linearGradient x1="1.53614528%" y1="50.2684678%" x2="100.199116%" y2="50.2684678%" id="linearGradient-17">
+        <linearGradient
+          x1="1.53614528%"
+          y1="50.2684678%"
+          x2="100.199116%"
+          y2="50.2684678%"
+          id="linearGradient-17"
+        >
           <stop stopColor="#3797D3" offset="0%" />
           <stop stopColor="#3890D7" offset="24.94%" />
           <stop stopColor="#3A7CE0" offset="61.96%" />
           <stop stopColor="#3D60EE" offset="100%" />
         </linearGradient>
-        <linearGradient x1="0.220560748%" y1="49.8263636%" x2="99.964486%" y2="49.8263636%" id="linearGradient-18">
+        <linearGradient
+          x1="0.220560748%"
+          y1="49.8263636%"
+          x2="99.964486%"
+          y2="49.8263636%"
+          id="linearGradient-18"
+        >
           <stop stopColor="#CCCCCC" offset="0%" />
           <stop stopColor="#CCCCCD" offset="0.7831617%" />
           <stop stopColor="#D0DBF1" offset="55.73%" />
           <stop stopColor="#D2E0FF" offset="84.93%" />
         </linearGradient>
-        <linearGradient x1="0.29562397%" y1="48.331452%" x2="99.8329818%" y2="48.331452%" id="linearGradient-19">
+        <linearGradient
+          x1="0.29562397%"
+          y1="48.331452%"
+          x2="99.8329818%"
+          y2="48.331452%"
+          id="linearGradient-19"
+        >
           <stop stopColor="#3797D3" offset="0%" />
           <stop stopColor="#3890D7" offset="24.94%" />
           <stop stopColor="#3A7CE0" offset="61.96%" />
           <stop stopColor="#3D60EE" offset="100%" />
         </linearGradient>
-        <linearGradient x1="0.144989773%" y1="46.4815852%" x2="97.6432331%" y2="75.7900371%" id="linearGradient-20">
+        <linearGradient
+          x1="0.144989773%"
+          y1="46.4815852%"
+          x2="97.6432331%"
+          y2="75.7900371%"
+          id="linearGradient-20"
+        >
           <stop stopColor="#FFFFFF" offset="0%" />
           <stop stopColor="#B2C2E8" offset="100%" />
         </linearGradient>
-        <linearGradient x1="3.56662918%" y1="46.7046363%" x2="101.028414%" y2="52.6454518%" id="linearGradient-21">
+        <linearGradient
+          x1="3.56662918%"
+          y1="46.7046363%"
+          x2="101.028414%"
+          y2="52.6454518%"
+          id="linearGradient-21"
+        >
           <stop stopColor="#C6309A" offset="0%" />
           <stop stopColor="#E14986" offset="38.66%" />
           <stop stopColor="#F45A78" offset="74.74%" />
           <stop stopColor="#FB6073" offset="100%" />
         </linearGradient>
-        <linearGradient x1="-1.7841629%" y1="52.6628267%" x2="100.969295%" y2="46.1231658%" id="linearGradient-22">
+        <linearGradient
+          x1="-1.7841629%"
+          y1="52.6628267%"
+          x2="100.969295%"
+          y2="46.1231658%"
+          id="linearGradient-22"
+        >
           <stop stopColor="#C6309A" offset="0.2323718%" />
           <stop stopColor="#E14986" offset="38.66%" />
           <stop stopColor="#F45A78" offset="74.74%" />
           <stop stopColor="#FB6073" offset="100%" />
         </linearGradient>
-        <linearGradient x1="12.5011055%" y1="96.0141951%" x2="100%" y2="27.3630012%" id="linearGradient-23">
+        <linearGradient
+          x1="12.5011055%"
+          y1="96.0141951%"
+          x2="100%"
+          y2="27.3630012%"
+          id="linearGradient-23"
+        >
           <stop stopColor="#FFD65E" offset="0%" />
           <stop stopColor="#FFFFFF" offset="100%" />
         </linearGradient>
-        <linearGradient x1="121.812143%" y1="55.0459016%" x2="16.39%" y2="46.3114754%" id="linearGradient-24">
+        <linearGradient
+          x1="121.812143%"
+          y1="55.0459016%"
+          x2="16.39%"
+          y2="46.3114754%"
+          id="linearGradient-24"
+        >
           <stop stopColor="#C6309A" offset="0.2323718%" />
           <stop stopColor="#E14986" offset="38.66%" />
           <stop stopColor="#F45A78" offset="74.74%" />
           <stop stopColor="#FB6073" offset="100%" />
         </linearGradient>
-        <linearGradient x1="37.3210869%" y1="105.346241%" x2="60.5882738%" y2="13.0195882%" id="linearGradient-25">
+        <linearGradient
+          x1="37.3210869%"
+          y1="105.346241%"
+          x2="60.5882738%"
+          y2="13.0195882%"
+          id="linearGradient-25"
+        >
           <stop stopColor="#C4D3F3" offset="0%" />
           <stop stopColor="#FFFFFF" offset="100%" />
         </linearGradient>
       </defs>
-      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g
+        id="Page-1"
+        stroke="none"
+        strokeWidth="1"
+        fill="none"
+        fillRule="evenodd"
+      >
         <TweenOne
           id="Group-61"
           transform="translate(19.000000, 265.000000)"
@@ -194,7 +332,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 200, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 200,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(41, 290)">
@@ -216,7 +358,14 @@ export default function BannerImage() {
               fillRule="nonzero"
               points="64.8828288 44.325125 41.2074724 56.8065418 22.9128788 40.1945842 46.5882352 27.7131675"
             />
-            <ellipse id="Oval-5" fill="#8CD6AC" cx="22.6968766" cy="30.6773688" rx="9.746119" ry="2.86775183" />
+            <ellipse
+              id="Oval-5"
+              fill="#8CD6AC"
+              cx="22.6968766"
+              cy="30.6773688"
+              rx="9.746119"
+              ry="2.86775183"
+            />
             <path
               d="M35.610424,18.2289515 C35.610424,25.3227063 29.8709437,31.0695457 22.7862726,31.0695457 C15.7016016,31.0695457 9.96212121,25.3227063 9.96212121,18.2289515 C9.96212121,8.80054313 15.7016016,0.000695335239 22.7862726,0.000695335239 C29.1535086,-0.08909903 35.610424,8.53116003 35.610424,18.2289515 Z"
               id="Shape"
@@ -231,11 +380,22 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 600, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 600,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(143.000000, 219.000000)">
-            <ellipse id="Oval" fill="#4BAA8A" cx="14.4945179" cy="73.3931036" rx="13.860018" ry="5.33763094" />
+            <ellipse
+              id="Oval"
+              fill="#4BAA8A"
+              cx="14.4945179"
+              cy="73.3931036"
+              rx="13.860018"
+              ry="5.33763094"
+            />
             <path
               d="M21.5113875,45.9852607 C23.7700571,59.8425718 24.2833911,66.4119638 22.2300551,70.415187 C19.9713855,74.6237037 12.8873763,76.1634049 8.57537068,73.6998829 C1.38869467,69.594013 4.36603188,64.4616755 6.21403428,44.7534998 C8.06203668,25.455911 6.11136748,-3.28517873 14.2220447,1.12863147 C18.9447175,3.69480019 18.3287167,26.3797317 21.5113875,45.9852607 Z"
               id="Shape"
@@ -254,11 +414,22 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 500, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 500,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(127.000000, 227.000000)">
-            <ellipse id="Oval" fill="#4BAA8A" cx="14.8783819" cy="70.8028922" rx="13.9626848" ry="5.13233744" />
+            <ellipse
+              id="Oval"
+              fill="#4BAA8A"
+              cx="14.8783819"
+              cy="70.8028922"
+              rx="13.9626848"
+              ry="5.13233744"
+            />
             <path
               d="M21.7925847,45.8463756 C24.0512543,59.7036867 24.5645883,66.2730786 22.5112523,70.2763019 C20.2525827,74.4848186 13.1685735,76.0245198 8.8565679,73.5609978 C1.6698919,69.4551279 4.6472291,64.3227904 6.4952315,44.6146146 C8.3432339,25.3170258 6.3925647,-3.42406385 14.5032419,0.989746349 C19.2259147,3.55591507 18.6099139,26.2408466 21.7925847,45.8463756 Z"
               id="Shape"
@@ -277,11 +448,22 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 400, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 400,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(113.000000, 234.000000)">
-            <ellipse id="Oval" fill="#4BAA8A" cx="14.2823508" cy="71.6640071" rx="13.9626848" ry="5.13233744" />
+            <ellipse
+              id="Oval"
+              fill="#4BAA8A"
+              cx="14.2823508"
+              cy="71.6640071"
+              rx="13.9626848"
+              ry="5.13233744"
+            />
             <path
               d="M18.9510103,45.5844741 C21.2096799,59.4417852 21.7230139,66.0111771 19.6696779,70.0144003 C17.4110083,74.222917 10.3269991,75.7626183 6.0149935,73.2990963 C-1.17168251,69.1932263 1.8056547,64.0608889 3.6536571,44.3527131 C5.5016595,25.0551243 3.5509903,-3.68596539 11.6616675,0.727844816 C16.2816735,3.29401354 15.6656727,25.978945 18.9510103,45.5844741 Z"
               id="Shape"
@@ -300,11 +482,22 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 300, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 300,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(95.000000, 241.000000)">
-            <ellipse id="Oval" fill="#4BAA8A" cx="17.7824233" cy="71.7039479" rx="12.9360168" ry="4.31116345" />
+            <ellipse
+              id="Oval"
+              fill="#4BAA8A"
+              cx="17.7824233"
+              cy="71.7039479"
+              rx="12.9360168"
+              ry="4.31116345"
+            />
             <path
               d="M18.9866643,45.3225726 C21.2453339,59.1798837 21.7586679,65.7492756 19.7053319,69.7524988 C17.4466623,73.9610155 10.3626531,75.5007167 6.05064747,73.0371948 C-1.13602854,68.9313248 1.84130866,63.7989874 3.68931107,44.0908116 C5.53731347,24.7932228 3.58664427,-3.94786692 11.6973215,0.465943284 C16.3173275,3.03211201 15.7013267,25.7170435 18.9866643,45.3225726 Z"
               id="Shape"
@@ -329,10 +522,18 @@ export default function BannerImage() {
           style={{ transformOrigin: '50% 50%' }}
           animation={[
             {
-              opacity: 0, scale: 0, type: 'from', delay: 900, ease: 'easeOutBack',
+              opacity: 0,
+              scale: 0,
+              type: 'from',
+              delay: 900,
+              ease: 'easeOutBack',
             },
             {
-              y: -15, yoyo: true, repeat: -1, duration: 3400, ease: 'easeInOutQuad',
+              y: -15,
+              yoyo: true,
+              repeat: -1,
+              duration: 3400,
+              ease: 'easeInOutQuad',
             },
           ]}
         />
@@ -348,10 +549,18 @@ export default function BannerImage() {
           style={{ transformOrigin: '50% 50%' }}
           animation={[
             {
-              opacity: 0, scale: 0, type: 'from', delay: 1000, ease: 'easeOutBack',
+              opacity: 0,
+              scale: 0,
+              type: 'from',
+              delay: 1000,
+              ease: 'easeOutBack',
             },
             {
-              y: 15, yoyo: true, repeat: -1, duration: 3700, ease: 'easeInOutQuad',
+              y: 15,
+              yoyo: true,
+              repeat: -1,
+              duration: 3700,
+              ease: 'easeInOutQuad',
             },
           ]}
         />
@@ -367,10 +576,18 @@ export default function BannerImage() {
           style={{ transformOrigin: '50% 50%' }}
           animation={[
             {
-              opacity: 0, scale: 0, type: 'from', delay: 800, ease: 'easeOutBack',
+              opacity: 0,
+              scale: 0,
+              type: 'from',
+              delay: 800,
+              ease: 'easeOutBack',
             },
             {
-              y: 15, yoyo: true, repeat: -1, duration: 3300, ease: 'easeInOutQuad',
+              y: 15,
+              yoyo: true,
+              repeat: -1,
+              duration: 3300,
+              ease: 'easeInOutQuad',
             },
           ]}
         />
@@ -534,7 +751,14 @@ export default function BannerImage() {
                   id="Shape"
                   fill="#FF968F"
                 />
-                <ellipse id="Oval" fill="#FF968F" cx="31.5253649" cy="51.4754194" rx="2.79750683" ry="3.29190204" />
+                <ellipse
+                  id="Oval"
+                  fill="#FF968F"
+                  cx="31.5253649"
+                  cy="51.4754194"
+                  rx="2.79750683"
+                  ry="3.29190204"
+                />
                 <path
                   d="M20.1707784,55.0142141 C20.3353376,57.236248 18.9365842,59.2113892 17.1264327,59.2936868 C15.2340016,59.4582819 13.5884093,57.7300333 13.3415705,55.5079994 C13.1770113,53.2859656 14.5757647,51.3108243 16.3859162,51.2285268 C18.3606269,51.0639317 20.0062191,52.7921803 20.1707784,55.0142141 Z"
                   id="Shape"
@@ -588,7 +812,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 400, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 400,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(370.000000, 285.000000)">
@@ -690,7 +918,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 300, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 300,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(404.000000, 298.000000)">
@@ -735,12 +967,21 @@ export default function BannerImage() {
           fillRule="nonzero"
           component="g"
           style={{ transformOrigin: '50% 100%' }}
-          animation={[{
-            opacity: 0, y: '-=10', type: 'from', delay: 1000,
-          },
-          {
-            y: -15, yoyo: true, repeat: -1, duration: 1000, ease: 'easeInOutQuad',
-          }]}
+          animation={[
+            {
+              opacity: 0,
+              y: '-=10',
+              type: 'from',
+              delay: 1000,
+            },
+            {
+              y: -15,
+              yoyo: true,
+              repeat: -1,
+              duration: 1000,
+              ease: 'easeInOutQuad',
+            },
+          ]}
         >
           <g transform="translate(445.660068, 209.567340)">
             <polygon
@@ -783,51 +1024,43 @@ export default function BannerImage() {
               fill="#F39A18"
               points="36.7547144 35.7210686 36.7547144 31.5125519 31.6213744 29.9728507 28.9520376 29.1516767 28.9520376 50.707494 28.9520376 50.707494 28.9520376 50.8101407 36.7547144 53.0683692 36.7547144 48.8598525 32.1347084 47.5254447 32.1347084 34.3866609"
             />
-            <g transform="translate(27.720036, 28.741090)" id="Shape" fill="#FFFFFF">
-              <polygon
-                points="3.2853376 23.5061055 0.1026668 22.479638 0.1026668 0.92382074 3.2853376 1.95028823"
-              />
-              <polygon
-                points="7.80267681 7.49321267 0.1026668 5.23498419 0.1026668 1.02646749 7.80267681 3.28469596"
-              />
-              <polygon
-                points="7.80267681 24.8405132 0.1026668 22.5822848 0.1026668 18.3737681 7.80267681 20.6319965"
-              />
+            <g
+              transform="translate(27.720036, 28.741090)"
+              id="Shape"
+              fill="#FFFFFF"
+            >
+              <polygon points="3.2853376 23.5061055 0.1026668 22.479638 0.1026668 0.92382074 3.2853376 1.95028823" />
+              <polygon points="7.80267681 7.49321267 0.1026668 5.23498419 0.1026668 1.02646749 7.80267681 3.28469596" />
+              <polygon points="7.80267681 24.8405132 0.1026668 22.5822848 0.1026668 18.3737681 7.80267681 20.6319965" />
             </g>
             <polygon
               id="Shape"
               fill="#F39A18"
               points="49.1773973 39.0057646 49.1773973 34.8998946 42.2987217 32.9496064 42.2987217 32.9496064 39.013384 31.9231389 39.013384 53.4789562 39.1160508 53.4789562 39.1160508 53.4789562 49.1773973 56.5583586 49.1773973 52.3498419 42.2987217 50.296907 42.2987217 46.0883903 49.1773973 47.9360317 49.1773973 43.727515 42.2987217 41.8798736 42.2987217 37.1581231"
             />
-            <g transform="translate(37.986716, 32.846960)" id="Shape" fill="#FFFFFF">
-              <polygon
-                points="8.82934481 6.87733218 2.053336 4.92704395 2.053336 0.718527242 8.82934481 2.66881547"
-              />
-              <polygon
-                points="8.82934481 15.7049526 2.053336 13.7546644 2.053336 9.6487944 8.82934481 11.4964359"
-              />
-              <polygon
-                points="8.82934481 24.3272795 0.2053336 21.658464 0.2053336 17.4499473 8.82934481 20.2214095"
-              />
-              <polygon
-                points="3.3880044 22.5822848 0.2053336 21.5558173 0.2053336 0.102646749 3.3880044 1.12911424"
-              />
+            <g
+              transform="translate(37.986716, 32.846960)"
+              id="Shape"
+              fill="#FFFFFF"
+            >
+              <polygon points="8.82934481 6.87733218 2.053336 4.92704395 2.053336 0.718527242 8.82934481 2.66881547" />
+              <polygon points="8.82934481 15.7049526 2.053336 13.7546644 2.053336 9.6487944 8.82934481 11.4964359" />
+              <polygon points="8.82934481 24.3272795 0.2053336 21.658464 0.2053336 17.4499473 8.82934481 20.2214095" />
+              <polygon points="3.3880044 22.5822848 0.2053336 21.5558173 0.2053336 0.102646749 3.3880044 1.12911424" />
             </g>
             <polygon
               id="Shape"
               fill="#F39A18"
               points="16.1186876 25.5590405 16.1186876 38.6978243 11.1906812 24.2246327 7.90534361 23.1981653 7.90534361 44.7539825 11.1906812 45.78045 11.1906812 32.6416662 16.1186876 47.1148577 19.4040252 48.1413252 19.4040252 26.585508"
             />
-            <g transform="translate(6.160008, 23.608752)" id="Shape" fill="#FFFFFF">
-              <polygon
-                points="3.9013384 22.6849315 0.718667601 21.658464 0.718667601 0.102646749 3.9013384 1.12911424"
-              />
-              <polygon
-                points="12.1146824 25.0458067 8.93201161 24.0193392 8.93201161 2.46352197 12.1146824 3.48998946"
-              />
-              <polygon
-                points="12.1146824 25.0458067 8.93201161 24.0193392 0.718667601 0.102646749 3.9013384 1.12911424"
-              />
+            <g
+              transform="translate(6.160008, 23.608752)"
+              id="Shape"
+              fill="#FFFFFF"
+            >
+              <polygon points="3.9013384 22.6849315 0.718667601 21.658464 0.718667601 0.102646749 3.9013384 1.12911424" />
+              <polygon points="12.1146824 25.0458067 8.93201161 24.0193392 8.93201161 2.46352197 12.1146824 3.48998946" />
+              <polygon points="12.1146824 25.0458067 8.93201161 24.0193392 0.718667601 0.102646749 3.9013384 1.12911424" />
             </g>
           </g>
         </TweenOne>
@@ -837,7 +1070,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 800, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 800,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(231.000000, 281.000000)">
@@ -994,7 +1231,12 @@ export default function BannerImage() {
               <TweenOne
                 component="polygon"
                 animation={{
-                  opacity: 0, type: 'from', repeat: -1, yoyo: true, delay: 400, duration: 800,
+                  opacity: 0,
+                  type: 'from',
+                  repeat: -1,
+                  yoyo: true,
+                  delay: 400,
+                  duration: 800,
                 }}
                 id="Rectangle-43"
                 points="27.7239081 3.89641362 33.3157796 0.0527744007 36.8472338 2.41925167 31.190919 6.2381809"
@@ -1002,7 +1244,12 @@ export default function BannerImage() {
               <TweenOne
                 component="polygon"
                 animation={{
-                  opacity: 0, type: 'from', repeat: -1, yoyo: true, delay: 1100, duration: 800,
+                  opacity: 0,
+                  type: 'from',
+                  repeat: -1,
+                  yoyo: true,
+                  delay: 1100,
+                  duration: 800,
                 }}
                 id="Rectangle-45"
                 points="18.6936631 21 23.1998453 17.941457 25.8887254 20.483261 21.9111647 23.1321668"
@@ -1010,7 +1257,12 @@ export default function BannerImage() {
               <TweenOne
                 component="polygon"
                 animation={{
-                  opacity: 0, type: 'from', repeat: -1, yoyo: true, delay: 1000, duration: 800,
+                  opacity: 0,
+                  type: 'from',
+                  repeat: -1,
+                  yoyo: true,
+                  delay: 1000,
+                  duration: 800,
                 }}
                 id="Rectangle-41"
                 points="10.5948338 15.6371791 16.2197739 11.7722831 19.5187137 14.0170696 13.8671193 17.8364597"
@@ -1018,7 +1270,12 @@ export default function BannerImage() {
               <TweenOne
                 component="polygon"
                 animation={{
-                  opacity: 0, type: 'from', repeat: -1, yoyo: true, delay: 500, duration: 800,
+                  opacity: 0,
+                  type: 'from',
+                  repeat: -1,
+                  yoyo: true,
+                  delay: 500,
+                  duration: 800,
                 }}
                 id="Rectangle-44"
                 points="0.608657837 17.3905029 6.4495697 13.4798279 9.58482361 15.5756531 3.82894897 19.5377502"
@@ -1026,7 +1283,12 @@ export default function BannerImage() {
               <TweenOne
                 component="polygon"
                 animation={{
-                  opacity: 0, type: 'from', repeat: -1, yoyo: true, delay: 1200, duration: 800,
+                  opacity: 0,
+                  type: 'from',
+                  repeat: -1,
+                  yoyo: true,
+                  delay: 1200,
+                  duration: 800,
                 }}
                 id="Rectangle-41-Copy"
                 points="18.8792877 5.13990784 23.8127438 1.83683957 26.7573137 3.84766463 21.9604622 7.28170546"
@@ -1034,7 +1296,12 @@ export default function BannerImage() {
               <TweenOne
                 component="polygon"
                 animation={{
-                  opacity: 0, type: 'from', repeat: -1, yoyo: true, delay: 300, duration: 800,
+                  opacity: 0,
+                  type: 'from',
+                  repeat: -1,
+                  yoyo: true,
+                  delay: 300,
+                  duration: 800,
                 }}
                 id="Rectangle-41-Copy-2"
                 points="26.4002395 10.1861682 31.3061675 6.91095734 34.7951938 9.22241425 29.9359283 12.578476"
@@ -1057,7 +1324,11 @@ export default function BannerImage() {
                   id="Shape"
                   fill="url(#linearGradient-11)"
                 />
-                <g transform="translate(8.982173, 1.123016)" id="Shape" fill="#FFFFFF">
+                <g
+                  transform="translate(8.982173, 1.123016)"
+                  id="Shape"
+                  fill="#FFFFFF"
+                >
                   <polygon points="6.95087053 0.839467471 8.28553893 2.27652196 0.380195319 4.53475043" />
                   <polygon points="8.38820573 3.81622319 8.90153973 4.63739718 0.380195319 4.53475043" />
                   <polygon points="8.28553893 8.12738664 8.18287213 8.94856063 0.380195319 4.02151669" />
@@ -1078,9 +1349,30 @@ export default function BannerImage() {
                 fill="#DCE4EA"
                 points="31.2094311 12.2002249 20.0187499 19.3854973 19.4027491 18.9749103 30.5934303 11.7896379"
               />
-              <ellipse id="Oval" fill="url(#linearGradient-13)" cx="3.38250911" cy="11.282502" rx="1" ry="1" />
-              <ellipse id="Oval" fill="url(#linearGradient-14)" cx="5.62805236" cy="10.1594855" rx="1" ry="1" />
-              <ellipse id="Oval" fill="url(#linearGradient-15)" cx="16.8557686" cy="3.42138707" rx="1" ry="1" />
+              <ellipse
+                id="Oval"
+                fill="url(#linearGradient-13)"
+                cx="3.38250911"
+                cy="11.282502"
+                rx="1"
+                ry="1"
+              />
+              <ellipse
+                id="Oval"
+                fill="url(#linearGradient-14)"
+                cx="5.62805236"
+                cy="10.1594855"
+                rx="1"
+                ry="1"
+              />
+              <ellipse
+                id="Oval"
+                fill="url(#linearGradient-15)"
+                cx="16.8557686"
+                cy="3.42138707"
+                rx="1"
+                ry="1"
+              />
             </g>
           </g>
         </TweenOne>
@@ -1090,7 +1382,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 800, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 800,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(278.000000, 324.000000)">
@@ -1140,7 +1436,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 900, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 900,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(449.000000, 308.000000)">
@@ -1270,12 +1570,30 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '0% 50%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 400, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 400,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(306.000000, 346.000000)">
-            <ellipse id="Oval" fill="#529E88" cx="8.23906262" cy="63.3799082" rx="7.80267681" ry="3.28469596" />
-            <ellipse id="Oval" fill="#3E6C5D" cx="8.23249945" cy="63.4764571" rx="6.67334201" ry="2.25822848" />
+            <ellipse
+              id="Oval"
+              fill="#529E88"
+              cx="8.23906262"
+              cy="63.3799082"
+              rx="7.80267681"
+              ry="3.28469596"
+            />
+            <ellipse
+              id="Oval"
+              fill="#3E6C5D"
+              cx="8.23249945"
+              cy="63.4764571"
+              rx="6.67334201"
+              ry="2.25822848"
+            />
             <g id="Group" transform="translate(30.751220, 0.575342)">
               <polygon
                 id="Shape"
@@ -1302,49 +1620,25 @@ export default function BannerImage() {
                 fill="#FFFFFF"
                 points="47.7400621 65.8992128 43.8387237 68.3627348 43.8387237 64.0515713 47.7400621 61.4854026"
               />
-              <g transform="translate(19.506692, 31.820492)" id="Shape" fill="#FFFFFF">
-                <polygon
-                  points="39.526718 13.6520176 35.93338 15.9102461 35.93338 6.46674518 39.526718 4.10586996"
-                />
-                <polygon
-                  points="3.9013384 49.6810265 0.3080004 52.0419017 0.2053336 28.9463832 3.7986716 26.6881547"
-                />
-                <polygon
-                  points="12.5253496 44.3433955 8.93201161 46.601624 8.93201161 23.6087522 12.5253496 21.247877"
-                />
-                <polygon
-                  points="44.5573913 5.23498419 40.040052 8.21173991 40.040052 3.90057646 44.5573913 0.821173991"
-                />
-                <polygon
-                  points="8.31601081 28.2278559 4.41467241 30.7940247 4.41467241 26.3802145 8.31601081 23.8140457"
-                />
-                <polygon
-                  points="8.31601081 46.9095642 4.41467241 49.475733 4.41467241 45.1645695 8.31601081 42.5984008"
-                />
-                <polygon
-                  points="23.8186976 36.7475361 20.2253596 39.1084113 20.1226928 16.1155396 23.7160308 13.7546644"
-                />
-                <polygon
-                  points="32.4427088 31.4099052 28.8493708 33.6681336 28.8493708 10.6752619 32.4427088 8.41703341"
-                />
-                <polygon
-                  points="28.23337 15.2943656 24.3320316 17.8605343 24.3320316 13.4467241 28.23337 10.9832021"
-                />
-                <polygon
-                  points="17.6586896 27.6119755 15.7080204 28.9463832 15.7080204 24.532573 17.6586896 23.1981653"
-                />
-                <polygon
-                  points="17.6586896 39.7242918 15.7080204 41.0586996 15.7080204 36.7475361 17.6586896 35.4131284"
-                />
-                <polygon
-                  points="40.3480524 26.0722742 36.0360468 28.9463832 35.93338 24.6352197 40.2453856 21.7611108"
-                />
-                <polygon
-                  points="44.6600581 23.6087522 41.0667201 25.8669807 41.0667201 17.9631811 44.6600581 15.6023058"
-                />
-                <polygon
-                  points="44.4547245 14.8837786 35.93338 20.6319965 35.93338 16.9367136 44.4547245 11.1884956"
-                />
+              <g
+                transform="translate(19.506692, 31.820492)"
+                id="Shape"
+                fill="#FFFFFF"
+              >
+                <polygon points="39.526718 13.6520176 35.93338 15.9102461 35.93338 6.46674518 39.526718 4.10586996" />
+                <polygon points="3.9013384 49.6810265 0.3080004 52.0419017 0.2053336 28.9463832 3.7986716 26.6881547" />
+                <polygon points="12.5253496 44.3433955 8.93201161 46.601624 8.93201161 23.6087522 12.5253496 21.247877" />
+                <polygon points="44.5573913 5.23498419 40.040052 8.21173991 40.040052 3.90057646 44.5573913 0.821173991" />
+                <polygon points="8.31601081 28.2278559 4.41467241 30.7940247 4.41467241 26.3802145 8.31601081 23.8140457" />
+                <polygon points="8.31601081 46.9095642 4.41467241 49.475733 4.41467241 45.1645695 8.31601081 42.5984008" />
+                <polygon points="23.8186976 36.7475361 20.2253596 39.1084113 20.1226928 16.1155396 23.7160308 13.7546644" />
+                <polygon points="32.4427088 31.4099052 28.8493708 33.6681336 28.8493708 10.6752619 32.4427088 8.41703341" />
+                <polygon points="28.23337 15.2943656 24.3320316 17.8605343 24.3320316 13.4467241 28.23337 10.9832021" />
+                <polygon points="17.6586896 27.6119755 15.7080204 28.9463832 15.7080204 24.532573 17.6586896 23.1981653" />
+                <polygon points="17.6586896 39.7242918 15.7080204 41.0586996 15.7080204 36.7475361 17.6586896 35.4131284" />
+                <polygon points="40.3480524 26.0722742 36.0360468 28.9463832 35.93338 24.6352197 40.2453856 21.7611108" />
+                <polygon points="44.6600581 23.6087522 41.0667201 25.8669807 41.0667201 17.9631811 44.6600581 15.6023058" />
+                <polygon points="44.4547245 14.8837786 35.93338 20.6319965 35.93338 16.9367136 44.4547245 11.1884956" />
               </g>
               <ellipse
                 id="Oval"
@@ -1397,7 +1691,14 @@ export default function BannerImage() {
                 fill="#FFBF00"
               />
             </g>
-            <ellipse id="Oval" fill="#FFFFFF" cx="32.9137857" cy="79.4161761" rx="3.2853376" ry="4.72175045" />
+            <ellipse
+              id="Oval"
+              fill="#FFFFFF"
+              cx="32.9137857"
+              cy="79.4161761"
+              rx="3.2853376"
+              ry="4.72175045"
+            />
             <g id="Group" transform="translate(4.927472, 52.234097)">
               <path
                 d="M6.57067521,10.8805554 C6.57067521,6.15880493 9.13734521,6.56939193 9.13734521,6.56939193 C13.4493508,6.56939193 11.7040152,14.5758383 13.0386836,24.532573 C14.2706852,33.2575466 27.6173692,30.1781442 27.6173692,30.1781442 C27.6173692,30.1781442 29.260038,29.3569702 29.1573712,27.2013885 C28.9520376,23.5061055 26.5907012,24.2246327 26.5907012,24.2246327 C24.126698,24.7378665 21.560028,25.1484535 20.4306932,23.4034587 C18.5826908,20.6319965 19.4040252,13.5493709 18.5826908,8.82762041 C17.1453556,0.410586996 10.8826808,-1.02646749 5.64667401,0.821173991 C-0.2053336,2.77146222 0.410667201,10.4699684 0.410667201,10.4699684 C0.410667201,10.4699684 0.1026668,11.9070229 4.0040052,11.9070229 C6.87867561,12.1123164 6.57067521,10.8805554 6.57067521,10.8805554 Z"
@@ -1464,10 +1765,18 @@ export default function BannerImage() {
           style={{ transformOrigin: '50% 50%' }}
           animation={[
             {
-              opacity: 0, scale: 0, type: 'from', delay: 800, ease: 'easeOutBack',
+              opacity: 0,
+              scale: 0,
+              type: 'from',
+              delay: 800,
+              ease: 'easeOutBack',
             },
             {
-              y: 15, yoyo: true, repeat: -1, duration: 3500, ease: 'easeInOutQuad',
+              y: 15,
+              yoyo: true,
+              repeat: -1,
+              duration: 3500,
+              ease: 'easeInOutQuad',
             },
           ]}
         >
@@ -1491,10 +1800,18 @@ export default function BannerImage() {
           style={{ transformOrigin: '50% 50%' }}
           animation={[
             {
-              opacity: 0, scale: 0, type: 'from', delay: 1200, ease: 'easeOutBack',
+              opacity: 0,
+              scale: 0,
+              type: 'from',
+              delay: 1200,
+              ease: 'easeOutBack',
             },
             {
-              y: -15, yoyo: true, repeat: -1, duration: 4000, ease: 'easeInOutQuad',
+              y: -15,
+              yoyo: true,
+              repeat: -1,
+              duration: 4000,
+              ease: 'easeInOutQuad',
             },
           ]}
         >
@@ -1517,7 +1834,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 600, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 600,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(301.723213, 207.321307)">
@@ -1527,7 +1848,6 @@ export default function BannerImage() {
               fill="#4BAA8A"
             />
             <g>
-
               <path
                 d="M42.4247047,26.585508 C42.4247047,26.585508 49.3033803,37.2607699 48.2767123,41.3666398 C47.2500443,45.4725098 40.3713687,51.118081 40.3713687,51.118081 L37.2913647,48.7572057 C37.2913647,48.7572057 43.8620399,42.1878138 43.3487059,39.4163516 C42.8353719,36.6448894 38.7286999,30.1781442 38.7286999,30.1781442 C38.7286999,30.1781442 39.0367003,25.764334 42.4247047,26.585508 Z"
                 id="Shape"
@@ -1539,7 +1859,8 @@ export default function BannerImage() {
                 id="Shape"
                 fill="#F9D5A5"
                 animation={{
-                  d: 'M26.0473475,23.532573 C26.0473475,23.532573 20.2767874,30.8702039 16.2458897,30.8702039 C11.2767874,30.8702039 6.79932508,29.2711213 6.79932508,29.2711213 L5.02732147,32.7081758 C5.02732147,32.7081758 12.335447,36.4998665 17.7767874,35.6786925 C23.3207946,34.7548718 28.1006835,29.8702039 28.1006835,29.8702039 C28.1006835,29.8702039 29.7433523,24.9696275 26.0473475,23.532573 Z',
+                  d:
+                    'M26.0473475,23.532573 C26.0473475,23.532573 20.2767874,30.8702039 16.2458897,30.8702039 C11.2767874,30.8702039 6.79932508,29.2711213 6.79932508,29.2711213 L5.02732147,32.7081758 C5.02732147,32.7081758 12.335447,36.4998665 17.7767874,35.6786925 C23.3207946,34.7548718 28.1006835,29.8702039 28.1006835,29.8702039 C28.1006835,29.8702039 29.7433523,24.9696275 26.0473475,23.532573 Z',
                   yoyo: true,
                   repeat: -1,
                   style: { x: -2 },
@@ -1648,7 +1969,12 @@ export default function BannerImage() {
                 id="Group-62"
                 style={{ transformOrigin: '50%' }}
                 animation={{
-                  x: -2, y: 11, rotate: -15, yoyo: true, repeat: -1, duration: 1000,
+                  x: -2,
+                  y: 11,
+                  rotate: -15,
+                  yoyo: true,
+                  repeat: -1,
+                  duration: 1000,
                 }}
                 component="g"
               >
@@ -1680,7 +2006,11 @@ export default function BannerImage() {
           animation={[
             { opacity: 0, type: 'from', delay: 900 },
             {
-              y: 10, yoyo: true, repeat: -1, duration: 4000, ease: 'easeInOutQuad',
+              y: 10,
+              yoyo: true,
+              repeat: -1,
+              duration: 4000,
+              ease: 'easeInOutQuad',
             },
           ]}
         >
@@ -1689,11 +2019,13 @@ export default function BannerImage() {
               id="Shape"
               component="polygon"
               style={{ transformOrigin: '50% 50%' }}
-              animation={
-                {
-                  opacity: 0, yoyo: true, repeat: -1, duration: 300, ease: 'easeInOutQuad',
-                }
-              }
+              animation={{
+                opacity: 0,
+                yoyo: true,
+                repeat: -1,
+                duration: 300,
+                ease: 'easeInOutQuad',
+              }}
               fill="url(#linearGradient-23)"
               opacity="0.5"
               points="122.212227 175.502316 176.830965 138.754779 177.036299 11.2675173 122.828228 0.900195695 73.8561644 135.778024 73.8561644 166.674695"
@@ -1803,7 +2135,10 @@ export default function BannerImage() {
                 fill="#E5A383"
                 component="path"
                 animation={{
-                  x: 2, y: 4, yoyo: true, repeat: -1,
+                  x: 2,
+                  y: 4,
+                  yoyo: true,
+                  repeat: -1,
                 }}
               />
               <TweenOne
@@ -1813,7 +2148,8 @@ export default function BannerImage() {
                 component="path"
                 attr="attr"
                 animation={{
-                  d: 'M67.4176959,24.0460295 C64.4603828,24.0460295 62.3208254,24.3928472 57.4556309,23.8148176 L57.5714688,34.5661673 C57.5714688,34.5661673 60.467418,37.3407092 56.992279,40.3464629 C48.3044316,43.6990343 44.4817787,41.7337338 42.8600472,39.9996451 C42.0491815,39.1904038 41.8175055,38.4967683 41.8175055,38.4967683 C41.8175055,38.4967683 40.195774,27.6298127 40.195774,25.5489063 C40.195774,25.5489063 36.720635,29.3639013 36.3731211,30.7511723 C38.5740425,32.6008669 40.5432879,33.4101082 40.5432879,33.4101082 L39.1532323,37.571921 C39.1532323,37.571921 29.0753293,34.3349555 30.6970608,29.5951132 C30.6970608,29.5951132 34.4038757,23.5836058 38.8057184,18.9593694 C39.9640981,17.8033103 41.2383157,16.6472512 42.6283713,15.9536157 C44.4817787,14.9131625 53.632978,14.1039211 57.9189827,15.9536157 C62.2049874,17.8033103 63.9425569,17.9189162 66.954344,18.150128 L78.6847331,15.4854384 C78.6847331,15.4854384 81.5806822,17.1039211 81.0014924,19.3004334 C77.2946775,22.1905812 69.6678082,24.0460295 67.4176959,24.0460295 Z',
+                  d:
+                    'M67.4176959,24.0460295 C64.4603828,24.0460295 62.3208254,24.3928472 57.4556309,23.8148176 L57.5714688,34.5661673 C57.5714688,34.5661673 60.467418,37.3407092 56.992279,40.3464629 C48.3044316,43.6990343 44.4817787,41.7337338 42.8600472,39.9996451 C42.0491815,39.1904038 41.8175055,38.4967683 41.8175055,38.4967683 C41.8175055,38.4967683 40.195774,27.6298127 40.195774,25.5489063 C40.195774,25.5489063 36.720635,29.3639013 36.3731211,30.7511723 C38.5740425,32.6008669 40.5432879,33.4101082 40.5432879,33.4101082 L39.1532323,37.571921 C39.1532323,37.571921 29.0753293,34.3349555 30.6970608,29.5951132 C30.6970608,29.5951132 34.4038757,23.5836058 38.8057184,18.9593694 C39.9640981,17.8033103 41.2383157,16.6472512 42.6283713,15.9536157 C44.4817787,14.9131625 53.632978,14.1039211 57.9189827,15.9536157 C62.2049874,17.8033103 63.9425569,17.9189162 66.954344,18.150128 L78.6847331,15.4854384 C78.6847331,15.4854384 81.5806822,17.1039211 81.0014924,19.3004334 C77.2946775,22.1905812 69.6678082,24.0460295 67.4176959,24.0460295 Z',
                   yoyo: true,
                   repeat: -1,
                 }}
@@ -1930,7 +2266,14 @@ export default function BannerImage() {
                 id="Shape"
                 fill="#69C6B3"
               />
-              <ellipse id="Oval" fill="#FFF4D4" cx="37.473382" cy="30.1781442" rx="5.33867361" ry="7.39056592" />
+              <ellipse
+                id="Oval"
+                fill="#FFF4D4"
+                cx="37.473382"
+                cy="30.1781442"
+                rx="5.33867361"
+                ry="7.39056592"
+              />
             </g>
           </g>
         </TweenOne>
@@ -1939,12 +2282,21 @@ export default function BannerImage() {
           fillRule="nonzero"
           component="g"
           style={{ transformOrigin: '50% 50%' }}
-          animation={[{
-            opacity: 0, scale: 0, type: 'from', delay: 700, ease: 'easeOutBack',
-          },
-          {
-            rotate: 5, yoyo: true, repeat: -1, duration: 2000, ease: 'easeInOutSine',
-          },
+          animation={[
+            {
+              opacity: 0,
+              scale: 0,
+              type: 'from',
+              delay: 700,
+              ease: 'easeOutBack',
+            },
+            {
+              rotate: 5,
+              yoyo: true,
+              repeat: -1,
+              duration: 2000,
+              ease: 'easeInOutSine',
+            },
           ]}
         >
           <g transform="translate(170.581019, 233.150685)">
@@ -2058,12 +2410,30 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 350, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 350,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(347.000000, 312.000000)">
-            <ellipse id="Oval" fill="#529E88" cx="12.3749508" cy="39.5023864" rx="11.3960148" ry="4.92704395" />
-            <ellipse id="Oval" fill="#3E6C5D" cx="12.3618245" cy="41.2290877" rx="9.13734521" ry="3.28469596" />
+            <ellipse
+              id="Oval"
+              fill="#529E88"
+              cx="12.3749508"
+              cy="39.5023864"
+              rx="11.3960148"
+              ry="4.92704395"
+            />
+            <ellipse
+              id="Oval"
+              fill="#3E6C5D"
+              cx="12.3618245"
+              cy="41.2290877"
+              rx="9.13734521"
+              ry="3.28469596"
+            />
             <g id="Group" transform="translate(3.224479, 0.884850)">
               <path
                 d="M9.75334601,40.4428191 L9.34267881,40.4428191 C4.31200561,40.4428191 0.2053336,36.3369491 0.2053336,31.3072584 L0.2053336,10.1620281 C0.2053336,5.0296907 4.41467241,0.821173991 9.54801241,0.821173991 L9.54801241,0.821173991 C14.6813524,0.821173991 18.8906912,5.0296907 18.8906912,10.1620281 L18.8906912,31.3072584 C18.8906912,36.3369491 14.7840192,40.4428191 9.75334601,40.4428191 Z"
@@ -2149,10 +2519,18 @@ export default function BannerImage() {
           style={{ transformOrigin: '50% 50%' }}
           animation={[
             {
-              opacity: 0, scale: 0, type: 'from', delay: 800, ease: 'easeOutBack',
+              opacity: 0,
+              scale: 0,
+              type: 'from',
+              delay: 800,
+              ease: 'easeOutBack',
             },
             {
-              y: 15, yoyo: true, repeat: -1, duration: 3800, ease: 'easeInOutQuad',
+              y: 15,
+              yoyo: true,
+              repeat: -1,
+              duration: 3800,
+              ease: 'easeInOutQuad',
             },
           ]}
         >
@@ -2175,7 +2553,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 500, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 500,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(141.000000, 324.000000)">
@@ -2209,7 +2591,11 @@ export default function BannerImage() {
           component="g"
           style={{ transformOrigin: '50% 100%' }}
           animation={{
-            opacity: 0, scale: 0, type: 'from', delay: 600, ease: 'easeOutBack',
+            opacity: 0,
+            scale: 0,
+            type: 'from',
+            delay: 600,
+            ease: 'easeOutBack',
           }}
         >
           <g transform="translate(123.000000, 342.000000)">
@@ -2243,5 +2629,6 @@ export default function BannerImage() {
           </g>
         </TweenOne>
       </g>
-    </svg>);
+    </svg>
+  );
 }
