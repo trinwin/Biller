@@ -78,9 +78,17 @@ function createDate(bankName, bankDate, dateSet){
   //const tempDate =  properties[1];
   //const tempSet =  properties[1];
 
+  let tempDate;
+  if(moment(bankDate, "YYYY-MM-DD").isValid())
+    tempDate = moment(bankDate, "YYYY-MM-DD").format(dateFormat).toString()
+  else
+    tempDate = moment().format(dateFormat).toString();
+
+  console.log(tempDate);
+
   return {
     name: bankName,
-    date: moment(bankDate, "YYYY-MM-DD").format(dateFormat).toString(),
+    date: tempDate,
     isSet: dateSet,
   };
 }
