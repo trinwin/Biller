@@ -17,6 +17,7 @@ import SmallStats from '../../components/common/SmallStats';
 import MonthlyBills from '../../components/blog/MonthlyBills';
 import AccountBalances from '../../components/blog/AccountBalances';
 import TopCategories from '../../components/common/TopCategories';
+import BillDueDate from '../../components/common/BillDueDate';
 
 import chartOptions from './BillOverViewHelper';
 
@@ -232,60 +233,65 @@ class BillOverview extends Component {
     });
 
     return token ? (
-      has_profile ? (
-        <Container fluid className="main-content-container px-4">
-          {/* Page Header */}
-          <Row noGutters className="page-header py-4">
-            <PageTitle
-              title="Dashboard"
-              subtitle="Biller"
-              className="text-sm-left mb-3"
-            />
-          </Row>
+      // has_profile ? (
+      <Container fluid className="main-content-container px-4">
+        {/* Page Header */}
+        <Row noGutters className="page-header py-4">
+          <PageTitle
+            title="Dashboard"
+            subtitle="Biller"
+            className="text-sm-left mb-3"
+          />
+        </Row>
 
-          {/* Small Stats Blocks */}
-          <Row>
-            {smallStats.map((stats, idx) => (
-              <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
-                <SmallStats
-                  id={`small-stats-${idx}`}
-                  variation="1"
-                  chartData={stats.datasets}
-                  chartLabels={stats.chartLabels}
-                  label={stats.label}
-                  value={stats.value}
-                  percentage={stats.percentage}
-                  increase={stats.increase}
-                  decrease={stats.decrease}
-                />
-              </Col>
-            ))}
-          </Row>
-
-          <Row>
-            {/* Bills Overview */}
-            <Col lg="8" md="12" sm="12" className="mb-4">
-              <MonthlyBills
-                data={monthlyExpenseChartData}
-                chartOptions={chartOptions}
+        {/* Small Stats Blocks */}
+        <Row>
+          {smallStats.map((stats, idx) => (
+            <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
+              <SmallStats
+                id={`small-stats-${idx}`}
+                variation="1"
+                chartData={stats.datasets}
+                chartLabels={stats.chartLabels}
+                label={stats.label}
+                value={stats.value}
+                percentage={stats.percentage}
+                increase={stats.increase}
+                decrease={stats.decrease}
               />
             </Col>
+          ))}
+        </Row>
 
-            {/* Users by Device --> Category*/}
-            <Col lg="4" md="6" sm="12" className="mb-4">
-              <AccountBalances chartData={accountBalanceChartData} />
-            </Col>
+        <Row>
+          {/* Bills Overview */}
+          <Col lg="8" md="12" sm="12" className="mb-4">
+            <MonthlyBills
+              data={monthlyExpenseChartData}
+              chartOptions={chartOptions}
+            />
+          </Col>
 
-            {/* Top Bills*/}
-            <Col lg="3" md="12" sm="12" className="mb-4">
-              <TopCategories category_expense={category_expense} />
-            </Col>
-          </Row>
-        </Container>
-      ) : (
-        <Redirect to="/setup" />
-      )
+          {/* All account balances*/}
+          <Col lg="4" md="6" sm="12" className="mb-4">
+            <AccountBalances chartData={accountBalanceChartData} />
+          </Col>
+
+          {/* Expenses by Category*/}
+          <Col lg="3" md="12" sm="12" className="mb-4">
+            <TopCategories category_expense={category_expense} />
+          </Col>
+
+          {/* All Bill Due Date */}
+          <Col lg="4" md="12" sm="12" className="mb-4">
+            <BillDueDate />
+          </Col>
+        </Row>
+      </Container>
     ) : (
+      // ) : (
+      //   <Redirect to="/setup" />
+      // )
       <Redirect to="/login" />
     );
   }

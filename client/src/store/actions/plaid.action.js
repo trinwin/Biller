@@ -15,6 +15,8 @@ import {
   PLAID_GET_MONTHLY_INCOME_FAILED,
   PLAID_GET_ALL_BILLS_SUCCESS,
   PLAID_GET_ALL_BILLS_FAILED,
+  PLAID_UPDATE_DUE_DATE_SUCCESS,
+  PLAID_UPDATE_DUE_DATE_FAILED,
   PLAID_GET_GRAPH_DATA_SUCCESS,
   PLAID_GET_GRAPH_DATA_FAILED,
 } from '../../constants';
@@ -96,6 +98,16 @@ export const plaidBillsSuccess = bills => ({
 
 export const plaidBillsFailed = error => ({
   type: PLAID_GET_ALL_BILLS_FAILED,
+  payload: error,
+});
+
+export const plaidBillUpdateSuccess = bill => ({
+  type: PLAID_UPDATE_DUE_DATE_SUCCESS,
+  payload: bill,
+});
+
+export const plaidBillUpdateFailed = error => ({
+  type: PLAID_UPDATE_DUE_DATE_FAILED,
   payload: error,
 });
 

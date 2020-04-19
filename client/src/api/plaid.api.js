@@ -16,6 +16,8 @@ import {
   plaidMonthlyIncomeFailed,
   plaidBillsSuccess,
   plaidBillsFailed,
+  plaidBillUpdateFailed,
+  plaidBillUpdateSuccess,
   plaidGraphDataSuccess,
   plaidGraphDataFailed,
 } from '../store/actions/plaid.action';
@@ -34,6 +36,7 @@ import {
   PLAID_SAVINGS,
   PLAID_CREDIT_CARD,
   PLAID_MONTHLY_INCOME_URI,
+  PLAID_BILLS_DATE_UPDATE,
 } from '../constants';
 
 const token = localStorage.getItem(USER_TOKEN);
@@ -194,5 +197,21 @@ export const plaidGraphData = userData => dispatch => {
     .catch(err => {
       console.log('err: ', err.response);
       dispatch(plaidGraphDataFailed(err));
+    });
+};
+
+export const changeDueDate = userData => dispatch => {
+  console.log('userData sent to change date: ', userData);
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
+  console.log(config);
+  axios
+    .post(`${HOST}${PLAID_BILLS_DATE_UPDATE}`, userData, config)
+    .then(res => {
+      console.log('res: ', res.data);
+      dispatch(plaidBillUpdateSuccess(res.data));
+    })
+    .catch(err => {
+      console.log('err: ', err.response);
+      dispatch(plaidBillUpdateFailed(err));
     });
 };

@@ -20,6 +20,7 @@ export const PLAID_MONTHLY_EXPENSES_URI = '/plaid/monthly-total-expenses/';
 export const PLAID_MONTHLY_INCOME_URI = '/plaid/monthly-total-income/';
 export const PLAID_BILLS_URI = '/plaid/bills/';
 export const PLAID_GRAPH_DATA_URI = '/plaid/graph-data/';
+export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/'
 
 // Auth
 export const LOGIN_FAILED = 'LOGIN_FAILED';
@@ -72,3 +73,6 @@ export const PLAID_GET_ALL_BILLS_FAILED = 'PLAID_GET_ALL_BILLS_FAILED';
 
 export const PLAID_GET_GRAPH_DATA_SUCCESS = 'PLAID_GET_GRAPH_DATA_SUCCESS';
 export const PLAID_GET_GRAPH_DATA_FAILED = 'PLAID_GET_GRAPH_DATA_FAILED';
+
+export const PLAID_UPDATE_DUE_DATE_SUCCESS = 'PLAID_UPDATE_DUE_DATE_SUCCESS';
+export const PLAID_UPDATE_DUE_DATE_FAILED = 'PLAID_UPDATE_DUE_DATE_FAILED';

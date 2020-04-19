@@ -17,6 +17,8 @@ import {
   PLAID_GET_ALL_BILLS_FAILED,
   PLAID_GET_GRAPH_DATA_SUCCESS,
   PLAID_GET_GRAPH_DATA_FAILED,
+  PLAID_UPDATE_DUE_DATE_SUCCESS,
+  PLAID_UPDATE_DUE_DATE_FAILED,
 } from '../../constants';
 
 export default function(state = { loading: false, errors: null }, action) {
@@ -54,6 +56,10 @@ export default function(state = { loading: false, errors: null }, action) {
       return { ...state, ...action.payload, ...{ loading: false } };
     case PLAID_GET_ALL_BILLS_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
+    case PLAID_UPDATE_DUE_DATE_SUCCESS:
+        return { ...state, ...action.payload, ...{ loading: false } };
+    case PLAID_UPDATE_DUE_DATE_FAILED:
+          return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
     case PLAID_GET_GRAPH_DATA_SUCCESS:
       return { ...state, ...action.payload, ...{ loading: false } };
     case PLAID_GET_GRAPH_DATA_FAILED:
