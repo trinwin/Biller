@@ -33,19 +33,19 @@ class App extends Component {
     if (token) {
       this.props.setUserInfo({ email, token });
       this.props.updateProfile({ has_profile });
-      if (has_profile) {
-        const user = { email, token };
-        this.props.plaidCategories(user);
-        this.props.plaidTransactions(user);
-        this.props.plaidTransactionsEach(user);
-        this.props.plaidNetWorth(user);
-        this.props.plaidMonthlyExpenses(user);
-        this.props.plaidMonthlyIncome(user);
-        this.props.plaidBills(user);
-        this.props.plaidGraphData({ ...user, account_type: PLAID_CHECKING });
-        // this.props.plaidGraphData({ ...user, account_type: PLAID_SAVINGS });
-        // this.props.plaidGraphData({ ...user, account_type: PLAID_CREDIT_CARD });
-      }
+      // if (has_profile) {
+      const user = { email, token };
+      this.props.plaidCategories(user);
+      this.props.plaidTransactions(user);
+      this.props.plaidTransactionsEach(user);
+      this.props.plaidNetWorth(user);
+      this.props.plaidMonthlyExpenses(user);
+      this.props.plaidMonthlyIncome(user);
+      this.props.plaidBills(user);
+      this.props.plaidGraphData({ ...user, account_type: PLAID_CHECKING });
+      // this.props.plaidGraphData({ ...user, account_type: PLAID_SAVINGS });
+      // this.props.plaidGraphData({ ...user, account_type: PLAID_CREDIT_CARD });
+      // }
     }
   }
   render() {

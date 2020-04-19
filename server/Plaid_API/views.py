@@ -83,7 +83,6 @@ def get_access_token(request):
     try:
         response = client.Item.public_token.exchange(public_token)
     except plaid.errors.PlaidError as err:
-        print("Plaid Error")
         return Response({"err": err.message}, status=status.HTTP_406_NOT_ACCEPTABLE)
     # Get the access token and query for the user object with the user's email
     access_token = response['access_token']
@@ -197,7 +196,6 @@ def get_transactions_of_each_account(request):
             print("-------------------")
             t = []
             for transaction in transactions:
-                print(transaction.date, "-", transaction.name)
                 list = {}
                 list['name'] = transaction.name
                 list['category'] = transaction.category
@@ -209,8 +207,6 @@ def get_transactions_of_each_account(request):
             temp['transactions'] = t
             # Append the list to the response json
             response.append(temp)
-    for r in response:
-        print(r)
 
     return Response({'transactions_each': response})
 
@@ -245,7 +241,6 @@ def get_transactions(request):
         temp['amount'] = transaction.amount
         temp['pending'] = transaction.pending_status
         response.append(temp)
-    print(response)
 
     return Response({'transactions': reversed(response)})
 
@@ -295,7 +290,6 @@ def net_worth(request):
 def category_expenses(request):
     # Provide user's email or fail
     email = request.GET.get("email")
-    print(request.GET.get("email"))
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -315,9 +309,6 @@ def category_expenses(request):
     # GROUPBY B.category
     transactions = Transactions.objects.filter(account_id__in=list(accounts)).\
         values('category').order_by('category').annotate(total=Sum('amount'))
-
-    print(list(transactions))
-    print(json.dumps(list(transactions)))
 
     return Response({'category_expense': list(transactions)})
 
@@ -353,11 +344,17 @@ def bills(request):
             # else return the actual due date
             if bill[0].due_date != None:
                 response.append(
-                    {account.name: [bill[0].amount, str(bill[0].due_date), bill[0].notified]})
+                    {'name': account.name,
+                     'amount': bill[0].amount,
+                     'due_date': str(bill[0].due_date),
+                     'notified': bill[0].notified})
             else:
                 response.append(
-                    {account.name: [bill[0].amount, bill[0].due_date, bill[0].notified]})
-    print(response)
+                    {'name': account.name,
+                     'amount': bill[0].amount,
+                     'due_date': bill[0].due_date,
+                     'notified': bill[0].notified})
+    # print(response)
     print(json.dumps(response))
 
     return Response({'bills': response})
@@ -388,7 +385,6 @@ def monthly_total_expenses(request):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0]))
-    print(date_range)
 
     total_expenses = 0
     response = []
@@ -400,7 +396,6 @@ def monthly_total_expenses(request):
         # Calculate the total amount of these transactions
         for transaction in transactions:
             total_expenses += transaction.amount
-            print(str(transaction.date) + ' ' + str(transaction.amount))
 
         print("Total Expenses: ", total_expenses)
         print("------------------------------")
@@ -472,15 +467,12 @@ def graph_data(request):
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    print(email)
     user = User_Model.objects.filter(email=email)
     # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
     account_type = request.GET.get("account_type")
-    print(account_type)
-    print(type(account_type))
     if account_type is None:
         return Response({"err": "Account type not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
     elif account_type != 'savings' and account_type != 'checking':
@@ -519,7 +511,6 @@ def calculate_days_between(day_one: str, day_two: str):
     day_two = datetime.datetime.strptime(day_two, "%Y-%m-%d")
     return (day_one - day_two).days
 
-
     return Response({'monthly_expenses': reversed(response)})
 
 
@@ -548,7 +539,6 @@ def monthly_total_income(request):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0]))
-    print(date_range)
 
     total_expenses = 0
     response = []
@@ -560,7 +550,6 @@ def monthly_total_income(request):
         # Calculate the total amount of these transactions
         for transaction in transactions:
             total_expenses += transaction.amount
-            print(str(transaction.date) + ' ' + str(transaction.amount))
         total_expenses = total_expenses * (-1)
         print("Total Expenses: ", total_expenses)
         print("------------------------------")
@@ -577,7 +566,7 @@ def monthly_total_income(request):
 @permission_classes([])
 def change_due_date(request):
 
-    email = request.GET.get("email")
+    email = request.data.get("email")
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -615,10 +604,17 @@ def change_due_date(request):
     print(days_between)
     if days_between <= 7 and days_between >= -1:
         email_notification(account[0], bill)
+        # response.append(
+        #     {'name': account[0].name,
+        #      'amount': bill.amount,
+        #      'due_date': str(bill.due_date),
+        #      'notified': bill.notified})
 
     return Response(
-        {"response": {account[0].name: [bill.amount, str(bill.due_date),
-                                        bill.notified]}})
+        {'name': account[0].name,
+         'amount': bill.amount,
+         'due_date': str(bill.due_date),
+         'notified': bill.notified})
 
 
 @csrf_exempt
@@ -632,15 +628,12 @@ def graph_data(request):
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    print(email)
     user = User_Model.objects.filter(email=email)
     # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
     account_type = request.GET.get("account_type")
-    print(account_type)
-    print(type(account_type))
     if account_type is None:
         return Response({"err": "Account type not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
     elif account_type != 'savings' and account_type != 'checking' and account_type != 'credit card':
@@ -666,7 +659,6 @@ def graph_data(request):
         total_daily_expense = 0
         for transaction in transactions:
             if(transaction.pending_status == False):
-                print(transaction.amount, " ", transaction.date, " ", transaction.name)
                 total_daily_expense += transaction.amount
         total_balance += total_daily_expense
         data.append(total_balance)

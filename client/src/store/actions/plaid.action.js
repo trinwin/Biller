@@ -102,12 +102,12 @@ export const plaidBillsFailed = error => ({
 });
 
 export const plaidBillUpdateSuccess = bill => ({
-  type: PLAID_UPDATE_DUE_DATE_FAILED,
+  type: PLAID_UPDATE_DUE_DATE_SUCCESS,
   payload: bill,
 });
 
 export const plaidBillUpdateFailed = error => ({
-  type: PLAID_UPDATE_DUE_DATE_SUCCESS,
+  type: PLAID_UPDATE_DUE_DATE_FAILED,
   payload: error,
 });
 
