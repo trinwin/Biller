@@ -37,7 +37,6 @@ const SetupAccounts = props => {
                 <PlaidInstance
                   bankName={item.bankName}
                   accountNum={item.accountNum}
-                  // onDelete={this.onDelete}
                 />
               </List.Item>
             )}

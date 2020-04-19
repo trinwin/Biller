@@ -6,10 +6,6 @@ import {
   CardBody,
   ListGroup,
   ListGroupItem,
-  CardFooter,
-  Row,
-  Col,
-  FormSelect,
 } from 'shards-react';
 
 const TopCategories = props => (
@@ -33,31 +29,6 @@ const TopCategories = props => (
         ))}
       </ListGroup>
     </CardBody>
-
-    <CardFooter className="border-top">
-      <Row>
-        {/* Time Span */}
-        <Col>
-          <FormSelect
-            size="sm"
-            value="last-week"
-            style={{ maxWidth: '130px' }}
-            onChange={() => {}}
-          >
-            <option value="last-week">Last Week</option>
-            <option value="today">Today</option>
-            <option value="last-month">Last Month</option>
-            <option value="last-year">Last Year</option>
-          </FormSelect>
-        </Col>
-
-        {/* View Full Report */}
-        <Col className="text-right view-report">
-          {/* eslint-disable-next-line */}
-          <a href="#">Full report &rarr;</a>
-        </Col>
-      </Row>
-    </CardFooter>
   </Card>
 );
 

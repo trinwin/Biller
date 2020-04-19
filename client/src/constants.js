@@ -17,9 +17,10 @@ export const PLAID_TRANSACTIONS_EACH_URI =
 export const PLAID_CATEGORIES_URI = '/plaid/categories/';
 export const PLAID_NET_WORTH_URI = '/plaid/net-worth/';
 export const PLAID_MONTHLY_EXPENSES_URI = '/plaid/monthly-total-expenses/';
+export const PLAID_MONTHLY_INCOME_URI = '/plaid/monthly-total-income/';
 export const PLAID_BILLS_URI = '/plaid/bills/';
-export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/'
 export const PLAID_GRAPH_DATA_URI = '/plaid/graph-data/';
+export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/'
 
 // Auth
 export const LOGIN_FAILED = 'LOGIN_FAILED';
@@ -36,6 +37,9 @@ export const PLAID_PUlLIC_TOKEN = 'PLAID_PUlLIC_TOKEN';
 export const PLAID_PUlLIC_KEY = '66974676d9f0b1bcf30d24f66881e0';
 export const PLAID_DEV_ENV = 'development';
 export const PLAID_SB_ENV = 'sandbox';
+export const PLAID_CHECKING = 'checking';
+export const PLAID_SAVINGS = 'savings';
+export const PLAID_CREDIT_CARD = 'credit card';
 
 export const PLAID_LOGIN_SUCCESS = 'PLAID_LOGIN_SUCCESSFULLY';
 export const PLAID_LOGIN_FAILED = 'PLAID_LOGIN_FAILED';
@@ -59,11 +63,16 @@ export const PLAID_GET_MONTHLY_EXPENSE_SUCCESS =
 export const PLAID_GET_MONTHLY_EXPENSE_FAILED =
   'PLAID_GET_MONTHLY_EXPENSE_FAILED';
 
+export const PLAID_GET_MONTHLY_INCOME_SUCCESS =
+  'PLAID_GET_MONTHLY_INCOME_SUCCESS';
+export const PLAID_GET_MONTHLY_INCOME_FAILED =
+  'PLAID_GET_MONTHLY_INCOME_FAILED';
+
 export const PLAID_GET_ALL_BILLS_SUCCESS = 'PLAID_GET_ALL_BILLS_SUCCESS';
 export const PLAID_GET_ALL_BILLS_FAILED = 'PLAID_GET_ALL_BILLS_FAILED';
 
-export const PLAID_UPDATE_DUE_DATE_SUCCESS = 'PLAID_UPDATE_DUE_DATE_SUCCESS';
-export const PLAID_UPDATE_DUE_DATE_FAILED = 'PLAID_UPDATE_DUE_DATE_FAILED';
-
 export const PLAID_GET_GRAPH_DATA_SUCCESS = 'PLAID_GET_GRAPH_DATA_SUCCESS';
 export const PLAID_GET_GRAPH_DATA_FAILED = 'PLAID_GET_GRAPH_DATA_FAILED';
+
+export const PLAID_UPDATE_DUE_DATE_SUCCESS = 'PLAID_UPDATE_DUE_DATE_SUCCESS';
+export const PLAID_UPDATE_DUE_DATE_FAILED = 'PLAID_UPDATE_DUE_DATE_FAILED';

@@ -3,29 +3,52 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import { USER_TOKEN, ACCOUNTS_INFO } from '../../constants';
+import {
+  USER_TOKEN,
+  ACCOUNTS_INFO,
+  PLAID_CHECKING,
+  PLAID_SAVINGS,
+  PLAID_CREDIT_CARD,
+} from '../../constants';
 
 import { Container, Row, Col } from 'shards-react';
 import PageTitle from '../../components/common/PageTitle';
 import SmallStats from '../../components/common/SmallStats';
 import MonthlyBills from '../../components/blog/MonthlyBills';
-import UsersByDevice from '../../components/blog/UsersByDevice';
+import AccountBalances from '../../components/blog/AccountBalances';
 import TopCategories from '../../components/common/TopCategories';
 import BillDueDate from '../../components/common/BillDueDate';
 
 import chartOptions from './BillOverViewHelper';
 
 class BillOverview extends Component {
-  monthlyChart(monthly_expenses) {
+  monthlyChart(monthly_expenses, monthly_income) {
     const chartLabels = monthly_expenses.map(money => money[0]);
-    const data = monthly_expenses.map(money => money[1].toFixed(0));
+    const expenseData = monthly_expenses.map(money => money[1].toFixed(0));
+
+    const incomeData = monthly_income.map(money => money[1].toFixed(0));
+
     const chartData = {
       labels: chartLabels,
       datasets: [
         {
           label: 'Expenses',
           fill: 'start',
-          data: data,
+          data: expenseData,
+          backgroundColor: 'rgba(255,65,105,0.1)',
+          borderColor: 'rgba(255,65,105,1)',
+          pointBackgroundColor: '#ffffff',
+          pointHoverBackgroundColor: 'rgba(255,65,105,1)',
+          borderDash: [3, 3],
+          borderWidth: 1,
+          pointRadius: 0,
+          pointHoverRadius: 2,
+        },
+        {
+          label: 'Income',
+          fill: 'start',
+          data: incomeData,
+          pointBorderColor: 'rgba(0,123,255,1)',
           backgroundColor: 'rgba(0,123,255,0.1)',
           borderColor: 'rgba(0,123,255,1)',
           pointBackgroundColor: '#ffffff',
@@ -41,66 +64,173 @@ class BillOverview extends Component {
 
   accountBalanceChart(transactions_each) {
     const data = [0, 0, 0];
-    console.log('transactions_each: ', transactions_each);
-
     transactions_each.forEach((account, idx) => {
       switch (account.type) {
-        case 'checking':
+        case PLAID_CHECKING:
           data[0] += parseFloat(account.balance);
           break;
-        case 'savings':
+        case PLAID_SAVINGS:
           data[1] += parseFloat(account.balance);
           break;
-        case 'credit card':
+        case PLAID_CREDIT_CARD:
           data[2] += parseFloat(account.balance) * -1;
           break;
         default:
           break;
       }
-      if (account.type == 'checking') {
-      }
     });
-    console.log('[BillOverview] data: ', data);
 
     const accountBalanceChartData = {
-      title: 'Account Balances',
-      chartData: {
-        datasets: [
-          {
-            hoverBorderColor: '#ffffff',
-            data: data,
-            backgroundColor: [
-              'rgba(0,123,255,0.9)',
-              'rgba(0,123,255,0.5)',
-              'rgba(0,123,255,0.3)',
-            ],
-          },
-        ],
-        labels: ['Checking', 'Savings', 'Credit Card'],
-      },
+      datasets: [
+        {
+          hoverBorderColor: '#ffffff',
+          data: data,
+          backgroundColor: [
+            'rgba(0,123,255,0.9)',
+            'rgba(0,123,255,0.5)',
+            'rgba(0,123,255,0.3)',
+          ],
+        },
+      ],
+      labels: ['Checking', 'Savings', 'Credit Card'],
     };
     return accountBalanceChartData;
   }
 
   render() {
-    const token = localStorage.getItem(USER_TOKEN);
-    const has_profile = localStorage.getItem(ACCOUNTS_INFO) ? true : false;
     const { plaid } = this.props || {};
+    const token = localStorage.getItem(USER_TOKEN);
+    const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_INFO)) || [];
+    const has_profile = accounts ? true : false;
+    var accountNum = 0;
+    if (accounts && accounts.length) {
+      accounts.forEach(account => {
+        accountNum += account.accountNum;
+      });
+    }
+
+    /* */
+    const net_worth = plaid.net_worth || 0;
     /* */
     const category_expense = plaid.category_expense || [];
 
     /* */
-    const net_worth = plaid.net_worth || -1;
-
-    /* */
-    const monthly_expenses = plaid.monthly_expenses || [['test', 0]];
-    const monthlyExpenseChartData = this.monthlyChart(monthly_expenses);
+    const monthly_expenses = plaid.monthly_expenses || [];
+    const monthly_income = plaid.monthly_income || [];
+    const monthlyExpenseChartData = this.monthlyChart(
+      monthly_expenses,
+      monthly_income
+    );
 
     /* */
     const transactions_each = plaid.transactions_each || [[0]];
     if (transactions_each.length > 1) {
       var accountBalanceChartData = this.accountBalanceChart(transactions_each);
     }
+
+    const graph_data = [
+      {
+        type: 'checking',
+        data: [1, 2, 10, 4, 5, 7],
+      },
+      {
+        type: 'savings',
+        data: [5, 2, 3, 4, 5, 3],
+      },
+      {
+        type: 'credit card',
+        data: [1, 5, 3, 4, 5, 0],
+      },
+    ];
+
+    const smallStats = [
+      {
+        label: 'Net Worth',
+        value: `$${net_worth}`,
+        chartLabels: [],
+        attrs: { md: '6', sm: '6' },
+        datasets: [
+          {
+            borderWidth: 1.5,
+            backgroundColor: 'rgba(0, 184, 216, 0.1)',
+            borderColor: 'rgb(0, 184, 216)',
+            data: [],
+          },
+        ],
+      },
+      {
+        label: 'Number of Accounts',
+        value: accountNum,
+        chartLabels: [],
+        attrs: { md: '6', sm: '6' },
+        datasets: [
+          {
+            borderWidth: 1.5,
+            backgroundColor: 'rgba(23,198,113,0.1)',
+            borderColor: 'rgb(23,198,113)',
+            data: [],
+          },
+        ],
+      },
+    ];
+
+    graph_data.forEach(account => {
+      switch (account.type) {
+        case PLAID_CHECKING:
+          const check_data = {
+            label: 'Checking',
+            value: `$${account.data[account.data.length - 1]}`,
+            chartLabels: [],
+            attrs: { md: '4', sm: '6' },
+            datasets: [
+              {
+                borderWidth: 1.5,
+                backgroundColor: 'rgba(255,180,0,0.1)',
+                borderColor: 'rgb(255,180,0)',
+                data: account.data,
+              },
+            ],
+          };
+          smallStats.push(check_data);
+          break;
+        case PLAID_SAVINGS:
+          const savings_data = {
+            label: 'Savings',
+            value: `$${account.data[account.data.length - 1]}`,
+            chartLabels: [null, null, null, null, null, null, null],
+            attrs: { md: '4', sm: '6' },
+            datasets: [
+              {
+                borderWidth: 1.5,
+                backgroundColor: 'rgba(255,65,105,0.1)',
+                borderColor: 'rgb(255,65,105)',
+                data: account.data,
+              },
+            ],
+          };
+          smallStats.push(savings_data);
+          break;
+        case PLAID_CREDIT_CARD:
+          const credit_card_data = {
+            label: 'Credit Card',
+            value: `$${account.data[account.data.length - 1]}`,
+            chartLabels: [null, null, null, null, null, null, null],
+            attrs: { md: '4', sm: '6' },
+            datasets: [
+              {
+                borderWidth: 1.5,
+                backgroundColor: 'rgb(0,123,255,0.1)',
+                borderColor: 'rgb(0,123,255)',
+                data: account.data,
+              },
+            ],
+          };
+          smallStats.push(credit_card_data);
+          break;
+        default:
+          break;
+      }
+    });
 
     return token ? (
       has_profile ? (
@@ -116,7 +246,7 @@ class BillOverview extends Component {
 
           {/* Small Stats Blocks */}
           <Row>
-            {this.props.smallStats.map((stats, idx) => (
+            {smallStats.map((stats, idx) => (
               <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
                 <SmallStats
                   id={`small-stats-${idx}`}
@@ -144,7 +274,7 @@ class BillOverview extends Component {
 
             {/* Users by Device --> Category*/}
             <Col lg="4" md="6" sm="12" className="mb-4">
-              <UsersByDevice chartData={accountBalanceChartData} />
+              <AccountBalances chartData={accountBalanceChartData} />
             </Col>
 
             {/* Top Bills*/}

@@ -10,7 +10,7 @@ import { USER_TOKEN, ACCOUNTS_INFO } from '../constants';
 
 import './Pages.css';
 
-class SetupForm extends Component {
+class PlaidLoginPage extends Component {
   constructor(props) {
     super(props);
 
@@ -84,4 +84,4 @@ function matchDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   matchDispatchToProps
-)(withRouter(SetupForm));
+)(withRouter(PlaidLoginPage));

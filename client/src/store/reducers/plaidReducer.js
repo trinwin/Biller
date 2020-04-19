@@ -11,12 +11,14 @@ import {
   PLAID_GET_NET_WORTH_FAILED,
   PLAID_GET_MONTHLY_EXPENSE_SUCCESS,
   PLAID_GET_MONTHLY_EXPENSE_FAILED,
+  PLAID_GET_MONTHLY_INCOME_SUCCESS,
+  PLAID_GET_MONTHLY_INCOME_FAILED,
   PLAID_GET_ALL_BILLS_SUCCESS,
   PLAID_GET_ALL_BILLS_FAILED,
-  PLAID_UPDATE_DUE_DATE_SUCCESS,
-  PLAID_UPDATE_DUE_DATE_FAILED,
   PLAID_GET_GRAPH_DATA_SUCCESS,
   PLAID_GET_GRAPH_DATA_FAILED,
+  PLAID_UPDATE_DUE_DATE_SUCCESS,
+  PLAID_UPDATE_DUE_DATE_FAILED,
 } from '../../constants';
 
 export default function(state = { loading: false, errors: null }, action) {
@@ -45,6 +47,10 @@ export default function(state = { loading: false, errors: null }, action) {
     case PLAID_GET_MONTHLY_EXPENSE_SUCCESS:
       return { ...state, ...action.payload, ...{ loading: false } };
     case PLAID_GET_MONTHLY_EXPENSE_FAILED:
+      return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
+    case PLAID_GET_MONTHLY_INCOME_SUCCESS:
+      return { ...state, ...action.payload, ...{ loading: false } };
+    case PLAID_GET_MONTHLY_INCOME_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
     case PLAID_GET_ALL_BILLS_SUCCESS:
       return { ...state, ...action.payload, ...{ loading: false } };

@@ -20,8 +20,8 @@ PLAID_SECRET = 'cea7f58c49bee7ea072f959ceb5ad7'
 # PLAID_SECRET = '970b66705dee5c0b32183ad6b05624'
 PLAID_PUBLIC_KEY = '66974676d9f0b1bcf30d24f66881e0'
 
-PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
-# PLAID_ENV = os.getenv('PLAID_ENV', 'development')
+# PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
+PLAID_ENV = os.getenv('PLAID_ENV', 'development')
 PLAID_PRODUCTS = os.getenv('PLAID_PRODUCTS', 'transactions')
 PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US,CA,GB,FR,ES')
 PLAID_OAUTH_REDIRECT_URL = os.getenv('PLAID_OAUTH_REDIRECT_URL', '')
@@ -366,8 +366,8 @@ def bills(request):
 @csrf_exempt
 @api_view(['GET'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
-@authentication_classes([])
-@permission_classes([])
+# @authentication_classes([])
+# @permission_classes([])
 def monthly_total_expenses(request):
 
     email = request.GET.get("email")
@@ -384,7 +384,7 @@ def monthly_total_expenses(request):
     date_range = []
     # Find the last 6 months and year
     # Store as a tuple (month, year) in list date_range
-    for i in range(12):
+    for i in range(11):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0]))
@@ -394,8 +394,9 @@ def monthly_total_expenses(request):
     response = []
     for month, year in date_range:
         # Find the transactions for each month, year
-        transactions = Transactions.objects.filter(date__year=year, date__month=month,
-                                                   account_id__in=list(accounts))
+        transactions = Transactions.objects.filter(
+            date__year=year, date__month=month, amount__gt=0, account_id__in=list(accounts))
+        total_expenses = 0
         # Calculate the total amount of these transactions
         for transaction in transactions:
             total_expenses += transaction.amount
@@ -511,6 +512,166 @@ def graph_data(request):
         data.append(total_balance)
     data.reverse()
     return Response({account_type+'graph': data})
+
+
+def calculate_days_between(day_one: str, day_two: str):
+    day_one = datetime.datetime.strptime(day_one, "%Y-%m-%d")
+    day_two = datetime.datetime.strptime(day_two, "%Y-%m-%d")
+    return (day_one - day_two).days
+
+
+    return Response({'monthly_expenses': reversed(response)})
+
+
+@csrf_exempt
+@api_view(['GET'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+# @authentication_classes([])
+# @permission_classes([])
+def monthly_total_income(request):
+
+    email = request.GET.get("email")
+    if email is None:
+        return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    user = User_Model.objects.filter(email=email)
+    if user is None or len(user) == 0:
+        return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Query for the accounts associated with the user
+    accounts = BankAccounts.objects.filter(user=user[0])
+
+    date_range = []
+    # Find the last 6 months and year
+    # Store as a tuple (month, year) in list date_range
+    for i in range(11):
+        time = datetime.date.today() + relativedelta(months=-i)
+        time = str(time).split("-")
+        date_range.append((time[1], time[0]))
+    print(date_range)
+
+    total_expenses = 0
+    response = []
+    for month, year in date_range:
+        # Find the transactions for each month, year
+        transactions = Transactions.objects.filter(
+            date__year=year, date__month=month, amount__lt=0, account_id__in=list(accounts))
+        total_expenses = 0
+        # Calculate the total amount of these transactions
+        for transaction in transactions:
+            total_expenses += transaction.amount
+            print(str(transaction.date) + ' ' + str(transaction.amount))
+        total_expenses = total_expenses * (-1)
+        print("Total Expenses: ", total_expenses)
+        print("------------------------------")
+        # Add the total expense of each month/year to response
+        response.append([month + '-' + year, total_expenses])
+
+    return Response({'monthly_income': reversed(response)})
+
+
+@csrf_exempt
+@api_view(['POST'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+@authentication_classes([])
+@permission_classes([])
+def change_due_date(request):
+
+    email = request.GET.get("email")
+    if email is None:
+        return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    user = User_Model.objects.filter(email=email)
+    # If email is not found in database, error
+    if user is None or len(user) == 0:
+        return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    # Date format YYYY-MM-DD
+
+    due_date = request.data.get("due_date")
+    if due_date is None:
+        return Response({"err": "Due date not provided"}, status=status.HTTP_404_NOT_FOUND)
+
+    account_name = request.data.get("account_name")
+    if account_name is None:
+        return Response({"err": "Account name ot provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    account = BankAccounts.objects.filter(name=account_name)
+    if len(account) == 0:
+        return Response({"err": "Account not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    bill = Bill.objects.filter(account_id=account[0])
+    if len(bill) == 0:
+        return Response({"err": "Bill not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    bill = bill[0]
+    due_date = due_date.split("-")
+    date = datetime.date(int(due_date[0]), int(due_date[1]), int(due_date[2]))
+    bill.due_date = date
+    bill.save()
+
+    today = datetime.datetime.today().strftime('%Y-%m-%d')
+    days_between = calculate_days_between("-".join(due_date), str(today))
+    print(days_between)
+    if days_between <= 7 and days_between >= -1:
+        email_notification(account[0], bill)
+
+    return Response(
+        {"response": {account[0].name: [bill.amount, str(bill.due_date),
+                                        bill.notified]}})
+
+
+@csrf_exempt
+@api_view(['GET'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+# @authentication_classes([])
+# @permission_classes([])
+def graph_data(request):
+
+    email = request.GET.get("email")
+    if email is None:
+        return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    print(email)
+    user = User_Model.objects.filter(email=email)
+    # If email is not found in database, error
+    if user is None or len(user) == 0:
+        return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    account_type = request.GET.get("account_type")
+    print(account_type)
+    print(type(account_type))
+    if account_type is None:
+        return Response({"err": "Account type not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+    elif account_type != 'savings' and account_type != 'checking' and account_type != 'credit card':
+        return Response({"err": "Incorrect account type"}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    accounts = BankAccounts.objects.filter(user=user[0], type=account_type)
+    total_balance = 0
+
+    for account in accounts:
+        total_balance += account.balance
+    date_range = []
+
+    print(total_balance)
+    for i in range(90):
+        time = datetime.date.today() + relativedelta(days=-i)
+        time = str(time).split("-")
+        date_range.append((time[1], time[0], time[2]))
+    data = []
+    data.append(total_balance)
+    for month, year, day in date_range:
+        transactions = Transactions.objects.filter(date__year=year, date__month=month,
+                                                   date__day=day, account_id__in=list(accounts))
+        total_daily_expense = 0
+        for transaction in transactions:
+            if(transaction.pending_status == False):
+                print(transaction.amount, " ", transaction.date, " ", transaction.name)
+                total_daily_expense += transaction.amount
+        total_balance += total_daily_expense
+        data.append(total_balance)
+    data.reverse()
+    return Response({'graph_data': data})
 
 
 def calculate_days_between(day_one: str, day_two: str):

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { USER_EMAIL, USER_TOKEN } from '../constants';
+import { USER_EMAIL, USER_TOKEN, ACCOUNTS_INFO } from '../constants';
 import { logout } from '../store/actions/auth.action';
 
 import Landing from '../components/landing/Landing.jsx';
@@ -14,6 +14,7 @@ class HomePage extends Component {
     e.preventDefault();
     localStorage.removeItem(USER_EMAIL);
     localStorage.removeItem(USER_TOKEN);
+    localStorage.removeItem(ACCOUNTS_INFO);
     this.props.logout();
   };
 

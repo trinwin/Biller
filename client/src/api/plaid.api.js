@@ -12,6 +12,8 @@ import {
   plaidNetWorthFailed,
   plaidMonthlyExpensesSuccess,
   plaidMonthlyExpensesFailed,
+  plaidMonthlyIncomeSuccess,
+  plaidMonthlyIncomeFailed,
   plaidBillsSuccess,
   plaidBillsFailed,
   plaidBillUpdateFailed,
@@ -28,9 +30,13 @@ import {
   PLAID_NET_WORTH_URI,
   PLAID_MONTHLY_EXPENSES_URI,
   PLAID_BILLS_URI,
-  PLAID_BILLS_DATE_UPDATE,
   PLAID_GRAPH_DATA_URI,
   USER_TOKEN,
+  PLAID_CHECKING,
+  PLAID_SAVINGS,
+  PLAID_CREDIT_CARD,
+  PLAID_MONTHLY_INCOME_URI,
+  PLAID_BILLS_DATE_UPDATE,
 } from '../constants';
 
 const token = localStorage.getItem(USER_TOKEN);
@@ -83,7 +89,7 @@ export const plaidCategories = userData => dispatch => {
   axios
     .get(`${HOST}${PLAID_CATEGORIES_URI}?email=${userData.email}`, config)
     .then(res => {
-      console.log('res: ', res.data);
+      // console.log('res: ', res.data);
       dispatch(plaidCategoriesSuccess(res.data));
     })
     .catch(err => {
@@ -118,11 +124,24 @@ export const plaidMonthlyExpenses = userData => dispatch => {
     });
 };
 
+export const plaidMonthlyIncome = userData => dispatch => {
+  axios
+    .get(`${HOST}${PLAID_MONTHLY_INCOME_URI}?email=${userData.email}`, config)
+    .then(res => {
+      //   console.log('res: ', res.data);
+      dispatch(plaidMonthlyIncomeSuccess(res.data));
+    })
+    .catch(err => {
+      console.log('[plaidMonthlyExpense] err: ', err.response);
+      dispatch(plaidMonthlyIncomeFailed(err));
+    });
+};
+
 export const plaidBills = userData => dispatch => {
   axios
     .get(`${HOST}${PLAID_BILLS_URI}?email=${userData.email}`, config)
     .then(res => {
-      console.log('bills res: ', res.data);
+      //   console.log('res: ', res.data);
       dispatch(plaidBillsSuccess(res.data));
     })
     .catch(err => {
@@ -146,6 +165,41 @@ export const test = userData => dispatch => {
     });
 };
 
+export const plaidGraphData = userData => dispatch => {
+  // const account_type = 'checking';
+  axios
+    .get(
+      `${HOST}${PLAID_GRAPH_DATA_URI}?email=${userData.email}&account_type=${userData.account_type}`,
+      config
+    )
+    .then(res => {
+      // console.log('res: ', res.data);
+      switch (userData.account_type) {
+        case PLAID_CHECKING:
+          dispatch(
+            plaidGraphDataSuccess({ checking_data: res.data.graph_data })
+          );
+          break;
+        case PLAID_SAVINGS:
+          dispatch(
+            plaidGraphDataSuccess({ savings_data: res.data.graph_data })
+          );
+          break;
+        case PLAID_CREDIT_CARD:
+          dispatch(
+            plaidGraphDataSuccess({ credit_card_data: res.data.graph_data })
+          );
+          break;
+        default:
+          break;
+      }
+    })
+    .catch(err => {
+      console.log('err: ', err.response);
+      dispatch(plaidGraphDataFailed(err));
+    });
+};
+
 export const changeDueDate = userData => dispatch => {
   console.log('userData sent to change date: ', userData);
   const config = { headers: { Authorization: `Bearer ${userData.token}` } };
@@ -159,22 +213,5 @@ export const changeDueDate = userData => dispatch => {
     .catch(err => {
       console.log('err: ', err.response);
       dispatch(plaidBillUpdateFailed(err));
-    });
-};
-
-export const plaidGraphData = userData => dispatch => {
-  const account_type = 'checking';
-  axios
-    .get(
-      `${HOST}${PLAID_GRAPH_DATA_URI}?email=${userData.email}&account_type=${account_type}`,
-      config
-    )
-    .then(res => {
-      console.log('res: ', res.data);
-      dispatch(plaidGraphDataSuccess(res.data));
-    })
-    .catch(err => {
-      console.log('err: ', err.response);
-      dispatch(plaidGraphDataFailed(err));
     });
 };

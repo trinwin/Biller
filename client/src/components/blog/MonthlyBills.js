@@ -17,15 +17,18 @@ class MonthlyBills extends React.Component {
       data: this.props.data,
       options: this.props.chartOptions,
     });
+    if (this.props.data.datasets > 1) {
+      // They can still be triggered on hover.
+      const buoMeta = MonthlyExpenses.getDatasetMeta(0);
 
-    // They can still be triggered on hover.
-    const buoMeta = MonthlyExpenses.getDatasetMeta(0);
+      buoMeta.data[0]._model.radius = 0;
+      buoMeta.data[
+        this.props.data.datasets[0].data.length - 1
+      ]._model.radius = 0;
 
-    buoMeta.data[0]._model.radius = 0;
-    buoMeta.data[this.props.data.datasets[0].data.length - 1]._model.radius = 0;
-
-    // Render the chart.
-    MonthlyExpenses.render();
+      // Render the chart.
+      MonthlyExpenses.render();
+    }
   };
 
   componentDidUpdate() {
