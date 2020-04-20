@@ -6,6 +6,7 @@ import {
   CardBody,
   ListGroup,
   ListGroupItem,
+  Badge,
 } from 'shards-react';
 
 const TopCategories = props => (
@@ -22,9 +23,12 @@ const TopCategories = props => (
             <span className="text-semibold text-fiord-blue">
               {item.category}
             </span>
-            <span className="ml-auto text-right text-semibold text-reagent-gray">
+            <Badge
+              theme="info"
+              className="mb-0 mr-0 ml-auto text-right text-semibold "
+            >
               ${item.total.toFixed(0)}
-            </span>
+            </Badge>
           </ListGroupItem>
         ))}
       </ListGroup>

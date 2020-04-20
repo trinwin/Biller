@@ -9,8 +9,8 @@ from django.db.models import Sum
 from dateutil.relativedelta import relativedelta
 from itertools import chain
 from .__init__ import plaid_client
-from .email import send_email 
-from .threads import check_if_passed_due_date, check_due_date, check_transactions_and_balance 
+from .email import send_email
+from .threads import check_if_passed_due_date, check_due_date, check_transactions_and_balance
 from .helpers import calculate_daily_balances, calculate_days_between, calculate_total_balance
 import time
 import datetime
@@ -25,6 +25,7 @@ client = plaid_client()
 threading.Timer(60, check_if_passed_due_date).start()
 threading.Timer(60, check_due_date).start()
 threading.Timer(60, check_transactions_and_balance).start()
+
 
 @csrf_exempt
 @api_view(['POST'])
@@ -92,7 +93,7 @@ def get_access_token(request):
             # This part for adding a bill object if the account is a credit type
             if account['subtype'] == 'credit card' or account['subtype'] == 'credit'\
                     or account['type'] == 'credit card' or account['type'] == 'credit'\
-                or account['official_name'] == 'Bill':
+            or account['official_name'] == 'Bill':
                 Bill.objects.create(
                     account_id=new_account, amount=account['balances']['current'],
                     due_date=None, notified=False)
@@ -375,7 +376,7 @@ def monthly_total_expenses(request):
 
 
 @csrf_exempt
-@api_view(['POST'])
+@api_view(['GET'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
@@ -390,13 +391,7 @@ def graph_data(request):
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    account_type = request.GET.get("account_type")
-    if account_type is None:
-        return Response({"err": "Account type not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
-    elif account_type != 'savings' and account_type != 'checking':
-        return Response({"err": "Incorrect account type"}, status=status.HTTP_406_NOT_ACCEPTABLE)
-
-    accounts = BankAccounts.objects.filter(user=user[0], type=account_type)
+    accounts = BankAccounts.objects.filter(user=user[0])
     total_balance = 0
 
     for account in accounts:
@@ -421,15 +416,13 @@ def graph_data(request):
         total_balance += total_daily_expense
         data.append(total_balance)
     data.reverse()
-    return Response({account_type+'graph': data})
+    return Response({'graph_data': data})
 
 
 def calculate_days_between(day_one: str, day_two: str):
     day_one = datetime.datetime.strptime(day_one, "%Y-%m-%d")
     day_two = datetime.datetime.strptime(day_two, "%Y-%m-%d")
     return (day_one - day_two).days
-
-    return Response({'monthly_expenses': reversed(response)})
 
 
 @csrf_exempt
@@ -453,7 +446,7 @@ def monthly_total_income(request):
     date_range = []
     # Find the last 6 months and year
     # Store as a tuple (month, year) in list date_range
-    for i in range(11):
+    for i in range(12):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0]))
@@ -524,7 +517,7 @@ def change_due_date(request):
         if bill.notified == False:
             send_email(account[0], bill)
             message = "Bill for " + account[0].name + " with amount $" + str(bill.amount) + \
-                      " is due on " + str(bill.due_date) 
+                " is due on " + str(bill.due_date)
             Notification.objects.create(user=user[0], message=message)
         else:
             pass
@@ -571,6 +564,7 @@ def graph_data(request):
                 {'type': 'credit card', 'data': [abs(balance) for balance in credit_data]}]
     return Response({'graph_data': response})
 
+
 @csrf_exempt
 @api_view(['GET'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
@@ -587,12 +581,13 @@ def get_notifications(request):
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    responses  = Notification.objects.filter(user=user[0], unread=True)
+    responses = Notification.objects.filter(user=user[0], unread=True)
     notifications = []
     for response in responses:
         notification = {'notification_id': response.id, 'message': response.message}
         notifications.append(notification)
     return Response({'notifications': notifications})
+
 
 @csrf_exempt
 @api_view(['POST'])
@@ -610,7 +605,7 @@ def mark_notification_as_read(request):
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
     notification_id = request.data.get('notifcation_id')
-    notification = Notification.objects.filter(user=user[0], primary_key = notification_id)
-    notification.unread = False 
+    notification = Notification.objects.filter(user=user[0], primary_key=notification_id)
+    notification.unread = False
     notification.save()
     return Response({'notification_marked': {'notification_id': notification_id, 'unread': notification.unread}})

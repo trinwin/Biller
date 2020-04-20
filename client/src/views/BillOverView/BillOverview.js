@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
 import { Redirect, withRouter } from 'react-router-dom';
 import {
   USER_TOKEN,
@@ -14,16 +14,18 @@ import {
 import { Container, Row, Col } from 'shards-react';
 import PageTitle from '../../components/common/PageTitle';
 import SmallStats from '../../components/common/SmallStats';
-import MonthlyBills from '../../components/blog/MonthlyBills';
-import AccountBalances from '../../components/blog/AccountBalances';
-import TopCategories from '../../components/common/TopCategories';
-import BillDueDate from '../../components/common/BillDueDate';
+import MonthlyBills from '../../components/dashboard/MonthlyBills';
+import AccountBalances from '../../components/dashboard/AccountBalances';
+import TopCategories from '../../components/dashboard/TopCategories';
+import BillDueDate from '../../components/dashboard/BillDueDate';
 
 import chartOptions from './BillOverViewHelper';
 
 class BillOverview extends Component {
   monthlyChart(monthly_expenses, monthly_income) {
-    const chartLabels = monthly_expenses.map(money => money[0]);
+    const chartLabels = monthly_expenses.map(money =>
+      moment(money[0], 'MM-YY').format('MMM YY')
+    );
     const expenseData = monthly_expenses.map(money => money[1].toFixed(0));
 
     const incomeData = monthly_income.map(money => money[1].toFixed(0));
@@ -102,12 +104,7 @@ class BillOverview extends Component {
     const token = localStorage.getItem(USER_TOKEN);
     const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_INFO)) || [];
     const has_profile = accounts ? true : false;
-    var accountNum = 0;
-    if (accounts && accounts.length) {
-      accounts.forEach(account => {
-        accountNum += account.accountNum;
-      });
-    }
+    const graph_data = plaid.graph_data || [];
 
     /* */
     const net_worth = plaid.net_worth || 0;
@@ -126,22 +123,8 @@ class BillOverview extends Component {
     const transactions_each = plaid.transactions_each || [[0]];
     if (transactions_each.length > 1) {
       var accountBalanceChartData = this.accountBalanceChart(transactions_each);
+      var accountNum = transactions_each.length;
     }
-
-    const graph_data = [
-      {
-        type: 'checking',
-        data: [1, 2, 10, 4, 5, 7],
-      },
-      {
-        type: 'savings',
-        data: [5, 2, 3, 4, 5, 3],
-      },
-      {
-        type: 'credit card',
-        data: [1, 5, 3, 4, 5, 0],
-      },
-    ];
 
     const smallStats = [
       {
@@ -180,7 +163,7 @@ class BillOverview extends Component {
           const check_data = {
             label: 'Checking',
             value: `$${account.data[account.data.length - 1]}`,
-            chartLabels: [],
+            chartLabels: account.data,
             attrs: { md: '4', sm: '6' },
             datasets: [
               {
@@ -197,7 +180,7 @@ class BillOverview extends Component {
           const savings_data = {
             label: 'Savings',
             value: `$${account.data[account.data.length - 1]}`,
-            chartLabels: [null, null, null, null, null, null, null],
+            chartLabels: account.data,
             attrs: { md: '4', sm: '6' },
             datasets: [
               {
@@ -214,7 +197,7 @@ class BillOverview extends Component {
           const credit_card_data = {
             label: 'Credit Card',
             value: `$${account.data[account.data.length - 1]}`,
-            chartLabels: [null, null, null, null, null, null, null],
+            chartLabels: account.data,
             attrs: { md: '4', sm: '6' },
             datasets: [
               {
@@ -233,65 +216,65 @@ class BillOverview extends Component {
     });
 
     return token ? (
-      // has_profile ? (
-      <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
-        <Row noGutters className="page-header py-4">
-          <PageTitle
-            title="Dashboard"
-            subtitle="Biller"
-            className="text-sm-left mb-3"
-          />
-        </Row>
+      has_profile ? (
+        <Container fluid className="main-content-container px-4">
+          {/* Page Header */}
+          <Row noGutters className="page-header py-4">
+            <PageTitle
+              title="Dashboard"
+              subtitle="Biller"
+              className="text-sm-left mb-3"
+            />
+          </Row>
 
-        {/* Small Stats Blocks */}
-        <Row>
-          {smallStats.map((stats, idx) => (
-            <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
-              <SmallStats
-                id={`small-stats-${idx}`}
-                variation="1"
-                chartData={stats.datasets}
-                chartLabels={stats.chartLabels}
-                label={stats.label}
-                value={stats.value}
-                percentage={stats.percentage}
-                increase={stats.increase}
-                decrease={stats.decrease}
+          {/* Small Stats Blocks */}
+          <Row>
+            {smallStats.map((stats, idx) => (
+              <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
+                <SmallStats
+                  id={`small-stats-${idx}`}
+                  variation="1"
+                  chartData={stats.datasets}
+                  chartLabels={stats.chartLabels}
+                  label={stats.label}
+                  value={stats.value}
+                  percentage={stats.percentage}
+                  increase={stats.increase}
+                  decrease={stats.decrease}
+                />
+              </Col>
+            ))}
+          </Row>
+
+          <Row>
+            {/* Bills Overview */}
+            <Col lg="8" md="12" sm="12" className="mb-4">
+              <MonthlyBills
+                data={monthlyExpenseChartData}
+                chartOptions={chartOptions}
               />
             </Col>
-          ))}
-        </Row>
 
-        <Row>
-          {/* Bills Overview */}
-          <Col lg="8" md="12" sm="12" className="mb-4">
-            <MonthlyBills
-              data={monthlyExpenseChartData}
-              chartOptions={chartOptions}
-            />
-          </Col>
+            {/* All account balances*/}
+            <Col lg="4" md="6" sm="12" className="mb-4">
+              <AccountBalances chartData={accountBalanceChartData} />
+            </Col>
 
-          {/* All account balances*/}
-          <Col lg="4" md="6" sm="12" className="mb-4">
-            <AccountBalances chartData={accountBalanceChartData} />
-          </Col>
+            {/* Expenses by Category*/}
+            <Col lg="3" md="12" sm="12" className="mb-4">
+              <TopCategories category_expense={category_expense} />
+            </Col>
 
-          {/* Expenses by Category*/}
-          <Col lg="3" md="12" sm="12" className="mb-4">
-            <TopCategories category_expense={category_expense} />
-          </Col>
-
-          {/* All Bill Due Date */}
-          <Col lg="4" md="12" sm="12" className="mb-4">
-            <BillDueDate />
-          </Col>
-        </Row>
-      </Container>
+            {/* All Bill Due Date */}
+            <Col lg="4" md="12" sm="12" className="mb-4">
+              <BillDueDate />
+            </Col>
+          </Row>
+        </Container>
+      ) : (
+        <Redirect to="/setup" />
+      )
     ) : (
-      // ) : (
-      //   <Redirect to="/setup" />
-      // )
       <Redirect to="/login" />
     );
   }
@@ -312,108 +295,3 @@ export default connect(
   mapStateToProps,
   matchDispatchToProps
 )(withRouter(BillOverview));
-
-BillOverview.propTypes = {
-  /**
-   * The small stats dataset.
-   */
-  smallStats: PropTypes.array,
-};
-
-BillOverview.defaultProps = {
-  smallStats: [
-    {
-      label: 'Net Worth',
-      value: '2,390',
-      // percentage: '4.7%',
-      increase: true,
-      chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: '6', sm: '6' },
-      datasets: [
-        {
-          label: 'Today',
-          fill: 'start',
-          borderWidth: 1.5,
-          backgroundColor: 'rgba(0, 184, 216, 0.1)',
-          borderColor: 'rgb(0, 184, 216)',
-          data: [],
-        },
-      ],
-    },
-    {
-      label: 'Number of Accounts',
-      value: '182',
-      percentage: '12.4',
-      increase: true,
-      chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: '6', sm: '6' },
-      datasets: [
-        {
-          label: 'Today',
-          fill: 'start',
-          borderWidth: 1.5,
-          backgroundColor: 'rgba(23,198,113,0.1)',
-          borderColor: 'rgb(23,198,113)',
-          data: [1, 2, 3, 3, 3, 4, 4],
-        },
-      ],
-    },
-    {
-      label: 'Checking',
-      value: '8,147',
-      percentage: '3.8%',
-      increase: false,
-      decrease: true,
-      chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: '4', sm: '6' },
-      datasets: [
-        {
-          label: 'Today',
-          fill: 'start',
-          borderWidth: 1.5,
-          backgroundColor: 'rgba(255,180,0,0.1)',
-          borderColor: 'rgb(255,180,0)',
-          data: [2, 3, 3, 3, 4, 3, 3],
-        },
-      ],
-    },
-    {
-      label: 'Savings',
-      value: '29',
-      percentage: '2.71%',
-      increase: false,
-      decrease: true,
-      chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: '4', sm: '6' },
-      datasets: [
-        {
-          label: 'Today',
-          fill: 'start',
-          borderWidth: 1.5,
-          backgroundColor: 'rgba(255,65,105,0.1)',
-          borderColor: 'rgb(255,65,105)',
-          data: [1, 7, 1, 3, 1, 4, 8],
-        },
-      ],
-    },
-    {
-      label: 'PG&E',
-      value: '17,281',
-      percentage: '2.4%',
-      increase: false,
-      decrease: true,
-      chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: '4', sm: '6' },
-      datasets: [
-        {
-          label: 'Today',
-          fill: 'start',
-          borderWidth: 1.5,
-          backgroundColor: 'rgb(0,123,255,0.1)',
-          borderColor: 'rgb(0,123,255)',
-          data: [3, 2, 3, 2, 4, 5, 4],
-        },
-      ],
-    },
-  ],
-};

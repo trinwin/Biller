@@ -119,7 +119,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bills',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'hellosql',
         'HOST': 'localhost',
         'PORT': '3306',
     }

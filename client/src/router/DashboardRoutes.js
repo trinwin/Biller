@@ -3,7 +3,7 @@ import { DefaultLayout } from '../layouts';
 
 // Route Views
 import BillOverview from '../views/BillOverView/BillOverview';
-import UserProfileLite from '../views/UserProfileLite';
+import UserProfileLite from '../views/UserProfile';
 import Errors from '../views/Errors';
 import ComponentsOverview from '../views/ComponentsOverview';
 import Transactions from '../views/Transactions';

@@ -5,21 +5,19 @@ import DashboardRoutes from './DashboardRoutes';
 import withTracker from '../withTracker';
 
 // Page
-import HomePage from '../pages/HomePage';
+import Landing from '../components/landing/Landing.jsx';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import PlaidLoginPage from '../pages/PlaidLoginPage';
-import Link from '../components/Link';
 
 class RoutesComponent extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/setup" component={PlaidLoginPage} />
-        <Route exact path="/link" component={Link} />
         {DashboardRoutes.map((route, index) => {
           return (
             <Route

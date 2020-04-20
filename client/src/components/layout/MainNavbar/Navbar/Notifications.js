@@ -1,12 +1,12 @@
-import React from "react";
-import { NavItem, NavLink, Badge, Collapse, DropdownItem } from "shards-react";
+import React from 'react';
+import { NavItem, NavLink, Badge, Collapse, DropdownItem } from 'shards-react';
 
 export default class Notifications extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      visible: false
+      visible: false,
     };
 
     this.toggleNotifications = this.toggleNotifications.bind(this);
@@ -14,7 +14,7 @@ export default class Notifications extends React.Component {
 
   toggleNotifications() {
     this.setState({
-      visible: !this.state.visible
+      visible: !this.state.visible,
     });
   }
 
@@ -45,7 +45,7 @@ export default class Notifications extends React.Component {
             <div className="notification__content">
               <span className="notification__category">Analytics</span>
               <p>
-                Your website’s active users count increased by{" "}
+                Your website’s active users count increased by{' '}
                 <span className="text-success text-semibold">28%</span> in the
                 last week. Great job!
               </p>
@@ -60,7 +60,7 @@ export default class Notifications extends React.Component {
             <div className="notification__content">
               <span className="notification__category">Sales</span>
               <p>
-                Last week your store’s sales count decreased by{" "}
+                Last week your store’s sales count decreased by{' '}
                 <span className="text-danger text-semibold">5.52%</span>. It
                 could have been worse!
               </p>
