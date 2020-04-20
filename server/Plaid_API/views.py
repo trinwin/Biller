@@ -3,44 +3,28 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework import status
-from .models import BankAccounts
+from .models import BankAccounts, Transactions, Bill, Notification
 from Authentication.models import User as User_Model
-from .models import Transactions, Bill
 from django.db.models import Sum
 from dateutil.relativedelta import relativedelta
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
 from itertools import chain
+from .__init__ import plaid_client
+from .email import send_email 
+from .threads import check_if_passed_due_date, check_due_date, check_transactions_and_balance 
+from .helpers import calculate_daily_balances, calculate_days_between, calculate_total_balance
 import time
 import datetime
 import json
 import time
-import plaid
-import os
 import threading
 # Create your views here.
-import threading
 
-PLAID_CLIENT_ID = ""
-PLAID_SECRET = ""
-PLAID_PUBLIC_KEY = ""
+client = plaid_client()
 
-with open("Plaid_API_Keys", 'r') as Plaid_File:
-    PLAID_CLIENT_ID = Plaid_File.readline().strip()
-    PLAID_SECRET = Plaid_File.readline().strip()
-    PLAID_PUBLIC_KEY = Plaid_File.readline().strip()
-
-
-# PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
-PLAID_ENV = os.getenv('PLAID_ENV', 'development')
-PLAID_PRODUCTS = os.getenv('PLAID_PRODUCTS', 'transactions')
-PLAID_COUNTRY_CODES = os.getenv('PLAID_COUNTRY_CODES', 'US,CA,GB,FR,ES')
-PLAID_OAUTH_REDIRECT_URL = os.getenv('PLAID_OAUTH_REDIRECT_URL', '')
-PLAID_OAUTH_NONCE = os.getenv('PLAID_OAUTH_NONCE', '')
-
-client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET, public_key=PLAID_PUBLIC_KEY,
-                      environment=PLAID_ENV, api_version='2019-05-29')
-
+# Add the initial Timer threads
+threading.Timer(60, check_if_passed_due_date).start()
+threading.Timer(60, check_due_date).start()
+threading.Timer(60, check_transactions_and_balance).start()
 
 @csrf_exempt
 @api_view(['POST'])
@@ -211,6 +195,7 @@ def get_transactions_of_each_account(request):
 def get_transactions(request):
 
     email = request.GET.get("email")
+    print(email)
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -218,7 +203,6 @@ def get_transactions(request):
     # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
     accounts = BankAccounts.objects.filter(user=user[0])
     transactions = Transactions.objects.filter(account_id__in=list(accounts)).order_by("date")
     response = []
@@ -539,37 +523,15 @@ def change_due_date(request):
     if days_between <= 7 and days_between >= -1:
         if bill.notified == False:
             send_email(account[0], bill)
+            message = "Bill for " + account[0].name + " with amount $" + str(bill.amount) + \
+                      " is due on " + str(bill.due_date) 
+            Notification.objects.create(user=user[0], message=message)
         else:
             pass
 
     return Response(
         {"response": {account[0].name: [bill.amount, str(bill.due_date),
                                         bill.notified]}})
-
-
-def calculate_days_between(day_one: str, day_two: str):
-    day_one = datetime.datetime.strptime(day_one, "%Y-%m-%d")
-    day_two = datetime.datetime.strptime(day_two, "%Y-%m-%d")
-    return (day_one - day_two).days
-
-
-def send_email(account, bill):
-    body = "Your bill for " + account.name + " for " + str(
-        bill.amount) + " is due on " + str(bill.due_date)
-    message = Mail(
-        from_email='no.reply.biller@gmail.com', to_emails=account.user.email,
-        subject='Bill Due Notice', html_content=body)
-    print("Sending email to " + str(account.user.email))
-    try:
-        sg = SendGridAPIClient(
-            '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')
-        response = sg.send(message)
-        bill.notified = True
-        bill.save()
-        print("Success")
-    except Exception as e:
-        print(e.body)
-    return bill.notified
 
 
 @csrf_exempt
@@ -609,97 +571,46 @@ def graph_data(request):
                 {'type': 'credit card', 'data': [abs(balance) for balance in credit_data]}]
     return Response({'graph_data': response})
 
+@csrf_exempt
+@api_view(['GET'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+# @authentication_classes([])
+# @permission_classes([])
+def get_notifications(request):
 
-def calculate_total_balance(accounts):
-    total_balance = 0
-    for account in accounts:
-        total_balance += account.balance
-    return total_balance
+    email = request.GET.get("email")
+    if email is None:
+        return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
+    user = User_Model.objects.filter(email=email)
+    # If email is not found in database, error
+    if user is None or len(user) == 0:
+        return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-def calculate_daily_balances(total_balance: float, date_range, accounts):
-    data = []
-    data.append(total_balance)
-    for month, year, day in date_range:
-        transactions = Transactions.objects.filter(date__year=year, date__month=month,
-                                                   date__day=day, account_id__in=accounts)
-        total_daily_expense = 0
-        for transaction in transactions:
-            if(transaction.pending_status == False):
-                total_daily_expense += transaction.amount
-        total_balance += total_daily_expense
-        data.append(total_balance)
-    data.reverse()
-    return data
+    responses  = Notification.objects.filter(user=user[0], unread=True)
+    notifications = []
+    for response in responses:
+        notification = {'notification_id': response.id, 'message': response.message}
+        notifications.append(notification)
+    return Response({'notifications': notifications})
 
+@csrf_exempt
+@api_view(['POST'])
+# These 2 decorators are for bypassing JWT tokens for testing purposes
+# @authentication_classes([])
+# @permission_classes([])
+def mark_notification_as_read(request):
+    email = request.data.get("email")
+    if email is None:
+        return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-def check_if_passed_due_date():
-    today = '{:%Y-%m-%d}'.format(datetime.datetime.today())
-    passed_due_bills = Bill.objects.filter(due_date__lt=today, notified=True)
-    try:
-        for bill in passed_due_bills:
-            bill.notified = False
-            bill.save()
-    except Exception as e:
-        print(e.body)
-    threading.Timer(60, check_if_passed_due_date).start()
+    user = User_Model.objects.filter(email=email)
+    # If email is not found in database, error
+    if user is None or len(user) == 0:
+        return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-
-def check_due_date():
-    today = '{:%Y-%m-%d}'.format(datetime.datetime.today())
-    end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + relativedelta(days=+7))
-    due_bills = Bill.objects.filter(due_date__range=[today, end_date])
-    try:
-        for bill in due_bills:
-            if bill.notified == False:
-                account = bill.account_id
-                send_email(account, bill)
-    except Exception as e:
-        print(e.body)
-    threading.Timer(60, check_due_date).start()
-
-
-def check_transactions_and_balance():
-    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-1))
-    end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
-    accounts = BankAccounts.objects.filter()
-    try:
-        for account in accounts:
-            response = client.Accounts.get(account.access_token, account_ids=[account.account_id])
-            if(response['accounts'][0]['balances']['current'] != account.balance):
-                account.balance = response['accounts']['balances']['current']
-                bill = Bill.objects.filter(account_id=account)
-                bill.amount = account.balance
-                bill.save()
-                account.save()
-            transactions = client.Transactions.get(account.access_token, start_date, end_date,
-                                                   account_ids=[account.account_id])
-            for transaction in transactions['transactions']:
-                d = transaction['date'].split("-")
-                date = datetime.date(int(d[0]), int(d[1]), int(d[2]))
-                # If the name of the transaction it > 255
-                # slice it so that the length is 255 max
-                if len(Transactions.objects.filter(
-                        transaction_id=transaction['transaction_id'])) == 0:
-                    if len(transaction['name']) < 255:
-                        Transactions.objects.create(
-                            account_id=account, name=transaction['name'],
-                            category=transaction['category'][0],
-                            amount=transaction["amount"],
-                            pending_status=transaction['pending'],
-                            date=date, transaction_id=transaction['transaction_id'])
-                    else:
-                        Transactions.objects.create(
-                            account_id=account, name=transaction['name'][0: 254],
-                            category=transaction['category'][0],
-                            amount=transaction["amount"],
-                            pending_status=transaction['pending'],
-                            date=date, transaction_id=transaction['transaction_id'])
-    except Exception as e:
-        print(e.body)
-    threading.Timer(60, check_transactions_and_balance).start()
-
-
-threading.Timer(60, check_if_passed_due_date).start()
-threading.Timer(60, check_due_date).start()
-threading.Timer(60, check_transactions_and_balance).start()
+    notification_id = request.data.get('notifcation_id')
+    notification = Notification.objects.filter(user=user[0], primary_key = notification_id)
+    notification.unread = False 
+    notification.save()
+    return Response({'notification_marked': {'notification_id': notification_id, 'unread': notification.unread}})
