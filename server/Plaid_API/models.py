@@ -31,3 +31,8 @@ class Bill(models.Model):
 
     def __str__(self):
         return str(self.due_date) + " " + str(self.amount)
+
+class Notification(models.Model):
+    user = models.ForeignKey(User_Model, on_delete=models.CASCADE)
+    message = models.CharField(max_length = 500, blank=False)
+    unread = models.BooleanField(default=True)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import User
 from .forms import CustomerUserCreationForm, CustomUserChangeForm
-from Plaid_API.models import BankAccounts, Transactions, Bill
+from Plaid_API.models import BankAccounts, Transactions, Bill, Notification
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -37,3 +37,4 @@ admin.site.register(User, CustomUserAdmin)
 admin.site.register(BankAccounts)
 admin.site.register(Transactions)
 admin.site.register(Bill)
+admin.site.register(Notification)
