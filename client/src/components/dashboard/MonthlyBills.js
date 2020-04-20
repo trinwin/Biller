@@ -1,8 +1,5 @@
 import React from 'react';
-
-import { Row, Col, Card, CardHeader, CardBody, Button } from 'shards-react';
-
-import RangeDatePicker from '../common/RangeDatePicker';
+import { Card, CardHeader, CardBody } from 'shards-react';
 import Chart from '../../utils/chart';
 
 class MonthlyBills extends React.Component {
@@ -46,19 +43,6 @@ class MonthlyBills extends React.Component {
           <h6 className="m-0">Monthly Expenses</h6>
         </CardHeader>
         <CardBody className="pt-0">
-          <Row className="border-bottom py-2 bg-light">
-            <Col sm="6" className="d-flex mb-2 mb-sm-0">
-              <RangeDatePicker />
-            </Col>
-            <Col>
-              <Button
-                size="sm"
-                className="d-flex btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0"
-              >
-                View Full Report &rarr;
-              </Button>
-            </Col>
-          </Row>
           <canvas
             height="120"
             ref={this.canvasRef}

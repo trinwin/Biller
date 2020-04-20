@@ -101,6 +101,16 @@ export const plaidBillsFailed = error => ({
   payload: error,
 });
 
+export const plaidGraphDataSuccess = balances => ({
+  type: PLAID_GET_GRAPH_DATA_SUCCESS,
+  payload: balances,
+});
+
+export const plaidGraphDataFailed = error => ({
+  type: PLAID_GET_GRAPH_DATA_FAILED,
+  payload: error,
+});
+
 export const plaidBillUpdateSuccess = bill => ({
   type: PLAID_UPDATE_DUE_DATE_SUCCESS,
   payload: bill,
@@ -108,15 +118,5 @@ export const plaidBillUpdateSuccess = bill => ({
 
 export const plaidBillUpdateFailed = error => ({
   type: PLAID_UPDATE_DUE_DATE_FAILED,
-  payload: error,
-});
-
-export const plaidGraphDataSuccess = expenses => ({
-  type: PLAID_GET_GRAPH_DATA_SUCCESS,
-  payload: expenses,
-});
-
-export const plaidGraphDataFailed = error => ({
-  type: PLAID_GET_GRAPH_DATA_FAILED,
   payload: error,
 });

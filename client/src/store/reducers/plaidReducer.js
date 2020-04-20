@@ -22,7 +22,6 @@ import {
 } from '../../constants';
 
 export default function(state = { loading: false, errors: null }, action) {
-  //   console.log(action.type);
   switch (action.type) {
     case PLAID_LOGIN_SUCCESS:
       return { ...state, ...action.payload, ...{ loading: false } };
@@ -56,13 +55,13 @@ export default function(state = { loading: false, errors: null }, action) {
       return { ...state, ...action.payload, ...{ loading: false } };
     case PLAID_GET_ALL_BILLS_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
-    case PLAID_UPDATE_DUE_DATE_SUCCESS:
-        return { ...state, ...action.payload, ...{ loading: false } };
-    case PLAID_UPDATE_DUE_DATE_FAILED:
-          return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
     case PLAID_GET_GRAPH_DATA_SUCCESS:
       return { ...state, ...action.payload, ...{ loading: false } };
     case PLAID_GET_GRAPH_DATA_FAILED:
+      return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
+    case PLAID_UPDATE_DUE_DATE_SUCCESS:
+      return { ...state, ...action.payload, ...{ loading: false } };
+    case PLAID_UPDATE_DUE_DATE_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
     default:
       return state;

@@ -3,14 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RouterComponent from './router/RouterComponent';
 import { setUserInfo } from './store/actions/auth.action';
-import {
-  USER_EMAIL,
-  USER_TOKEN,
-  ACCOUNTS_INFO,
-  PLAID_CHECKING,
-  // PLAID_SAVINGS,
-  // PLAID_CREDIT_CARD,
-} from './constants';
+import { USER_EMAIL, USER_TOKEN, ACCOUNTS_INFO } from './constants';
 
 import { updateProfile } from './store/actions/auth.action';
 import {
@@ -42,9 +35,7 @@ class App extends Component {
       this.props.plaidMonthlyExpenses(user);
       this.props.plaidMonthlyIncome(user);
       this.props.plaidBills(user);
-      this.props.plaidGraphData({ ...user, account_type: PLAID_CHECKING });
-      // this.props.plaidGraphData({ ...user, account_type: PLAID_SAVINGS });
-      // this.props.plaidGraphData({ ...user, account_type: PLAID_CREDIT_CARD });
+      this.props.plaidGraphData(user);
       // }
     }
   }

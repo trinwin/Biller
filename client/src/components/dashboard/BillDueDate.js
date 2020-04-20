@@ -8,6 +8,7 @@ import {
   ListGroup,
   ListGroupItem,
   CardFooter,
+  Badge,
   Row,
   Col,
 } from 'shards-react';
@@ -16,16 +17,9 @@ import moment from 'moment';
 import { USER_TOKEN } from '../../constants';
 import { changeDueDate, plaidBills } from '../../api/plaid.api';
 
-const dateFormat = 'MM-DD';
+const dateFormat = 'MM-DD-YY';
 
 class BillDueDate extends React.Component {
-  componentDidMount() {}
-
-  onChange = (value, dateString) => {
-    // console.log('Selected Time: ', value);
-    // console.log('Formatted Selected Time: ', dateString);
-  };
-
   onDateChange = (item, value) => {
     const token = localStorage.getItem(USER_TOKEN);
     const { email } = this.props.user;
@@ -40,8 +34,6 @@ class BillDueDate extends React.Component {
       '-' +
       value.format('MM-DD').toString();
 
-    console.log('date: ', date);
-
     this.props.changeDueDate({
       account_name: name,
       due_date: date,
@@ -53,9 +45,6 @@ class BillDueDate extends React.Component {
   render() {
     const { plaid } = this.props || {};
     const { bills } = plaid || [];
-    console.log('bills: ', bills);
-    if (bills && bills.length > 0)
-      console.log('bills: ', moment(bills[0].due_date, 'YYYY-MM-DD').isValid());
 
     return (
       <Card small className="h-100">
@@ -66,11 +55,26 @@ class BillDueDate extends React.Component {
 
         <CardBody className="p-0">
           <ListGroup small flush className="list-group-small">
-            {bills != null ? (
+            {bills && bills.length ? (
               bills.map((item, idx) => (
                 <ListGroupItem key={idx} className="d-flex px-3">
                   <span className="text-semibold text-fiord-blue">
                     {item.name}
+                    <br />
+                    Amount:{' '}
+                    {item.amount > 0 ? (
+                      <Badge theme="danger" className="mb-0 mr-0">
+                        ${item.amount}
+                      </Badge>
+                    ) : item.amount === 0 ? (
+                      <Badge theme="success" className="mb-0 mr-0">
+                        ${item.amount}
+                      </Badge>
+                    ) : (
+                      <Badge theme="success" className="mb-0 mr-0">
+                        -${item.amount * -1}
+                      </Badge>
+                    )}
                   </span>
                   <span className="ml-auto text-right text-semibold text-reagent-gray">
                     {item.due_date ? (
@@ -85,6 +89,7 @@ class BillDueDate extends React.Component {
                           dateFormat
                         )}
                         allowClear={false}
+                        disabled={item.amount <= 0 ? true : false}
                         onChange={this.onChange}
                         onOk={(item, value => this.onDateChange(item, value))}
                       />
@@ -94,6 +99,7 @@ class BillDueDate extends React.Component {
                         style={{ width: 120 }}
                         format={dateFormat}
                         allowClear={false}
+                        disabled={item.amount <= 0 ? true : false}
                         onOk={(item, value => this.onDateChange(item, value))}
                       />
                     )}

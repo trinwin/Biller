@@ -12,7 +12,7 @@ import {
   NavLink,
 } from 'shards-react';
 
-import { USER_EMAIL, USER_TOKEN, ACCOUNTS_INFO } from '../../../../constants';
+import { USER_EMAIL, USER_TOKEN } from '../../../../constants';
 import { logout } from '../../../../store/actions/auth.action';
 
 class UserActions extends Component {
@@ -37,7 +37,6 @@ class UserActions extends Component {
     e.preventDefault();
     localStorage.removeItem(USER_EMAIL);
     localStorage.removeItem(USER_TOKEN);
-    localStorage.removeItem(ACCOUNTS_INFO);
     this.props.logout();
   };
 
