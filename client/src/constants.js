@@ -20,7 +20,7 @@ export const PLAID_MONTHLY_EXPENSES_URI = '/plaid/monthly-total-expenses/';
 export const PLAID_MONTHLY_INCOME_URI = '/plaid/monthly-total-income/';
 export const PLAID_BILLS_URI = '/plaid/bills/';
 export const PLAID_GRAPH_DATA_URI = '/plaid/graph-data/';
-export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/'
+export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/';
 
 // Auth
 export const LOGIN_FAILED = 'LOGIN_FAILED';

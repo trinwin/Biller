@@ -170,12 +170,12 @@ def get_transactions_of_each_account(request):
     # For each account, find the transactions associated with it
     for account in accounts:
         transactions = Transactions.objects.filter(account_id=account).order_by("date")
+        temp = {}
+        # Append the account name, type, balance to the list
+        temp['name'] = account.name
+        temp['type'] = account.type
+        temp['balance'] = str(account.balance)
         if len(transactions) != 0:
-            temp = {}
-            # Append the account name, type, balance to the list
-            temp['name'] = account.name
-            temp['type'] = account.type
-            temp['balance'] = str(account.balance)
             # For each transaction, add it to a dictionary where the key is
             # the transaction name and the value is a list containing
             # category, date, and amount
@@ -192,8 +192,10 @@ def get_transactions_of_each_account(request):
                 # Append dictionary to the list
                 t.append(list)
             temp['transactions'] = t
-            # Append the list to the response json
-            response.append(temp)
+        # Append the list to the response json
+        response.append(temp)
+    for r in response:
+        print(r)
 
     return Response({'transactions_each': response})
 
