@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 
 def validate_email(email):
-    domain_whitelist = ['yahoo.com', 'gmail.com', 'hotmail.com', 'aol.com', 'msn.com']
+    domain_whitelist = ['yahoo.com', 'gmail.com', 'hotmail.com', 'aol.com', 'msn.com', 'sjsu.edu']
     cleaned_email = email.strip()
     email_domain = cleaned_email.split('@')[1]
     if email_domain not in domain_whitelist:

@@ -45,7 +45,8 @@ def login_page(request):
 
         has_account = True if len(BankAccounts.objects.filter(user=user)) > 0 else False
         return Response({'email': email, 'token': request.user.access_token,
-                         'has_profile': has_account})
+                         'has_profile': has_account, 'first_name': user.first_name,
+                         'last_name': user.last_name})
     return Response({'message': "Login must take a POST request"},
                     status=status.HTTP_405_METHOD_NOT_ALLOWED)
 

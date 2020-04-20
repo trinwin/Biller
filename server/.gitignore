@@ -4,6 +4,7 @@ __pycache__/
 server/__pycache__/
 *.py[cod]
 *.pyc
+*/Plaid_API_Keys
 
 # C extensions
 *.so

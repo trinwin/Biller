@@ -23,3 +23,10 @@
 */npm-debug.log*
 */yarn-debug.log*
 */yarn-error.log*
+
+# server
+
+*/Plaid_API_Keys
+*/__pycache__/
+*/*.py[cod]
+*/*.pyc

@@ -8,17 +8,28 @@ from Authentication.models import User as User_Model
 from .models import Transactions, Bill
 from django.db.models import Sum
 from dateutil.relativedelta import relativedelta
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from itertools import chain
+import time
 import datetime
 import json
 import time
 import plaid
 import os
+import threading
 # Create your views here.
+import threading
 
-PLAID_CLIENT_ID = '5e3f5d74d52ab600127a745f'
-PLAID_SECRET = 'cea7f58c49bee7ea072f959ceb5ad7'
-# PLAID_SECRET = '970b66705dee5c0b32183ad6b05624'
-PLAID_PUBLIC_KEY = '66974676d9f0b1bcf30d24f66881e0'
+PLAID_CLIENT_ID = ""
+PLAID_SECRET = ""
+PLAID_PUBLIC_KEY = ""
+
+with open("Plaid_API_Keys", 'r') as Plaid_File:
+    PLAID_CLIENT_ID = Plaid_File.readline().strip()
+    PLAID_SECRET = Plaid_File.readline().strip()
+    PLAID_PUBLIC_KEY = Plaid_File.readline().strip()
+
 
 # PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 PLAID_ENV = os.getenv('PLAID_ENV', 'development')
@@ -29,40 +40,6 @@ PLAID_OAUTH_NONCE = os.getenv('PLAID_OAUTH_NONCE', '')
 
 client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET, public_key=PLAID_PUBLIC_KEY,
                       environment=PLAID_ENV, api_version='2019-05-29')
-
-
-@csrf_exempt
-@api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
-@authentication_classes([])
-@permission_classes([])
-def test(request):
-    access_token = "access-development-e752548b-1070-4f7e-9879-c004184b33a7"
-    try:
-        response = client.Accounts.get(access_token)
-        print(response)
-        start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-365))
-        print(start_date)
-        end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
-        print(end_date)
-        for account in response['accounts']:
-            print("---------------------------------------")
-            if account['official_name'] != None:
-                print("Official Name: ", account['official_name'])
-            else:
-                print("Name: ", account['name'])
-            transactions = client.Transactions.get(access_token, start_date, end_date,
-                                                   account_ids=[account["account_id"]])
-            for transaction in transactions['transactions']:
-                print(
-                    transaction["name"],
-                    " ", transaction["category"],
-                    " ", transaction["amount"],
-                    " ", transaction["date"])
-            print("---------------------------------------")
-    except plaid.errors.PlaidError as err:
-        return Response({"plaid_err": err.message})
-    return Response({})
 
 
 @csrf_exempt
@@ -80,12 +57,14 @@ def get_access_token(request):
     public_token = request.data.get('public_token')
     # Exchanges the public token for an access token
     # Create a "link" to the user's bank account
+
     try:
         response = client.Item.public_token.exchange(public_token)
     except plaid.errors.PlaidError as err:
         return Response({"err": err.message}, status=status.HTTP_406_NOT_ACCEPTABLE)
     # Get the access token and query for the user object with the user's email
     access_token = response['access_token']
+    print(access_token)
 
     user = User_Model.objects.filter(email=email)
     # If email is not found in database, error
@@ -105,12 +84,18 @@ def get_access_token(request):
             # Otherwise use account['name']
             if account['official_name'] != None:
                 print("Official Name: ", account['official_name'])
-                new_account = BankAccounts.objects.create(
-                    user=user[0],
-                    access_token=access_token, account_id=account["account_id"],
-                    type=account['subtype'],
-                    name=account["official_name"],
-                    balance=account['balances']['current'])
+                if account['official_name'] == 'Bill':
+                    new_account = BankAccounts.objects.create(
+                        user=user[0],
+                        access_token=access_token, account_id=account["account_id"],
+                        type='utilities', name='PG&E', balance=account['balances']['current'])
+                else:
+                    new_account = BankAccounts.objects.create(
+                        user=user[0],
+                        access_token=access_token, account_id=account["account_id"],
+                        type=account['subtype'],
+                        name=account["official_name"],
+                        balance=account['balances']['current'])
             else:
                 print("Name: ", account['name'])
                 new_account = BankAccounts.objects.create(
@@ -122,7 +107,8 @@ def get_access_token(request):
 
             # This part for adding a bill object if the account is a credit type
             if account['subtype'] == 'credit card' or account['subtype'] == 'credit'\
-                    or account['type'] == 'credit card' or account['type'] == 'credit':
+                    or account['type'] == 'credit card' or account['type'] == 'credit'\
+                or account['official_name'] == 'Bill':
                 Bill.objects.create(
                     account_id=new_account, amount=account['balances']['current'],
                     due_date=None, notified=False)
@@ -184,18 +170,19 @@ def get_transactions_of_each_account(request):
     # For each account, find the transactions associated with it
     for account in accounts:
         transactions = Transactions.objects.filter(account_id=account).order_by("date")
+        temp = {}
+        # Append the account name, type, balance to the list
+        temp['name'] = account.name
+        temp['type'] = account.type
+        temp['balance'] = str(account.balance)
         if len(transactions) != 0:
-            temp = {}
-            # Append the account name, type, balance to the list
-            temp['name'] = account.name
-            temp['type'] = account.type
-            temp['balance'] = str(account.balance)
             # For each transaction, add it to a dictionary where the key is
             # the transaction name and the value is a list containing
             # category, date, and amount
             print("-------------------")
             t = []
             for transaction in transactions:
+                print(transaction.date, "-", transaction.name)
                 list = {}
                 list['name'] = transaction.name
                 list['category'] = transaction.category
@@ -205,8 +192,10 @@ def get_transactions_of_each_account(request):
                 # Append dictionary to the list
                 t.append(list)
             temp['transactions'] = t
-            # Append the list to the response json
-            response.append(temp)
+        # Append the list to the response json
+        response.append(temp)
+    for r in response:
+        print(r)
 
     return Response({'transactions_each': response})
 
@@ -293,7 +282,6 @@ def category_expenses(request):
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    # email = 'thn.trinity@gmail.com'
     # If email is not found in db, fail
     user = User_Model.objects.filter(email=email)
 
@@ -316,8 +304,8 @@ def category_expenses(request):
 @csrf_exempt
 @api_view(['GET'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
-@authentication_classes([])
-@permission_classes([])
+# @authentication_classes([])
+# @permission_classes([])
 # JSON FORMAT IS
 # [{account.name: [bill.amount, bill.due_date, bill.notified]},
 #  {account2.name: [bill2.amount, bill2.due_date, bill2.notified]},...]
@@ -342,20 +330,17 @@ def bills(request):
         if len(bill) == 1:
             # If bill due date is None, then return null for due date
             # else return the actual due date
+            dict = {}
+            dict['name'] = account.name
+            dict['amount'] = bill[0].amount
+            dict['notified'] = bill[0].notified
             if bill[0].due_date != None:
-                response.append(
-                    {'name': account.name,
-                     'amount': bill[0].amount,
-                     'due_date': str(bill[0].due_date),
-                     'notified': bill[0].notified})
+                dict['due_date'] = str(bill[0].due_date)
+                response.append(dict)
             else:
-                response.append(
-                    {'name': account.name,
-                     'amount': bill[0].amount,
-                     'due_date': bill[0].due_date,
-                     'notified': bill[0].notified})
-    # print(response)
-    print(json.dumps(response))
+                dict['due_date'] = bill[0].due_date
+                response.append(dict)
+    print(response)
 
     return Response({'bills': response})
 
@@ -381,7 +366,7 @@ def monthly_total_expenses(request):
     date_range = []
     # Find the last 6 months and year
     # Store as a tuple (month, year) in list date_range
-    for i in range(11):
+    for i in range(12):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0]))
@@ -407,57 +392,6 @@ def monthly_total_expenses(request):
 
 @csrf_exempt
 @api_view(['POST'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
-@authentication_classes([])
-@permission_classes([])
-def change_due_date(request):
-
-    email = request.GET.get("email")
-    if email is None:
-        return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
-
-    user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
-    if user is None or len(user) == 0:
-        return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    # Date format YYYY-MM-DD
-
-    due_date = request.data.get("due_date")
-    if due_date is None:
-        return Response({"err": "Due date not provided"}, status=status.HTTP_404_NOT_FOUND)
-
-    account_name = request.data.get("account_name")
-    if account_name is None:
-        return Response({"err": "Account name ot provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
-
-    account = BankAccounts.objects.filter(name=account_name)
-    if len(account) == 0:
-        return Response({"err": "Account not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    bill = Bill.objects.filter(account_id=account[0])
-    if len(bill) == 0:
-        return Response({"err": "Bill not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    bill = bill[0]
-    due_date = due_date.split("-")
-    date = datetime.date(int(due_date[0]), int(due_date[1]), int(due_date[2]))
-    bill.due_date = date
-    bill.save()
-
-    today = datetime.datetime.today().strftime('%Y-%m-%d')
-    days_between = calculate_days_between("-".join(due_date), str(today))
-    print(days_between)
-    if days_between <= 7 and days_between >= -1:
-        email_notification(account[0], bill)
-
-    return Response(
-        {"response": {account[0].name: [bill.amount, str(bill.due_date),
-                                        bill.notified]}})
-
-
-@csrf_exempt
-@api_view(['GET'])
 # These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
@@ -603,18 +537,39 @@ def change_due_date(request):
     days_between = calculate_days_between("-".join(due_date), str(today))
     print(days_between)
     if days_between <= 7 and days_between >= -1:
-        email_notification(account[0], bill)
-        # response.append(
-        #     {'name': account[0].name,
-        #      'amount': bill.amount,
-        #      'due_date': str(bill.due_date),
-        #      'notified': bill.notified})
+        if bill.notified == False:
+            send_email(account[0], bill)
+        else:
+            pass
 
     return Response(
-        {'name': account[0].name,
-         'amount': bill.amount,
-         'due_date': str(bill.due_date),
-         'notified': bill.notified})
+        {"response": {account[0].name: [bill.amount, str(bill.due_date),
+                                        bill.notified]}})
+
+
+def calculate_days_between(day_one: str, day_two: str):
+    day_one = datetime.datetime.strptime(day_one, "%Y-%m-%d")
+    day_two = datetime.datetime.strptime(day_two, "%Y-%m-%d")
+    return (day_one - day_two).days
+
+
+def send_email(account, bill):
+    body = "Your bill for " + account.name + " for " + str(
+        bill.amount) + " is due on " + str(bill.due_date)
+    message = Mail(
+        from_email='no.reply.biller@gmail.com', to_emails=account.user.email,
+        subject='Bill Due Notice', html_content=body)
+    print("Sending email to " + str(account.user.email))
+    try:
+        sg = SendGridAPIClient(
+            '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')
+        response = sg.send(message)
+        bill.notified = True
+        bill.save()
+        print("Success")
+    except Exception as e:
+        print(e.body)
+    return bill.notified
 
 
 @csrf_exempt
@@ -632,30 +587,42 @@ def graph_data(request):
     # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    account_type = request.GET.get("account_type")
-    if account_type is None:
-        return Response({"err": "Account type not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
-    elif account_type != 'savings' and account_type != 'checking' and account_type != 'credit card':
-        return Response({"err": "Incorrect account type"}, status=status.HTTP_406_NOT_ACCEPTABLE)
-
-    accounts = BankAccounts.objects.filter(user=user[0], type=account_type)
-    total_balance = 0
-
-    for account in accounts:
-        total_balance += account.balance
     date_range = []
-
-    print(total_balance)
     for i in range(90):
         time = datetime.date.today() + relativedelta(days=-i)
         time = str(time).split("-")
         date_range.append((time[1], time[0], time[2]))
+
+    accounts = BankAccounts.objects.filter(user=user[0], type="checking")
+    checking_balances = calculate_total_balance(accounts)
+    checking_data = calculate_daily_balances(checking_balances, date_range, list(accounts))
+
+    accounts = BankAccounts.objects.filter(user=user[0], type="savings")
+    saving_balances = calculate_total_balance(accounts)
+    savings_data = calculate_daily_balances(saving_balances, date_range, list(accounts))
+
+    accounts = BankAccounts.objects.filter(user=user[0], type="credit card")
+    credit_balances = calculate_total_balance(accounts)
+    accounts = list(chain(accounts, BankAccounts.objects.filter(user=user[0], type='credit')))
+    credit_data = calculate_daily_balances(credit_balances, date_range, accounts)
+    response = [{'type': 'checking', 'data': checking_data}, {'type': 'savings', 'data': savings_data},
+                {'type': 'credit card', 'data': [abs(balance) for balance in credit_data]}]
+    return Response({'graph_data': response})
+
+
+def calculate_total_balance(accounts):
+    total_balance = 0
+    for account in accounts:
+        total_balance += account.balance
+    return total_balance
+
+
+def calculate_daily_balances(total_balance: float, date_range, accounts):
     data = []
     data.append(total_balance)
     for month, year, day in date_range:
         transactions = Transactions.objects.filter(date__year=year, date__month=month,
-                                                   date__day=day, account_id__in=list(accounts))
+                                                   date__day=day, account_id__in=accounts)
         total_daily_expense = 0
         for transaction in transactions:
             if(transaction.pending_status == False):
@@ -663,15 +630,76 @@ def graph_data(request):
         total_balance += total_daily_expense
         data.append(total_balance)
     data.reverse()
-    return Response({'graph_data': data})
+    return data
 
 
-def calculate_days_between(day_one: str, day_two: str):
-    day_one = datetime.datetime.strptime(day_one, "%Y-%m-%d")
-    day_two = datetime.datetime.strptime(day_two, "%Y-%m-%d")
-    return (day_one - day_two).days
+def check_if_passed_due_date():
+    today = '{:%Y-%m-%d}'.format(datetime.datetime.today())
+    passed_due_bills = Bill.objects.filter(due_date__lt=today, notified=True)
+    try:
+        for bill in passed_due_bills:
+            bill.notified = False
+            bill.save()
+    except Exception as e:
+        print(e.body)
+    threading.Timer(60, check_if_passed_due_date).start()
 
 
-def email_notification(account: BankAccounts, bill: Bill):
-    print("email")
-    return 1
+def check_due_date():
+    today = '{:%Y-%m-%d}'.format(datetime.datetime.today())
+    end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + relativedelta(days=+7))
+    due_bills = Bill.objects.filter(due_date__range=[today, end_date])
+    try:
+        for bill in due_bills:
+            if bill.notified == False:
+                account = bill.account_id
+                send_email(account, bill)
+    except Exception as e:
+        print(e.body)
+    threading.Timer(60, check_due_date).start()
+
+
+def check_transactions_and_balance():
+    start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-1))
+    end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
+    accounts = BankAccounts.objects.filter()
+    try:
+        for account in accounts:
+            response = client.Accounts.get(account.access_token, account_ids=[account.account_id])
+            if(response['accounts'][0]['balances']['current'] != account.balance):
+                account.balance = response['accounts']['balances']['current']
+                bill = Bill.objects.filter(account_id=account)
+                bill.amount = account.balance
+                bill.save()
+                account.save()
+            transactions = client.Transactions.get(account.access_token, start_date, end_date,
+                                                   account_ids=[account.account_id])
+            for transaction in transactions['transactions']:
+                d = transaction['date'].split("-")
+                date = datetime.date(int(d[0]), int(d[1]), int(d[2]))
+                # If the name of the transaction it > 255
+                # slice it so that the length is 255 max
+                if len(Transactions.objects.filter(
+                        transaction_id=transaction['transaction_id'])) == 0:
+                    if len(transaction['name']) < 255:
+                        Transactions.objects.create(
+                            account_id=account, name=transaction['name'],
+                            category=transaction['category'][0],
+                            amount=transaction["amount"],
+                            pending_status=transaction['pending'],
+                            date=date, transaction_id=transaction['transaction_id'])
+                    else:
+                        Transactions.objects.create(
+                            account_id=account, name=transaction['name'][0: 254],
+                            category=transaction['category'][0],
+                            amount=transaction["amount"],
+                            pending_status=transaction['pending'],
+                            date=date, transaction_id=transaction['transaction_id'])
+    except Exception as e:
+        print(e.body)
+    threading.Timer(60, check_transactions_and_balance).start()
+
+
+threading.Timer(60, check_if_passed_due_date).start()
+threading.Timer(60, check_due_date).start()
+threading.Timer(60, check_transactions_and_balance).start()
