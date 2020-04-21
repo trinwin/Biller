@@ -18,7 +18,7 @@ import {
 const UserAccountDetails = ({ title }) => (
   <Card small className="mb-4">
     <CardHeader className="border-bottom">
-      <h6 className="m-0">{title}</h6>
+      <h6 className="m-0">Account Details</h6>
     </CardHeader>
     <ListGroup flush>
       <ListGroupItem className="p-3">
@@ -125,16 +125,5 @@ const UserAccountDetails = ({ title }) => (
     </ListGroup>
   </Card>
 );
-
-UserAccountDetails.propTypes = {
-  /**
-   * The component's title.
-   */
-  title: PropTypes.string,
-};
-
-UserAccountDetails.defaultProps = {
-  title: 'Account Details',
-};
 
 export default UserAccountDetails;

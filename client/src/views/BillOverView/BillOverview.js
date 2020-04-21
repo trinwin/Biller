@@ -129,7 +129,7 @@ class BillOverview extends Component {
     const smallStats = [
       {
         label: 'Net Worth',
-        value: `$${net_worth}`,
+        value: `$${net_worth.toFixed(0)}`,
         chartLabels: [],
         attrs: { md: '6', sm: '6' },
         datasets: [

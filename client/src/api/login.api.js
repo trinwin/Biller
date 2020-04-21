@@ -1,9 +1,19 @@
 import axios from 'axios';
 import { loginSuccessfully, loginFailed } from '../store/actions/auth.action';
-import { HOST, LOGIN_URI, USER_EMAIL, USER_TOKEN } from '../constants';
+import {
+  HOST,
+  LOGIN_URI,
+  USER_EMAIL,
+  USER_TOKEN,
+  USER_FIRST_NAME,
+  USER_LAST_NAME,
+} from '../constants';
 import { setTokenToLocalStorage } from '../utils';
 
-/* After user login BE automatically call api to update all data in all accounts - Costly */
+const capitalize = s => {
+  if (typeof s !== 'string') return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export const login = userData => dispatch => {
@@ -12,9 +22,11 @@ export const login = userData => dispatch => {
     .post(`${HOST}${LOGIN_URI}`, userData)
     .then(res => {
       console.log('res: ', res);
-      // Set userToken to Local Storage
+      // Set user info to Local Storage
       setTokenToLocalStorage(USER_TOKEN, res.data.token).then(() => {
-        setTokenToLocalStorage(USER_EMAIL, res.data.email);
+        localStorage.setItem(USER_EMAIL, res.data.email);
+        localStorage.setItem(USER_FIRST_NAME, capitalize(res.data.first_name));
+        localStorage.setItem(USER_LAST_NAME, capitalize(res.data.last_name));
         dispatch(loginSuccessfully(res.data));
       });
     })
