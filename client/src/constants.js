@@ -1,5 +1,7 @@
 export const HOST = 'http://localhost:8000';
 
+export const USER_FIRST_NAME = 'USER_FIRST_NAME';
+export const USER_LAST_NAME = 'USER_LAST_NAME';
 export const USER_EMAIL = 'USER_EMAIL';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const ACCOUNTS_INFO = 'ACCOUNTS_INFO';

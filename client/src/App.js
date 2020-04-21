@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RouterComponent from './router/RouterComponent';
 import { setUserInfo } from './store/actions/auth.action';
-import { USER_EMAIL, USER_TOKEN, ACCOUNTS_INFO } from './constants';
+import {
+  USER_EMAIL,
+  USER_TOKEN,
+  ACCOUNTS_INFO,
+  USER_FIRST_NAME,
+  USER_LAST_NAME,
+} from './constants';
 
 import { updateProfile } from './store/actions/auth.action';
 import {
@@ -21,22 +27,24 @@ class App extends Component {
   componentDidMount() {
     const email = localStorage.getItem(USER_EMAIL);
     const token = localStorage.getItem(USER_TOKEN);
+    const first_name = localStorage.getItem(USER_FIRST_NAME);
+    const last_name = localStorage.getItem(USER_LAST_NAME);
     const has_profile = localStorage.getItem(ACCOUNTS_INFO) ? true : false;
 
     if (token) {
-      this.props.setUserInfo({ email, token });
+      this.props.setUserInfo({ email, token, first_name, last_name });
       this.props.updateProfile({ has_profile });
-      // if (has_profile) {
-      const user = { email, token };
-      this.props.plaidCategories(user);
-      this.props.plaidTransactions(user);
-      this.props.plaidTransactionsEach(user);
-      this.props.plaidNetWorth(user);
-      this.props.plaidMonthlyExpenses(user);
-      this.props.plaidMonthlyIncome(user);
-      this.props.plaidBills(user);
-      this.props.plaidGraphData(user);
-      // }
+      if (has_profile) {
+        const user = { email, token };
+        this.props.plaidCategories(user);
+        this.props.plaidTransactions(user);
+        this.props.plaidTransactionsEach(user);
+        this.props.plaidNetWorth(user);
+        this.props.plaidMonthlyExpenses(user);
+        this.props.plaidMonthlyIncome(user);
+        this.props.plaidBills(user);
+        this.props.plaidGraphData(user);
+      }
     }
   }
   render() {

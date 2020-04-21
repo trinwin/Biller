@@ -3,7 +3,7 @@ import { DefaultLayout } from '../layouts';
 
 // Route Views
 import BillOverview from '../views/BillOverView/BillOverview';
-import UserProfileLite from '../views/UserProfile';
+import UserProfile from '../views/UserProfile';
 import Errors from '../views/Errors';
 import ComponentsOverview from '../views/ComponentsOverview';
 import Transactions from '../views/Transactions';
@@ -17,7 +17,7 @@ export default [
   {
     path: '/user-profile',
     layout: DefaultLayout,
-    component: UserProfileLite,
+    component: UserProfile,
   },
   {
     path: '/errors',
