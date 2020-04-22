@@ -160,7 +160,7 @@ def get_transactions_of_each_account(request):
         temp['name'] = account.name
         temp['type'] = account.type
         temp['balance'] = str(account.balance)
-        if len(transactions) != 0:
+        if len(transactions) >= 0:
             # For each transaction, add it to a dictionary where the key is
             # the transaction name and the value is a list containing
             # category, date, and amount
@@ -176,7 +176,8 @@ def get_transactions_of_each_account(request):
                 list['pending'] = transaction.pending_status
                 # Append dictionary to the list
                 t.append(list)
-            temp['transactions'] = t
+            temp['transactions'] = reversed(t)
+
         # Append the list to the response json
         response.append(temp)
     for r in response:
@@ -231,7 +232,6 @@ def net_worth(request):
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    # email = 'thn.trinity@gmail.com'
     # If email is not found in database, fail
     user = User_Model.objects.filter(email=email)
     if user is None or len(user) == 0:
