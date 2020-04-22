@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Card,
   CardHeader,
@@ -14,8 +13,9 @@ import {
   FormTextarea,
   Button,
 } from 'shards-react';
+import { USER_FIRST_NAME, USER_LAST_NAME, USER_EMAIL } from '../../constants';
 
-const UserAccountDetails = ({ title }) => (
+const UserAccountDetails = () => (
   <Card small className="mb-4">
     <CardHeader className="border-bottom">
       <h6 className="m-0">Account Details</h6>
@@ -32,7 +32,7 @@ const UserAccountDetails = ({ title }) => (
                   <FormInput
                     id="feFirstName"
                     placeholder="First Name"
-                    value="Trinh"
+                    value={localStorage.getItem(USER_FIRST_NAME)}
                     onChange={() => {}}
                   />
                 </Col>
@@ -42,7 +42,7 @@ const UserAccountDetails = ({ title }) => (
                   <FormInput
                     id="feLastName"
                     placeholder="Last Name"
-                    value="Nguyen"
+                    value={localStorage.getItem(USER_LAST_NAME)}
                     onChange={() => {}}
                   />
                 </Col>
@@ -55,7 +55,7 @@ const UserAccountDetails = ({ title }) => (
                     type="email"
                     id="feEmail"
                     placeholder="Email Address"
-                    value="thn.trinity@example.com"
+                    value={localStorage.getItem(USER_EMAIL)}
                     onChange={() => {}}
                     autoComplete="email"
                   />

@@ -62,13 +62,13 @@ UserDetails.propTypes = {
 UserDetails.defaultProps = {
   userDetails: {
     name: 'Trinh Nguyen',
-    avatar: require('./../../images/avatars/0.jpg'),
-    jobTitle: 'Project Manager',
-    performanceReportTitle: 'Workload',
-    performanceReportValue: 74,
-    metaTitle: 'Description',
+    avatar: require('./../../assets/user-profile/female.png'),
+    jobTitle: 'Biller Founder',
+    performanceReportTitle: 'Biller Progress',
+    performanceReportValue: 100,
+    metaTitle: 'About Biller',
     metaValue:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?',
+      'Biller is a 3-tier web application that helps user to conveniently monitor and control financial status and monthly spending. ',
   },
 };
 

@@ -34,4 +34,9 @@ export default [
     layout: DefaultLayout,
     component: Transactions,
   },
+  {
+    path: '/transactionsEach/:accountName',
+    layout: DefaultLayout,
+    component: Transactions,
+  },
 ];
