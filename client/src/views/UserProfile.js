@@ -5,7 +5,7 @@ import PageTitle from '../components/common/PageTitle';
 import UserDetails from '../components/user-profile/UserDetails';
 import UserAccountDetails from '../components/user-profile/UserAccountDetails';
 
-const UserProfileLite = () => (
+const UserProfile = () => (
   <Container fluid className="main-content-container px-4">
     <Row noGutters className="page-header py-4">
       <PageTitle
@@ -26,4 +26,4 @@ const UserProfileLite = () => (
   </Container>
 );
 
-export default UserProfileLite;
+export default UserProfile;

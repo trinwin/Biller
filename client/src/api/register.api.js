@@ -8,8 +8,8 @@ import { setTokenToLocalStorage } from '../utils';
 
 // eslint-disable-next-line import/prefer-default-export
 export const register = userData => dispatch => {
-  console.log('userData: ', userData);
-  axios
+   //   console.log('userData: ', userData);
+  return axios
     .post(`${HOST}${REGISTER_URI}`, userData)
     .then(res => {
       setTokenToLocalStorage(USER_EMAIL, res.data.email).then(() => {
@@ -18,8 +18,8 @@ export const register = userData => dispatch => {
       });
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
-      console.log(`error: ${err}`);
+      //   console.log('err: ', err.response.data);
+      //    console.log(`error: ${err}`);
       dispatch(registerFailed(err));
     });
 };

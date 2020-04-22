@@ -41,33 +41,33 @@ const config = { headers: { Authorization: `Bearer ${token}` } };
 
 // eslint-disable-next-line import/prefer-default-export
 export const plaidLogin = userData => dispatch => {
-  axios
+  return axios
     .post(`${HOST}${PLAID_ACCESS_TOKEN_URI}`, userData, config)
     .then(res => {
       //   console.log('res: ', res);
       dispatch(plaidLoginSuccessfully(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response);
+       //   console.log('err: ', err.response);
       dispatch(plaidLoginFailed(err));
     });
 };
 
 export const plaidTransactions = userData => dispatch => {
-  axios
+  return axios
     .get(`${HOST}${PLAID_TRANSACTIONS_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidTransactionsSuccess(res.data));
     })
     .catch(err => {
-      console.log('[plaidTransactions] err: ', err.response);
+       //   console.log('[plaidTransactions] err: ', err.response);
       dispatch(plaidTransactionsFailed(err));
     });
 };
 
 export const plaidTransactionsEach = userData => dispatch => {
-  axios
+  return axios
     .get(
       `${HOST}${PLAID_TRANSACTIONS_EACH_URI}?email=${userData.email}`,
       config
@@ -77,99 +77,99 @@ export const plaidTransactionsEach = userData => dispatch => {
       dispatch(plaidTransactionsEachSuccess(res.data));
     })
     .catch(err => {
-      console.log('[plaidTransactionsEach] err: ', err.response);
+       //   console.log('[plaidTransactionsEach] err: ', err.response);
       dispatch(plaidTransactionsEachFailed(err));
     });
 };
 
 export const plaidCategories = userData => dispatch => {
-  axios
+  return axios
     .get(`${HOST}${PLAID_CATEGORIES_URI}?email=${userData.email}`, config)
     .then(res => {
       // console.log('res: ', res.data);
       dispatch(plaidCategoriesSuccess(res.data));
     })
     .catch(err => {
-      console.log('[plaidCategories] err: ', err.response);
+       //   console.log('[plaidCategories] err: ', err.response);
       dispatch(plaidCategoriesFailed(err));
     });
 };
 
 export const plaidNetWorth = userData => dispatch => {
-  axios
+  return axios
     .get(`${HOST}${PLAID_NET_WORTH_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidNetWorthSuccess(res.data));
     })
     .catch(err => {
-      console.log('[plaidNetWorth] err: ', err.response);
+       //   console.log('[plaidNetWorth] err: ', err.response);
       dispatch(plaidNetWorthFailed(err));
     });
 };
 
 export const plaidMonthlyExpenses = userData => dispatch => {
-  axios
+  return axios
     .get(`${HOST}${PLAID_MONTHLY_EXPENSES_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidMonthlyExpensesSuccess(res.data));
     })
     .catch(err => {
-      console.log('[plaidMonthlyExpense] err: ', err.response);
+       //   console.log('[plaidMonthlyExpense] err: ', err.response);
       dispatch(plaidMonthlyExpensesFailed(err));
     });
 };
 
 export const plaidMonthlyIncome = userData => dispatch => {
-  axios
+  return axios
     .get(`${HOST}${PLAID_MONTHLY_INCOME_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidMonthlyIncomeSuccess(res.data));
     })
     .catch(err => {
-      console.log('[plaidMonthlyExpense] err: ', err.response);
+       //   console.log('[plaidMonthlyExpense] err: ', err.response);
       dispatch(plaidMonthlyIncomeFailed(err));
     });
 };
 
 export const plaidBills = userData => dispatch => {
-  axios
+  return axios
     .get(`${HOST}${PLAID_BILLS_URI}?email=${userData.email}`, config)
     .then(res => {
       //   console.log('res: ', res.data);
       dispatch(plaidBillsSuccess(res.data));
     })
     .catch(err => {
-      console.log('[plaidBill] err: ', err.response);
+       //   console.log('[plaidBill] err: ', err.response);
       dispatch(plaidBillsFailed(err));
     });
 };
 
 export const plaidGraphData = userData => dispatch => {
-  axios
+  return axios
     .get(`${HOST}${PLAID_GRAPH_DATA_URI}?email=${userData.email}`, config)
     .then(res => {
       // console.log('res: ', res.data);
       dispatch(plaidGraphDataSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response);
+      //    console.log('err: ', err.response);
       dispatch(plaidGraphDataFailed(err));
     });
 };
 
 export const changeDueDate = userData => dispatch => {
-  console.log('userData sent to change date: ', userData);
-  axios
+  //    console.log('userData sent to change date: ', userData);
+  return axios
     .post(`${HOST}${PLAID_BILLS_DATE_UPDATE}`, userData, config)
     .then(res => {
-      console.log('res: ', res.data);
+      //    console.log('res: ', res.data);
       dispatch(plaidBillUpdateSuccess(res.data));
     })
     .catch(err => {
-      console.log('err: ', err.response);
+       //   console.log('err: ', err.response);
       dispatch(plaidBillUpdateFailed(err));
     });
 };
