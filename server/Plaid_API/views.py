@@ -89,6 +89,7 @@ def get_access_token(request):
                         balance=account['balances']['current'])
             else:
                 print("Name: ", account['name'])
+                name = ""
                 for word in account['name'].split(' '):
                     if word.isupper():
                         name += " " + word.lower().capitalize()
