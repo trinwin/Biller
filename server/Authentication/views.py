@@ -88,7 +88,8 @@ def register_page(request):
                 JWT_Token = RefreshToken.for_user(user)
                 request.user.refresh_token = str(JWT_Token)
                 request.user.access_token = str(JWT_Token.access_token)
-                return Response({'email': email, 'token': request.user.access_token})
+                return Response({'email': email, 'token': request.user.access_token, 'first_name': user.first_name\
+                                 , 'last_name': user.last_name})
             else:
                 return Response(
                     {'message': "An account with this email already exists."},
