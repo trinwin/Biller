@@ -12,8 +12,8 @@ export const register = userData => dispatch => {
   axios
     .post(`${HOST}${REGISTER_URI}`, userData)
     .then(res => {
-      setTokenToLocalStorage(USER_EMAIL, res.data.email).then(() => {
-        setTokenToLocalStorage(USER_TOKEN, res.data.token);
+      setTokenToLocalStorage(USER_TOKEN, res.data.token).then(() => {
+        localStorage.setItem(USER_EMAIL, res.data.email);
         dispatch(registerSuccessfully(res.data));
       });
     })
