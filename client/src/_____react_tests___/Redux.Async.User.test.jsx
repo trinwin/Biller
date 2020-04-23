@@ -10,7 +10,7 @@ import * as registerAct from '../api/register.api.js'
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
-describe('auth API actions', () => {
+describe('user API actions', () => {
   let mockAxios;
   beforeEach(() => {
     mockAxios = new MockAdapter(axios);

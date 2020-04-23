@@ -21,7 +21,7 @@ export const login = userData => dispatch => {
   return axios
   .post(`${HOST}${LOGIN_URI}`, userData)
     .then(res => {
-       //   console.log('res: ', res);
+      console.log('res: ', res);
       // Set user info to Local Storage
       setTokenToLocalStorage(USER_TOKEN, res.data.token).then(() => {
         localStorage.setItem(USER_EMAIL, res.data.email);

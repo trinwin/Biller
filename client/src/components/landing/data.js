@@ -3,31 +3,31 @@ import React from 'react';
 export const page1 = [
   {
     title: 'Store of all your bills',
-    content: 'Feature 1 Note',
+    content: 'Through connecting your bank accounts with Plaid, Biller can gather and display all of your banking information.',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/MmROsqZndrFBrIspzLlL.png',
   },
   {
     title: 'Manage your expenses',
-    content: 'Feature 2 Note',
+    content: 'Biller contains various analytical tools to help you manage your finances across all of your connected bank accounts.',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/ONvKhpRAmkCfdEhkUZkJ.png',
   },
   {
     title: 'Help you save money',
-    content: 'Feature 3 Note',
+    content: 'Biller notifies you of any incomming due dates for your bills. Never forget that one obscure subscription ever again!',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/oxmXLgGjCeXfYPcVSbKg.png',
   },
 ];
 
 export const page2 = [
   {
-    title: 'Individual',
+    title: 'Free',
     content: [
       <p key="1">Feature List</p>,
-      <p key="2">...</p>,
-      <p key="3">...</p>,
-      <p key="4">...</p>,
+      <p key="2">Connect and view your bank accounts</p>,
+      <p key="3">View the last 6 months of your bills</p>,
+      <p key="4">Set up notifications on monthly bills</p>,
     ],
-    // exp: '免费使用',
+    
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
         <defs>
@@ -71,13 +71,13 @@ export const page2 = [
     ),
   },
   {
-    title: 'Family',
+    title: 'Basic',
     content: [
       <p key="1">Feature List</p>,
-      <p key="2">...</p>,
-      <p key="3">...</p>,
-      <p key="4">...</p>,
-      <p key="5">...</p>,
+      <p key="2">All the features from the free model</p>,
+      <p key="3">Connect to your utility accounts</p>,
+      <p key="4">View projections on your expenses</p>,
+      <p key="5">Set up custom notifications</p>,
     ],
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
@@ -110,13 +110,12 @@ export const page2 = [
     ),
   },
   {
-    title: 'Enterprise',
+    title: 'Plus',
     content: [
       <p key="1">Feature List</p>,
-      <p key="2">...</p>,
-      <p key="3">...</p>,
-      <p key="4">...</p>,
-      <p key="5">...</p>,
+      <p key="2">All the features from the plus model</p>,
+      <p key="3">Allow for up to 2 other people to have their own seperate accounts under you</p>,
+      <p key="4">Compare or combine each others' data (with their permission)</p>,
     ],
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
@@ -247,7 +246,6 @@ export const page3 = [
 export const footer = [
   { text: 'About Us', src: '#' },
   { text: 'Contact Us', src: '#' },
-  { text: 'Careers', src: '#' },
   { text: 'Terms Of Service', src: '#' },
-  { text: 'Privacy Policy', src: 'mailto:zhao.wuz@antfin.com' },
+  { text: 'Privacy Policy', src: '#' },
 ];

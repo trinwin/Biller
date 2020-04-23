@@ -9,10 +9,7 @@ export default function Page2() {
     <Col span={8} className="col" key={i.toString()}>
       <QueueAnim
         type="bottom"
-        className="content-wrapper home-hover"
-        onClick={() => {
-          window.location.href = '/intro/price ';
-        }}
+        className="content-wrapper home-hover"  
       >
         <div key="image" className="image">
           {d.svg}
@@ -37,7 +34,7 @@ export default function Page2() {
           ease="easeOutQuart"
           leaveReverse
         >
-          <h2 key="h2">Subcriptions</h2>
+          <h2 key="h2">Biller Plans</h2>
           <i key="i" className="line" />
           <QueueAnim
             key="content"

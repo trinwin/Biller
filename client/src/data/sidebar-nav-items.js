@@ -9,7 +9,12 @@ export default function() {
     {
       title: 'Transactions',
       htmlBefore: '<i class="material-icons">attach_money</i>',
-      to: '/transactions',
+      to: '/transactions/:accountName',
+    },
+    {
+      title: 'Add an Account',
+      htmlBefore: '<i class="material-icons">add</i>',
+      to: '/setup',
     },
     {
       title: 'Forms & Components',

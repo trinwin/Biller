@@ -1,7 +1,7 @@
 import * as consts from '../constants.js';
 import reducer from '../store/reducers/plaidReducer';
 
-describe('reducer actions', () => {
+describe('plaid reducer actions', () => {
   let objectState;
   let action;
   beforeEach(() => {

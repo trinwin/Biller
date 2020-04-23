@@ -5,7 +5,6 @@ import { Redirect, withRouter } from 'react-router-dom';
 
 import { register } from '../api/register.api';
 import Register from '../components/Register.jsx';
-import history from '../router/History';
 
 import './Pages.css';
 
@@ -20,10 +19,6 @@ class RegisterPage extends Component {
       firstname: e.firstname,
       lastname: e.lastname,
     });
-
-    if (this.props.success) {
-      history.push('/setup');
-    }
   };
 
   render() {

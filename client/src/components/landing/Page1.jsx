@@ -24,7 +24,7 @@ export default function Page1() {
   ));
   return (
     <div className="home-layout-wrapper home-func-wrapper" id="home-func">
-      <h2>Features</h2>
+      <h2>Overview</h2>
       <i className="line" />
       <OverPack className="home-layout" location="home-func" playScale={0.4}>
         <QueueAnim
