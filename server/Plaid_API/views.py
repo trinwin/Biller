@@ -75,19 +75,31 @@ def get_access_token(request):
                         access_token=access_token, account_id=account["account_id"],
                         type='utilities', name='PG&E', balance=account['balances']['current'])
                 else:
+                    name = ""
+                    for word in account['official_name'].split(' '):
+                        if word.isupper():
+                            name += " " + word.lower().capitalize()
+                        else:
+                            name += " " + word
                     new_account = BankAccounts.objects.create(
                         user=user[0],
                         access_token=access_token, account_id=account["account_id"],
                         type=account['subtype'],
-                        name=account["official_name"],
+                        name=name,
                         balance=account['balances']['current'])
             else:
                 print("Name: ", account['name'])
+                name = ""
+                for word in account['name'].split(' '):
+                    if word.isupper():
+                        name += " " + word.lower().capitalize()
+                    else:
+                        name += " " + word
                 new_account = BankAccounts.objects.create(
                     user=user[0],
                     access_token=access_token, account_id=account["account_id"],
                     type=account['subtype'],
-                    name=account["name"],
+                    name=name,
                     balance=account['balances']['current'])
 
             # This part for adding a bill object if the account is a credit type
@@ -157,7 +169,12 @@ def get_transactions_of_each_account(request):
         transactions = Transactions.objects.filter(account_id=account).order_by("date")
         temp = {}
         # Append the account name, type, balance to the list
-        temp['name'] = account.name
+        temp['name'] = ""
+        for word in account.name.split(' '):
+            if word.isupper():
+                temp['name'] += " " + word.lower().capitalize()
+            else:
+                temp['name'] += " " + word
         temp['type'] = account.type
         temp['balance'] = str(account.balance)
         if len(transactions) >= 0:
