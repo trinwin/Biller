@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { Container, Navbar } from "shards-react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { Container, Navbar } from 'shards-react';
 
-import NavbarSearch from "./NavbarSearch";
-import NavbarNav from "./Navbar/NavbarNav";
-import NavbarToggle from "./NavbarToggle";
+import NavbarSearch from './NavbarSearch';
+import NavbarNav from './Navbar/NavbarNav';
+import NavbarToggle from './NavbarToggle';
 
 const MainNavbar = ({ layout, stickyTop }) => {
   const classes = classNames(
-    "main-navbar",
-    "bg-white",
-    stickyTop && "sticky-top"
+    'main-navbar',
+    'bg-white',
+    stickyTop && 'sticky-top'
   );
 
   return (
@@ -35,11 +35,11 @@ MainNavbar.propTypes = {
   /**
    * Whether the main navbar is sticky to the top, or not.
    */
-  stickyTop: PropTypes.bool
+  stickyTop: PropTypes.bool,
 };
 
 MainNavbar.defaultProps = {
-  stickyTop: true
+  stickyTop: true,
 };
 
 export default MainNavbar;

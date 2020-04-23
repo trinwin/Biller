@@ -4,14 +4,15 @@ import { Container, Row, Col, Card, CardBody, Badge } from 'shards-react';
 import PageTitle from '../common/PageTitle';
 
 const Transaction = props => {
-  return (
+  console.log('props: ', props);
+  return props.transactions ? (
     <Container fluid className="main-content-container px-4">
       {/* Page Header */}
       <Row noGutters className="page-header py-4">
         <PageTitle
           sm="4"
           title="Transactions"
-          subtitle="Bank"
+          subtitle={props.account}
           className="text-sm-left"
         />
       </Row>
@@ -97,7 +98,7 @@ const Transaction = props => {
         </Col>
       </Row>
     </Container>
-  );
+  ) : null;
 };
 
 export default Transaction;

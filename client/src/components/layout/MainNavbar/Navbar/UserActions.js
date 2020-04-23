@@ -12,7 +12,12 @@ import {
   NavLink,
 } from 'shards-react';
 
-import { USER_EMAIL, USER_TOKEN } from '../../../../constants';
+import {
+  USER_EMAIL,
+  USER_TOKEN,
+  USER_FIRST_NAME,
+  USER_LAST_NAME,
+} from '../../../../constants';
 import { logout } from '../../../../store/actions/auth.action';
 
 class UserActions extends Component {
@@ -23,7 +28,7 @@ class UserActions extends Component {
       visible: false,
     };
 
-    this.onClick = this.onClick.bind(this);
+    this.logout = this.logout.bind(this);
     this.toggleUserActions = this.toggleUserActions.bind(this);
   }
 
@@ -33,10 +38,12 @@ class UserActions extends Component {
     });
   }
 
-  onClick = e => {
+  logout = e => {
     e.preventDefault();
     localStorage.removeItem(USER_EMAIL);
     localStorage.removeItem(USER_TOKEN);
+    localStorage.removeItem(USER_FIRST_NAME);
+    localStorage.removeItem(USER_LAST_NAME);
     this.props.logout();
   };
 
@@ -46,7 +53,7 @@ class UserActions extends Component {
         <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
           <img
             className="user-avatar rounded-circle mr-2"
-            src={require('./../../../../images/avatars/0.jpg')}
+            src={require('./../../../../assets/user-profile/female.png')}
             alt="User Avatar"
           />{' '}
           <span className="d-none d-md-inline-block">Trinh Nguyen</span>
@@ -65,7 +72,7 @@ class UserActions extends Component {
             <i className="material-icons">&#xE896;</i> Transactions
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem className="text-danger" onClick={this.onClick}>
+          <DropdownItem className="text-danger" onClick={this.logout}>
             <i className="material-icons text-danger">&#xE879;</i> Logout
           </DropdownItem>
         </Collapse>
