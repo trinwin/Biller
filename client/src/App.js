@@ -24,10 +24,6 @@ import {
 
 class App extends Component {
   componentDidMount() {
-    this.init();
-  }
-
-  init() {
     const { plaid } = this.props || {};
     const { transactions_each } = plaid || [];
     const email = localStorage.getItem(USER_EMAIL);
@@ -55,7 +51,6 @@ class App extends Component {
 
   render() {
     const { user, plaid } = this.props || {};
-    console.log(`[App]`, user, plaid);
     return (
       <div>
         <RouterComponent user={user} plaid={plaid} />
