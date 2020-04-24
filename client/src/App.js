@@ -25,8 +25,6 @@ import {
 
 class App extends Component {
   componentDidMount() {
-    const { plaid } = this.props || {};
-    const { transactions_each } = plaid || [];
     const email = localStorage.getItem(USER_EMAIL);
     const token = localStorage.getItem(USER_TOKEN);
     const user = { email, token };
@@ -43,7 +41,6 @@ class App extends Component {
       this.props.plaidMonthlyIncome(user);
       this.props.plaidBills(user);
       this.props.plaidGraphData(user);
-      this.props.getNotification(user);
     }
   }
 
