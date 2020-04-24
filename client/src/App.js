@@ -25,10 +25,6 @@ import {
 
 class App extends Component {
   componentDidMount() {
-    this.init();
-  }
-
-  init() {
     const { plaid } = this.props || {};
     const { transactions_each } = plaid || [];
     const email = localStorage.getItem(USER_EMAIL);
