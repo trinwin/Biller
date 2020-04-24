@@ -5,7 +5,6 @@ import moment from 'moment';
 import { Redirect, withRouter } from 'react-router-dom';
 import {
   USER_TOKEN,
-  ACCOUNTS_INFO,
   PLAID_CHECKING,
   PLAID_SAVINGS,
   PLAID_CREDIT_CARD,
@@ -99,11 +98,15 @@ class BillOverview extends Component {
     return accountBalanceChartData;
   }
 
+  componentWillUpdate() {
+    console.log('update please');
+  }
+
   render() {
     const { plaid } = this.props || {};
+    const { user } = this.props || {};
     const token = localStorage.getItem(USER_TOKEN);
-    const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_INFO)) || [];
-    const has_profile = accounts ? true : false;
+
     const graph_data = plaid.graph_data || [];
 
     /* */
@@ -125,6 +128,7 @@ class BillOverview extends Component {
       var accountBalanceChartData = this.accountBalanceChart(transactions_each);
       var accountNum = transactions_each.length;
     }
+    const has_profile = user.has_profile || transactions_each;
 
     const smallStats = [
       {

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { PlaidLink } from 'react-plaid-link';
-import { Layout, List, Button } from 'antd';
+import { Layout, List } from 'antd';
+import { Button } from 'shards-react';
 import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import {
   PLAID_PRODUCT,
@@ -31,12 +32,12 @@ const SetupAccounts = props => {
               xl: 2,
               xxl: 2,
             }}
-            dataSource={props.forms}
-            renderItem={item => (
+            dataSource={props.accountsInfo}
+            renderItem={account => (
               <List.Item>
                 <PlaidInstance
-                  bankName={item.bankName}
-                  accountNum={item.accountNum}
+                  bankName={account.name}
+                  accountNum={account.type}
                 />
               </List.Item>
             )}
@@ -63,12 +64,20 @@ const SetupAccounts = props => {
                   type="primary"
                   icon={<ArrowRightOutlined />}
                   size="large"
-                  className="connect-dashboard-btn"
+                  className="connect-dashboard-btn text-center"
                 >
                   Proceed to Dashboard
                 </Button>
               </Link>
             )}
+            <Button
+              type="success"
+              size="large"
+              className="connect-dashboard-btn"
+              onClick={props.logout}
+            >
+              <i class="material-icons">&#xE879;</i> Logout
+            </Button>
           </div>
         </Content>
       </Layout>

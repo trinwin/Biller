@@ -7,10 +7,10 @@ const PlaidInstance = props => {
       <Card>
         <Row gutter={19}>
           <Col span={12}>
-            <Statistic title="Company" value={props.bankName} />
+            <Statistic title="Account" value={props.bankName} />
           </Col>
           <Col span={12}>
-            <Statistic title="Number of Accounts" value={props.accountNum} />
+            <Statistic title="Account Type" value={props.accountNum} />
           </Col>
         </Row>
       </Card>

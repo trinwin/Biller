@@ -31,16 +31,16 @@ import {
   PLAID_MONTHLY_EXPENSES_URI,
   PLAID_BILLS_URI,
   PLAID_GRAPH_DATA_URI,
-  USER_TOKEN,
   PLAID_MONTHLY_INCOME_URI,
   PLAID_BILLS_DATE_UPDATE,
 } from '../constants';
 
-const token = localStorage.getItem(USER_TOKEN);
-const config = { headers: { Authorization: `Bearer ${token}` } };
+// const token = localStorage.getItem(USER_TOKEN);
+// const config = { headers: { Authorization: `Bearer ${token}` } };
 
 // eslint-disable-next-line import/prefer-default-export
 export const plaidLogin = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .post(`${HOST}${PLAID_ACCESS_TOKEN_URI}`, userData, config)
     .then(res => {
@@ -54,6 +54,7 @@ export const plaidLogin = userData => dispatch => {
 };
 
 export const plaidTransactions = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_TRANSACTIONS_URI}?email=${userData.email}`, config)
     .then(res => {
@@ -67,6 +68,7 @@ export const plaidTransactions = userData => dispatch => {
 };
 
 export const plaidTransactionsEach = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(
       `${HOST}${PLAID_TRANSACTIONS_EACH_URI}?email=${userData.email}`,
@@ -83,6 +85,7 @@ export const plaidTransactionsEach = userData => dispatch => {
 };
 
 export const plaidCategories = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_CATEGORIES_URI}?email=${userData.email}`, config)
     .then(res => {
@@ -96,6 +99,7 @@ export const plaidCategories = userData => dispatch => {
 };
 
 export const plaidNetWorth = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_NET_WORTH_URI}?email=${userData.email}`, config)
     .then(res => {
@@ -109,6 +113,7 @@ export const plaidNetWorth = userData => dispatch => {
 };
 
 export const plaidMonthlyExpenses = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_MONTHLY_EXPENSES_URI}?email=${userData.email}`, config)
     .then(res => {
@@ -122,6 +127,7 @@ export const plaidMonthlyExpenses = userData => dispatch => {
 };
 
 export const plaidMonthlyIncome = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_MONTHLY_INCOME_URI}?email=${userData.email}`, config)
     .then(res => {
@@ -135,6 +141,7 @@ export const plaidMonthlyIncome = userData => dispatch => {
 };
 
 export const plaidBills = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_BILLS_URI}?email=${userData.email}`, config)
     .then(res => {
@@ -148,6 +155,7 @@ export const plaidBills = userData => dispatch => {
 };
 
 export const plaidGraphData = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   axios
     .get(`${HOST}${PLAID_GRAPH_DATA_URI}?email=${userData.email}`, config)
     .then(res => {
@@ -161,6 +169,37 @@ export const plaidGraphData = userData => dispatch => {
 };
 
 export const changeDueDate = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
+  console.log('userData sent to change date: ', userData);
+  axios
+    .post(`${HOST}${PLAID_BILLS_DATE_UPDATE}`, userData, config)
+    .then(res => {
+      console.log('res: ', res.data);
+      dispatch(plaidBillUpdateSuccess(res.data));
+    })
+    .catch(err => {
+      console.log('err: ', err.response);
+      dispatch(plaidBillUpdateFailed(err));
+    });
+};
+
+export const getNotification = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
+  console.log('userData sent to change date: ', userData);
+  axios
+    .get(`${HOST}${PLAID_BILLS_DATE_UPDATE}`, userData, config)
+    .then(res => {
+      console.log('res: ', res.data);
+      dispatch(plaidBillUpdateSuccess(res.data));
+    })
+    .catch(err => {
+      console.log('err: ', err.response);
+      dispatch(plaidBillUpdateFailed(err));
+    });
+};
+
+export const markNotificationAsRead = userData => dispatch => {
+  const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   console.log('userData sent to change date: ', userData);
   axios
     .post(`${HOST}${PLAID_BILLS_DATE_UPDATE}`, userData, config)

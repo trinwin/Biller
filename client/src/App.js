@@ -6,7 +6,6 @@ import { setUserInfo } from './store/actions/auth.action';
 import {
   USER_EMAIL,
   USER_TOKEN,
-  ACCOUNTS_INFO,
   USER_FIRST_NAME,
   USER_LAST_NAME,
 } from './constants';
@@ -25,20 +24,26 @@ import {
 
 class App extends Component {
   componentDidMount() {
+    this.init();
+  }
+
+  init() {
+    const { plaid } = this.props || {};
+    const { transactions_each } = plaid || [];
     const email = localStorage.getItem(USER_EMAIL);
     const token = localStorage.getItem(USER_TOKEN);
+    const user = { email, token };
     const first_name = localStorage.getItem(USER_FIRST_NAME);
     const last_name = localStorage.getItem(USER_LAST_NAME);
-    const has_profile = localStorage.getItem(ACCOUNTS_INFO) ? true : false;
 
     if (token) {
       this.props.setUserInfo({ email, token, first_name, last_name });
-      this.props.updateProfile({ has_profile });
+      this.props.plaidTransactionsEach(user);
+      const has_profile =
+        transactions_each && transactions_each.length ? true : false;
       if (has_profile) {
-        const user = { email, token };
         this.props.plaidCategories(user);
         this.props.plaidTransactions(user);
-        this.props.plaidTransactionsEach(user);
         this.props.plaidNetWorth(user);
         this.props.plaidMonthlyExpenses(user);
         this.props.plaidMonthlyIncome(user);
@@ -47,11 +52,13 @@ class App extends Component {
       }
     }
   }
+
   render() {
-    const user = this.props.user || {};
+    const { user, plaid } = this.props || {};
+    console.log(`[App]`, user, plaid);
     return (
       <div>
-        <RouterComponent user={user} />
+        <RouterComponent user={user} plaid={plaid} />
       </div>
     );
   }
