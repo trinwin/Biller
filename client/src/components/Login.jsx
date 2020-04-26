@@ -16,7 +16,7 @@ const Login = props => {
         <img src={require('../assets/logo.png')} alt="logo" />
       </Link>
 
-      <h1>Login</h1>
+      <h2>Login</h2>
       <Form.Item
         name="email"
         rules={[{ required: true, message: 'Please input your email!' }]}

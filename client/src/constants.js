@@ -22,7 +22,10 @@ export const PLAID_MONTHLY_EXPENSES_URI = '/plaid/monthly-total-expenses/';
 export const PLAID_MONTHLY_INCOME_URI = '/plaid/monthly-total-income/';
 export const PLAID_BILLS_URI = '/plaid/bills/';
 export const PLAID_GRAPH_DATA_URI = '/plaid/graph-data/';
-export const PLAID_BILLS_DATE_UPDATE = '/plaid/change-due-date/';
+export const PLAID_CHANGE_BILL_DUE_DATE_URI = '/plaid/change-due-date/';
+export const PLAID_GET_NOTIFICATIONS_URI = '/plaid/get-notifications/';
+export const PLAID_MARK_NOTIFICATION_READ_URI =
+  '/plaid/mark_notification_as_read/';
 
 // Auth
 export const LOGIN_FAILED = 'LOGIN_FAILED';

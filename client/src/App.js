@@ -20,12 +20,11 @@ import {
   plaidMonthlyIncome,
   plaidBills,
   plaidGraphData,
+  getNotification,
 } from './api/plaid.api';
 
 class App extends Component {
   componentDidMount() {
-    const { plaid } = this.props || {};
-    const { transactions_each } = plaid || [];
     const email = localStorage.getItem(USER_EMAIL);
     const token = localStorage.getItem(USER_TOKEN);
     const user = { email, token };
@@ -35,17 +34,14 @@ class App extends Component {
     if (token) {
       this.props.setUserInfo({ email, token, first_name, last_name });
       this.props.plaidTransactionsEach(user);
-      const has_profile =
-        transactions_each && transactions_each.length ? true : false;
-      if (has_profile) {
-        this.props.plaidCategories(user);
-        this.props.plaidTransactions(user);
-        this.props.plaidNetWorth(user);
-        this.props.plaidMonthlyExpenses(user);
-        this.props.plaidMonthlyIncome(user);
-        this.props.plaidBills(user);
-        this.props.plaidGraphData(user);
-      }
+      this.props.plaidCategories(user);
+      this.props.plaidTransactions(user);
+      this.props.plaidNetWorth(user);
+      this.props.plaidMonthlyExpenses(user);
+      this.props.plaidMonthlyIncome(user);
+      this.props.plaidBills(user);
+      this.props.plaidGraphData(user);
+      this.props.getNotification(user);
     }
   }
 
@@ -77,6 +73,7 @@ function matchDispatchToProps(dispatch) {
       plaidMonthlyIncome,
       plaidBills,
       plaidGraphData,
+      getNotification,
     },
     dispatch
   );
