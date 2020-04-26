@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`register page / component should render correctly 1`] = `ReactWrapper {}`;
+
+exports[`register page / component when user is logged in should redirect the user to dashboard 1`] = `ShallowWrapper {}`;

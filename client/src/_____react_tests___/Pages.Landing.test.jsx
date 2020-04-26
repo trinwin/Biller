@@ -4,10 +4,10 @@ import {Provider} from 'react-redux';
 import {mount, shallow, configure } from 'enzyme';
 import { MemoryRouter, Router } from "react-router-dom";
 import React from 'react';
+import {Input, Button} from 'antd';
 import Adapter from 'enzyme-adapter-react-16';
 
-import RegisterPage from '../pages/RegisterPage';
-import Register from '../components/Register';
+import Landing from '../components/landing/Landing';
 
 
 Object.defineProperty(window, 'matchMedia', {
@@ -29,7 +29,7 @@ const mockStore = configureMockStore(middlewares);
 
 configure({adapter: new Adapter()});
 
-describe('register page / component', () => {
+describe('login page / component', () => {
   let initialState = {};
   let store;
 
@@ -40,13 +40,19 @@ describe('register page / component', () => {
   it('should render correctly', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <MemoryRouter initialEntries={['/register']}>
-          <RegisterPage />
+        <MemoryRouter initialEntries={['/login']}>
+          <Landing />
         </MemoryRouter>,
       </Provider>
     );
 
     expect(wrapper).toMatchSnapshot();
+  });
+
+  describe("when user interacts with component", () => {
+    it('should work when user submits', () => {
+     
+    });
   });
 
   describe("when user is logged in", () => {

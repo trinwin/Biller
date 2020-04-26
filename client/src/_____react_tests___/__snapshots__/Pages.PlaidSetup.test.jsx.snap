@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setup page when user is logged in should redirect the user to dashboard 1`] = `ShallowWrapper {}`;

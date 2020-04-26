@@ -2,11 +2,13 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import {Provider} from 'react-redux';
 import {mount, shallow, configure } from 'enzyme';
+import { MemoryRouter, Router } from "react-router-dom";
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
-import GoogleAnalytics from 'react-ga';
 
-import App from '../App';
+import RegisterPage from '../pages/RegisterPage';
+import Register from '../components/Register';
+
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -27,24 +29,39 @@ const mockStore = configureMockStore(middlewares);
 
 configure({adapter: new Adapter()});
 
-describe('main App component', () => {
+describe('register page / component', () => {
   let initialState = {};
   let store;
 
   beforeEach(() => {
     store = mockStore(initialState)
-    GoogleAnalytics.set({});
   });
 
-  it('should render correctly in connected component', () => {
+  it('should render correctly', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <App />
+        <MemoryRouter initialEntries={['/register']}>
+          <RegisterPage />
+        </MemoryRouter>,
       </Provider>
     );
 
-    const component = wrapper.instance();
-
     expect(wrapper).toMatchSnapshot();
+  });
+
+  describe("when user is logged in", () => {
+    it('should redirect the user to dashboard', () => {
+      const wrapper = shallow(
+      <MemoryRouter>
+        <RegisterPage store={store} />
+      </MemoryRouter>);
+
+      console.log(wrapper.dive().instance());
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should redirect the user to setup page', () => {
+     
+    });
   });
 });
