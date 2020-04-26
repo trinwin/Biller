@@ -56,7 +56,7 @@ describe('register page / component', () => {
         <RegisterPage store={store} />
       </MemoryRouter>);
 
-      console.log(wrapper.dive().instance());
+      console.log(wrapper.dive().instance().children);
       expect(wrapper).toMatchSnapshot();
     });
 

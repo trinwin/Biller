@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BillDueDate components  should render BillDueDate correctly 1`] = `ReactWrapper {}`;
+
+exports[`SmallStats components  should render SmallStats correctly 1`] = `ReactWrapper {}`;

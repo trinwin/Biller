@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountBalances components  should render AccountBalances correctly 1`] = `ReactWrapper {}`;
+
+exports[`BillDueDate components  should render BillDueDate correctly 1`] = `ReactWrapper {}`;

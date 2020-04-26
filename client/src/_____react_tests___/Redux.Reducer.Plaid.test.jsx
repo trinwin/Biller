@@ -184,4 +184,8 @@ describe('plaid reducer actions', () => {
       errors: null,
     });
   });
+
+  it('returns state when other cases fail', () => {
+    expect(reducer(objectState, action)).toEqual( objectState );
+  });
 });
