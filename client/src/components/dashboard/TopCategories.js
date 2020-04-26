@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Card,
   CardHeader,
@@ -35,38 +34,5 @@ const TopCategories = props => (
     </CardBody>
   </Card>
 );
-
-TopCategories.propTypes = {
-  /**
-   * The component's title.
-   */
-  title: PropTypes.string,
-  /**
-   * The referral data.
-   */
-  referralData: PropTypes.array,
-};
-
-TopCategories.defaultProps = {
-  title: 'Top Categories',
-  referralData: [
-    {
-      title: 'Shopping',
-      value: '$1,291',
-    },
-    {
-      title: 'Travel',
-      value: '$1,291',
-    },
-    {
-      title: 'Food',
-      value: '$1,291',
-    },
-    {
-      title: 'Utilities',
-      value: '$1,291',
-    },
-  ],
-};
 
 export default TopCategories;

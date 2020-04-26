@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^bills/', views.bills, name="bills"),
     url(r'^change-due-date/', views.change_due_date, name="change-due-date"),
     url(r'^graph-data/', views.graph_data, name="graph-data"),
+    url(r'^get-notifications/', views.get_notifications, name="get_notifications"),
+    url(r'^mark_notification_as_read/', views.mark_notification_as_read, name="mark_notification_as_read"),
 ]

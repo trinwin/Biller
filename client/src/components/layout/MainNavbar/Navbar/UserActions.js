@@ -53,7 +53,7 @@ class UserActions extends Component {
         <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
           <img
             className="user-avatar rounded-circle mr-2"
-            src={require('./../../../../assets/user-profile/female.png')}
+            src={require('./../../../../assets/user-profile/Trinh.png')}
             alt="User Avatar"
           />{' '}
           <span className="d-none d-md-inline-block">Trinh Nguyen</span>

@@ -14,7 +14,7 @@ const Register = props => {
       <Link to="/" className="register-sign-up">
         <img src={require('../assets/logo.png')} alt="logo" />
       </Link>
-
+      <h2>Register</h2>
       <Form.Item
         name="email"
         hasFeedback
@@ -52,10 +52,10 @@ const Register = props => {
             validator(rule, value) {
               if (!value || getFieldValue('password') === value)
                 return Promise.resolve();
-              
-              return Promise.reject(new Error(
-                'The two passwords that you entered do not match!'
-              ));
+
+              return Promise.reject(
+                new Error('The two passwords that you entered do not match!')
+              );
             },
           }),
         ]}

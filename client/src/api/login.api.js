@@ -8,6 +8,7 @@ import {
   USER_FIRST_NAME,
   USER_LAST_NAME,
 } from '../constants';
+
 import { setTokenToLocalStorage } from '../utils';
 
 const capitalize = s => {
@@ -17,16 +18,15 @@ const capitalize = s => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const login = userData => dispatch => {
-  console.log('userData sent to login: ', userData);
-  axios
+  return axios
     .post(`${HOST}${LOGIN_URI}`, userData)
     .then(res => {
-      console.log('res: ', res);
+      const { token, email, first_name, last_name } = res.data;
       // Set user info to Local Storage
-      setTokenToLocalStorage(USER_TOKEN, res.data.token).then(() => {
-        localStorage.setItem(USER_EMAIL, res.data.email);
-        localStorage.setItem(USER_FIRST_NAME, capitalize(res.data.first_name));
-        localStorage.setItem(USER_LAST_NAME, capitalize(res.data.last_name));
+      setTokenToLocalStorage(USER_TOKEN, token).then(() => {
+        localStorage.setItem(USER_EMAIL, email);
+        localStorage.setItem(USER_FIRST_NAME, capitalize(first_name));
+        localStorage.setItem(USER_LAST_NAME, capitalize(last_name));
         dispatch(loginSuccessfully(res.data));
       });
     })
