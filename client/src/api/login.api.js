@@ -20,8 +20,7 @@ const capitalize = s => {
 export const login = userData => dispatch => {
   return axios
     .post(`${HOST}${LOGIN_URI}`, userData)
-    .then(async res => {
-      console.log('res: ', res);
+    .then(res => {
       const { token, email, first_name, last_name } = res.data;
       // Set user info to Local Storage
       setTokenToLocalStorage(USER_TOKEN, token).then(() => {

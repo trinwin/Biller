@@ -19,6 +19,10 @@ import {
   PLAID_UPDATE_DUE_DATE_FAILED,
   PLAID_GET_GRAPH_DATA_SUCCESS,
   PLAID_GET_GRAPH_DATA_FAILED,
+  PLAID_GET_NOTIFICATIONS_SUCCESS,
+  PLAID_GET_NOTIFICATIONS_FAILED,
+  PLAID_MARK_NOTIFICATION_READ_SUCCESS,
+  PLAID_MARK_NOTIFICATION_READ_FAILED,
 } from '../../constants';
 
 export const plaidLoginSuccessfully = token => ({
@@ -118,5 +122,25 @@ export const plaidBillUpdateSuccess = bill => ({
 
 export const plaidBillUpdateFailed = error => ({
   type: PLAID_UPDATE_DUE_DATE_FAILED,
+  payload: error,
+});
+
+export const plaidGetNotificationsSuccess = notifications => ({
+  type: PLAID_GET_NOTIFICATIONS_SUCCESS,
+  payload: notifications,
+});
+
+export const plaidGetNotificationFailed = error => ({
+  type: PLAID_GET_NOTIFICATIONS_FAILED,
+  payload: error,
+});
+
+export const plaidMarkNotificationReadSuccess = notification => ({
+  type: PLAID_MARK_NOTIFICATION_READ_SUCCESS,
+  payload: notification,
+});
+
+export const plaidMarkNotificationReadFailed = error => ({
+  type: PLAID_MARK_NOTIFICATION_READ_FAILED,
   payload: error,
 });

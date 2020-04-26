@@ -20,6 +20,13 @@ import {
   PLAID_UPDATE_DUE_DATE_SUCCESS,
   PLAID_UPDATE_DUE_DATE_FAILED,
   LOGOUT,
+<<<<<<< HEAD
+=======
+  PLAID_GET_NOTIFICATIONS_SUCCESS,
+  PLAID_GET_NOTIFICATIONS_FAILED,
+  PLAID_MARK_NOTIFICATION_READ_SUCCESS,
+  PLAID_MARK_NOTIFICATION_READ_FAILED,
+>>>>>>> e66d6ace21f4b481d440a5227f594f8692499a87
 } from '../../constants';
 
 export default function(state = { loading: false, errors: null }, action) {
@@ -63,6 +70,14 @@ export default function(state = { loading: false, errors: null }, action) {
     case PLAID_UPDATE_DUE_DATE_SUCCESS:
       return { ...state, ...action.payload, ...{ loading: false } };
     case PLAID_UPDATE_DUE_DATE_FAILED:
+      return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
+    case PLAID_GET_NOTIFICATIONS_SUCCESS:
+      return { ...state, ...action.payload, ...{ loading: false } };
+    case PLAID_GET_NOTIFICATIONS_FAILED:
+      return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
+    case PLAID_MARK_NOTIFICATION_READ_SUCCESS:
+      return { ...state, ...action.payload, ...{ loading: false } };
+    case PLAID_MARK_NOTIFICATION_READ_FAILED:
       return { ...state, ...{ loading: false }, ...{ errors: action.payload } };
     case LOGOUT:
       return {};

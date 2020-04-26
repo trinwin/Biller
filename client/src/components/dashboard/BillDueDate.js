@@ -15,7 +15,11 @@ import {
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import { USER_TOKEN } from '../../constants';
-import { changeDueDate, plaidBills } from '../../api/plaid.api';
+import {
+  changeBillDueDate,
+  plaidBills,
+  getNotification,
+} from '../../api/plaid.api';
 
 const dateFormat = 'MM-DD-YY';
 
@@ -34,12 +38,19 @@ class BillDueDate extends React.Component {
       '-' +
       value.format('MM-DD').toString();
 
-    this.props.changeDueDate({
-      account_name: name,
-      due_date: date,
-      email: email,
-      token: token,
-    });
+    this.props
+      .changeBillDueDate({
+        account_name: name,
+        due_date: date,
+        email: email,
+        token: token,
+      })
+      .then(() => {
+        const token = localStorage.getItem(USER_TOKEN);
+        const user = { token, email };
+        this.props.plaidBills(user);
+        this.props.getNotification(user);
+      });
   };
 
   render() {
@@ -135,7 +146,10 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({ plaidBills, changeDueDate }, dispatch);
+  return bindActionCreators(
+    { plaidBills, changeBillDueDate, getNotification },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(BillDueDate);
