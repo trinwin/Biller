@@ -6,7 +6,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const Login = props => {
   const onFinish = values => {
-    console.log('Sent values:', values);
     props.onClick(values);
   };
 

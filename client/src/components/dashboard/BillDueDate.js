@@ -28,8 +28,6 @@ class BillDueDate extends React.Component {
     const token = localStorage.getItem(USER_TOKEN);
     const { email } = this.props.user;
     const { name } = item;
-    console.log('name: ', name);
-    console.log('value: ', value.format('MM-DD'));
 
     const date =
       moment()

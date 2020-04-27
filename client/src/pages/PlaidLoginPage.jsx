@@ -33,11 +33,9 @@ class PlaidLoginPage extends Component {
 
   onExit() {}
 
-  onSuccess(public_token, metadata) {
-    console.log(public_token);
+  onSuccess(public_token) {
     const { user } = this.props;
     const { email, token } = user;
-    console.log('[SetupForm] user: ', user);
 
     this.props.plaidLogin({
       email,
@@ -58,7 +56,6 @@ class PlaidLoginPage extends Component {
   getAccountsInfo() {
     const { plaid } = this.props || {};
     const { transactions_each } = plaid || [];
-    console.log('transactions_each: ', transactions_each);
     var accounts = [];
 
     if (transactions_each && transactions_each.length > 1) {
@@ -72,7 +69,6 @@ class PlaidLoginPage extends Component {
 
   render() {
     const token = localStorage.getItem(USER_TOKEN);
-    console.log('this.state.accountsInfo: ', this.state.accountsInfo);
     const accountsInfo = this.getAccountsInfo();
     return token ? (
       <SetupAccount

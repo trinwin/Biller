@@ -11,8 +11,6 @@ import './Pages.css';
 
 class RegisterPage extends Component {
   onSubmission = e => {
-    console.log('Recieved values: ', e);
-
     this.props.register({
       email: e.email,
       password: e.password,

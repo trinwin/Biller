@@ -5,7 +5,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const Register = props => {
   const onFinish = values => {
-    console.log('Sent values:', values);
     props.onSubmission(values);
   };
 

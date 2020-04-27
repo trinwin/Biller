@@ -24,7 +24,6 @@ class Notifications extends Component {
   render() {
     const { plaid } = this.props || {};
     const { notifications } = plaid || [];
-    console.log('notifications: ', notifications);
 
     return (
       <NavItem className="border-right dropdown notifications">

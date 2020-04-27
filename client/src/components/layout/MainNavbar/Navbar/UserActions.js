@@ -62,12 +62,6 @@ class UserActions extends Component {
           <DropdownItem tag={Link} to="user-profile">
             <i className="material-icons">&#xE7FD;</i> Profile
           </DropdownItem>
-          <DropdownItem tag={Link} to="edit-user-profile">
-            <i className="material-icons">&#xE8B8;</i> Edit Profile
-          </DropdownItem>
-          <DropdownItem tag={Link} to="file-manager-list">
-            <i className="material-icons">&#xE2C7;</i> Files
-          </DropdownItem>
           <DropdownItem tag={Link} to="transaction-history">
             <i className="material-icons">&#xE896;</i> Transactions
           </DropdownItem>

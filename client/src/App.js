@@ -41,6 +41,7 @@ class App extends Component {
       this.props.plaidMonthlyIncome(user);
       this.props.plaidBills(user);
       this.props.plaidGraphData(user);
+      this.props.getNotification(user);
     }
   }
 

@@ -31,7 +31,6 @@ export const login = userData => dispatch => {
       });
     })
     .catch(err => {
-      console.log('err: ', err.response.data);
       dispatch(loginFailed(err));
     });
 };

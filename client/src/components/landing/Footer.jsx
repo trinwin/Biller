@@ -29,9 +29,7 @@ function Footer() {
     <div className="home-layout-wrapper home-footer-wrapper">
       <div className="home-layout">
         {antCloudFooter()}
-        <p key="cop" className="copy">
-          Copyright ©2020
-        </p>
+        <p key="cop" className="copy"></p>
       </div>
     </div>
   );
