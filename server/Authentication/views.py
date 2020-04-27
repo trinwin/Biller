@@ -21,11 +21,10 @@ from Plaid_API.models import BankAccounts
 @permission_classes([])
 def login_page(request):
 
-    # Only accepts POST requests
     if request.method == "POST":
         email = request.data.get("email")
         password = request.data.get("password")
-        print(request.data)
+
         # Authenticate the user's email and password
         user = authenticate(username=email, password=password)
         if user is None:
@@ -44,23 +43,21 @@ def login_page(request):
         request.user.access_token = str(JWT_Token.access_token)
 
         has_account = True if len(BankAccounts.objects.filter(user=user)) > 0 else False
-        return Response({'email': email, 'token': request.user.access_token,
-                         'has_profile': has_account, 'first_name': user.first_name.lower().capitalize(),
-                         'last_name': user.last_name.lower().capitalize()})
+        return Response(
+            {'email': email, 'token': request.user.access_token, 'has_profile': has_account,
+             'first_name': user.first_name.lower().capitalize(),
+             'last_name': user.last_name.lower().capitalize()})
     return Response({'message': "Login must take a POST request"},
                     status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @csrf_exempt
 @api_view(['POST'])
-# Authentication class & permission class is empty for register (anyone can access)
 @authentication_classes([])
 @permission_classes([])
 def register_page(request):
 
-    # Only accepts POST requests
     if request.method == 'POST':
-        print(request.data)
         email = request.data.get("email")
         password = request.data.get("password")
         password2 = request.data.get('confirm')
@@ -83,13 +80,15 @@ def register_page(request):
             if user is None and len(User.objects.filter(email=email)) == 0:
                 # Create a new user object and then logs them in
                 user = User.objects.create_user(
-                    email=email, password=password, first_name=first_name.lower().capitalize(), last_name=last_name.lower().capitalize())
+                    email=email, password=password, first_name=first_name.lower().capitalize(),
+                    last_name=last_name.lower().capitalize())
                 auth_login(request, user)
                 JWT_Token = RefreshToken.for_user(user)
                 request.user.refresh_token = str(JWT_Token)
                 request.user.access_token = str(JWT_Token.access_token)
-                return Response({'email': email, 'token': request.user.access_token, 'first_name': user.first_name.lower().capitalize()\
-                                 , 'last_name': user.last_name.lower().capitalize()})
+                return Response({'email': email, 'token': request.user.access_token,
+                                 'first_name': user.first_name.lower().capitalize(),
+                                 'last_name': user.last_name.lower().capitalize()})
             else:
                 return Response(
                     {'message': "An account with this email already exists."},
@@ -106,7 +105,6 @@ def register_page(request):
 @api_view(['POST'])
 @csrf_exempt
 def logout(request):
-    # If user is already logged in, log them out and redirects to landing page
     if request.user.is_authenticated:
         auth_logout(request)
 

@@ -17,7 +17,6 @@ import datetime
 import json
 import time
 import threading
-# Create your views here.
 
 client = plaid_client()
 
@@ -29,46 +28,32 @@ threading.Timer(60, check_transactions_and_balance).start()
 
 @csrf_exempt
 @api_view(['POST'])
-# These 2 decorators are for bypassing JWT token authentication for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def get_access_token(request):
-
-    # Must provides the user's email
     email = request.data.get('email')
     if email is None:
         return Response({'err': "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     public_token = request.data.get('public_token')
-    # Exchanges the public token for an access token
-    # Create a "link" to the user's bank account
-
     try:
         response = client.Item.public_token.exchange(public_token)
     except plaid.errors.PlaidError as err:
         return Response({"err": err.message}, status=status.HTTP_406_NOT_ACCEPTABLE)
-    # Get the access token and query for the user object with the user's email
+
     access_token = response['access_token']
-    print(access_token)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "Email not found"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     try:
-        # Using the access token, retrieve the user's financial accounts
         response = client.Accounts.get(access_token)
         start_date = '{:%Y-%m-%d}'.format(datetime.datetime.now() + datetime.timedelta(-365))
         end_date = '{:%Y-%m-%d}'.format(datetime.datetime.now())
-        # For each accounts, create a new BankAccount object in database
-        # Save the user's email, access token, and account_id for each object
-        for account in response["accounts"]:
 
-            # If official_name is not None then use it as bank account name
-            # Otherwise use account['name']
+        for account in response["accounts"]:
             if account['official_name'] != None:
-                print("Official Name: ", account['official_name'])
                 if account['official_name'] == 'Bill':
                     new_account = BankAccounts.objects.create(
                         user=user[0],
@@ -88,7 +73,6 @@ def get_access_token(request):
                         name=name,
                         balance=account['balances']['current'])
             else:
-                print("Name: ", account['name'])
                 name = ""
                 for word in account['name'].split(' '):
                     if word.isupper():
@@ -102,15 +86,15 @@ def get_access_token(request):
                     name=name,
                     balance=account['balances']['current'])
 
-            # This part for adding a bill object if the account is a credit type
+            # Add a bill object if the account is a credit type
             if account['subtype'] == 'credit card' or account['subtype'] == 'credit'\
                     or account['type'] == 'credit card' or account['type'] == 'credit'\
-                or account['official_name'] == 'Bill':
+            or account['official_name'] == 'Bill':
                 Bill.objects.create(
                     account_id=new_account, amount=account['balances']['current'],
                     due_date=None, notified=False)
 
-            # This part is for adding the transactions of each account from the last 180 days
+            # Add the transactions of each account from the last 180 days
             transactions = client.Transactions.get(access_token, start_date, end_date,
                                                    account_ids=[account["account_id"]])
             for transaction in transactions["transactions"]:
@@ -137,19 +121,13 @@ def get_access_token(request):
     except plaid.errors.PlaidError as err:
         return Response({"err": err.message}, status=status.HTTP_403_FORBIDDEN)
 
-    # This is where I get the user's bank accounts and associated transactions to return
-
     return Response({'message': 'Success'})
 
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
-# JSON Format is
-# [[account.name, account.type, account.balance, [transaction.name, transaction.category
-# # transaction.date, transaction.amount, transaction.pending_status], ... more transactions]
 def get_transactions_of_each_account(request):
 
     email = request.GET.get("email")
@@ -157,18 +135,15 @@ def get_transactions_of_each_account(request):
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
+
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Query the accounts associated with the user
     accounts = BankAccounts.objects.filter(user=user[0])
     response = []
-    # For each account, find the transactions associated with it
     for account in accounts:
         transactions = Transactions.objects.filter(account_id=account).order_by("date")
         temp = {}
-        # Append the account name, type, balance to the list
         temp['name'] = ""
         for word in account.name.split(' '):
             if word.isupper():
@@ -178,24 +153,17 @@ def get_transactions_of_each_account(request):
         temp['type'] = account.type
         temp['balance'] = str(account.balance)
         if len(transactions) >= 0:
-            # For each transaction, add it to a dictionary where the key is
-            # the transaction name and the value is a list containing
-            # category, date, and amount
-            print("-------------------")
             t = []
             for transaction in transactions:
-                print(transaction.date, "-", transaction.name)
                 list = {}
                 list['name'] = transaction.name
                 list['category'] = transaction.category
                 list['date'] = str(transaction.date)
                 list['amount'] = transaction.amount
                 list['pending'] = transaction.pending_status
-                # Append dictionary to the list
                 t.append(list)
             temp['transactions'] = reversed(t)
 
-        # Append the list to the response json
         response.append(temp)
     for r in response:
         print(r)
@@ -205,21 +173,16 @@ def get_transactions_of_each_account(request):
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
-# JSON FORMAT IS
-# [[transaction.name, transaction.category, transaction.date, transaction.amount, transaction.pending_status],
-#   ... more transactions]
 def get_transactions(request):
 
     email = request.GET.get("email")
-    print(email)
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
+
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
     accounts = BankAccounts.objects.filter(user=user[0])
@@ -239,25 +202,21 @@ def get_transactions(request):
 
 @csrf_exempt
 @api_view(['GET'])
-# The 2 decorators below is for bypassing JWT authentication for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def net_worth(request):
 
-    # Provide user's email or fail
     email = request.GET.get("email")
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    # If email is not found in database, fail
     user = User_Model.objects.filter(email=email)
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-    # Query the accounts associated with the user
+
     accounts = BankAccounts.objects.filter(user=user[0])
 
     net_worth = 0
-
     # For each account, add the balance to the total if
     # the account is not credit card type
     for account in accounts:
@@ -272,31 +231,21 @@ def net_worth(request):
 
 @csrf_exempt
 @api_view(['GET'])
-# The 2 decorators below are for bypassing JWT authentication for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
-# JSON Format is
-# [{'category': category_name, total: total_amount},
-#  {'category2': category2_name, total2: total2_amount}, ...]
 def category_expenses(request):
-    # Provide user's email or fail
+
     email = request.GET.get("email")
     if email is None:
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    # If email is not found in db, fail
     user = User_Model.objects.filter(email=email)
 
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Query the accounts associated with the user
     accounts = BankAccounts.objects.filter(user=user[0])
 
-    # SELECT B.category, Sum('amount')
-    # FROM BankAccount A, Transaction B
-    # WHERE A.account_id = B.account_id AND A.user = email
-    # GROUPBY B.category
     transactions = Transactions.objects.filter(account_id__in=list(accounts)).\
         values('category').order_by('category').annotate(total=Sum('amount'))
 
@@ -305,12 +254,8 @@ def category_expenses(request):
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
-# JSON FORMAT IS
-# [{account.name: [bill.amount, bill.due_date, bill.notified]},
-#  {account2.name: [bill2.amount, bill2.due_date, bill2.notified]},...]
 def bills(request):
 
     email = request.GET.get("email")
@@ -318,20 +263,15 @@ def bills(request):
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-    # Query for accounts associated with the user
+
     accounts = BankAccounts.objects.filter(user=user[0])
     response = []
-    # For each account, query for associated bills
     for account in accounts:
         bill = Bill.objects.filter(account_id=account)
 
-        # If the length of the queryset is 1, then a bill for that account is found
         if len(bill) == 1:
-            # If bill due date is None, then return null for due date
-            # else return the actual due date
             dict = {}
             dict['name'] = account.name
             dict['amount'] = bill[0].amount
@@ -342,14 +282,12 @@ def bills(request):
             else:
                 dict['due_date'] = bill[0].due_date
                 response.append(dict)
-    print(response)
 
     return Response({'bills': response})
 
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def monthly_total_expenses(request):
@@ -362,12 +300,10 @@ def monthly_total_expenses(request):
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Query for the accounts associated with the user
     accounts = BankAccounts.objects.filter(user=user[0])
 
     date_range = []
-    # Find the last 6 months and year
-    # Store as a tuple (month, year) in list date_range
+    # Find the last 12 months and year
     for i in range(12):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
@@ -376,17 +312,12 @@ def monthly_total_expenses(request):
     total_expenses = 0
     response = []
     for month, year in date_range:
-        # Find the transactions for each month, year
         transactions = Transactions.objects.filter(
             date__year=year, date__month=month, amount__gt=0, account_id__in=list(accounts))
         total_expenses = 0
-        # Calculate the total amount of these transactions
         for transaction in transactions:
             total_expenses += transaction.amount
 
-        print("Total Expenses: ", total_expenses)
-        print("------------------------------")
-        # Add the total expense of each month/year to response
         response.append([month + '-' + year[2:], total_expenses])
 
     return Response({'monthly_expenses': reversed(response)})
@@ -394,7 +325,6 @@ def monthly_total_expenses(request):
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def graph_data(request):
@@ -404,7 +334,6 @@ def graph_data(request):
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -415,7 +344,6 @@ def graph_data(request):
         total_balance += account.balance
     date_range = []
 
-    print(total_balance)
     for i in range(90):
         time = datetime.date.today() + relativedelta(days=-i)
         time = str(time).split("-")
@@ -428,7 +356,6 @@ def graph_data(request):
         total_daily_expense = 0
         for transaction in transactions:
             if(transaction.pending_status == False):
-                print(transaction.amount, " ", transaction.date, " ", transaction.name)
                 total_daily_expense += transaction.amount
         total_balance += total_daily_expense
         data.append(total_balance)
@@ -444,7 +371,6 @@ def calculate_days_between(day_one: str, day_two: str):
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def monthly_total_income(request):
@@ -457,12 +383,10 @@ def monthly_total_income(request):
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Query for the accounts associated with the user
     accounts = BankAccounts.objects.filter(user=user[0])
 
     date_range = []
-    # Find the last 6 months and year
-    # Store as a tuple (month, year) in list date_range
+    # Find the last 12 months and year
     for i in range(12):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
@@ -471,17 +395,14 @@ def monthly_total_income(request):
     total_expenses = 0
     response = []
     for month, year in date_range:
-        # Find the transactions for each month, year
         transactions = Transactions.objects.filter(
             date__year=year, date__month=month, amount__lt=0, account_id__in=list(accounts))
+
         total_expenses = 0
-        # Calculate the total amount of these transactions
         for transaction in transactions:
             total_expenses += transaction.amount
+
         total_expenses = total_expenses * (-1)
-        print("Total Expenses: ", total_expenses)
-        print("------------------------------")
-        # Add the total expense of each month/year to response
         response.append([month + '-' + year, total_expenses])
 
     return Response({'monthly_income': reversed(response)})
@@ -489,9 +410,8 @@ def monthly_total_income(request):
 
 @csrf_exempt
 @api_view(['POST'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
-@authentication_classes([])
-@permission_classes([])
+# @authentication_classes([])
+# @permission_classes([])
 def change_due_date(request):
 
     email = request.data.get("email")
@@ -499,11 +419,8 @@ def change_due_date(request):
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    # Date format YYYY-MM-DD
 
     due_date = request.data.get("due_date")
     if due_date is None:
@@ -529,7 +446,6 @@ def change_due_date(request):
 
     today = datetime.datetime.today().strftime('%Y-%m-%d')
     days_between = calculate_days_between("-".join(due_date), str(today))
-    print("days_between: ", days_between)
     if days_between <= 7 and days_between >= -1:
         send_email(account[0], bill)
         message = "Bill for " + account[0].name + " with amount $" + str(bill.amount) + \
@@ -543,7 +459,6 @@ def change_due_date(request):
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def graph_data(request):
@@ -553,9 +468,9 @@ def graph_data(request):
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
     date_range = []
     for i in range(90):
         time = datetime.date.today() + relativedelta(days=-i)
@@ -581,7 +496,6 @@ def graph_data(request):
 
 @csrf_exempt
 @api_view(['GET'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def get_notifications(request):
@@ -591,7 +505,6 @@ def get_notifications(request):
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -605,7 +518,6 @@ def get_notifications(request):
 
 @csrf_exempt
 @api_view(['POST'])
-# These 2 decorators are for bypassing JWT tokens for testing purposes
 # @authentication_classes([])
 # @permission_classes([])
 def mark_notification_as_read(request):
@@ -614,7 +526,6 @@ def mark_notification_as_read(request):
         return Response({"err": "Email not provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     user = User_Model.objects.filter(email=email)
-    # If email is not found in database, error
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 

@@ -14,7 +14,7 @@ function antCloudFooter() {
           src="https://image.flaticon.com/icons/svg/2617/2617996.svg"
           alt="logo"
           width="72"
-          height="82"
+          height="420"
         />
       </div>
       <div key="nav" className="home-footer-nav-wrapper">
@@ -27,10 +27,7 @@ function antCloudFooter() {
 function Footer() {
   return (
     <div className="home-layout-wrapper home-footer-wrapper">
-      <div className="home-layout">
-        {antCloudFooter()}
-        <p key="cop" className="copy"></p>
-      </div>
+      <div className="home-layout">{antCloudFooter()}</div>
     </div>
   );
 }

@@ -41,9 +41,6 @@ import {
   PLAID_MARK_NOTIFICATION_READ_URI,
 } from '../constants';
 
-// const token = localStorage.getItem(USER_TOKEN);
-// const config = { headers: { Authorization: `Bearer ${token}` } };
-
 // eslint-disable-next-line import/prefer-default-export
 export const plaidLogin = userData => dispatch => {
   const config = { headers: { Authorization: `Bearer ${userData.token}` } };

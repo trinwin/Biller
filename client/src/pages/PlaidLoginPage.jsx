@@ -37,11 +37,7 @@ class PlaidLoginPage extends Component {
     const { user } = this.props;
     const { email, token } = user;
 
-    this.props.plaidLogin({
-      email,
-      token,
-      public_token,
-    });
+    this.props.plaidLogin({ email, token, public_token });
   }
 
   logout = e => {
@@ -56,7 +52,7 @@ class PlaidLoginPage extends Component {
   getAccountsInfo() {
     const { plaid } = this.props || {};
     const { transactions_each } = plaid || [];
-    var accounts = [];
+    let accounts = [];
 
     if (transactions_each && transactions_each.length > 1) {
       transactions_each.forEach(account => {

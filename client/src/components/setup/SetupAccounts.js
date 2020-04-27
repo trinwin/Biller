@@ -76,7 +76,7 @@ const SetupAccounts = props => {
               className="connect-dashboard-btn"
               onClick={props.logout}
             >
-              <i class="material-icons">&#xE879;</i> Logout
+              <i className="material-icons">&#xE879;</i> Logout
             </Button>
           </div>
         </Content>

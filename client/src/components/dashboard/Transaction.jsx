@@ -51,11 +51,11 @@ const Transaction = props => {
                       <td style={{ width: '550px' }}>{transaction.name}</td>
                       <td className="text-center">
                         {transaction.amount * -1 >= 0 ? (
-                          <Badge theme="warning" className="mb-0 mr-0">
+                          <Badge theme="success" className="mb-0 mr-0">
                             ${transaction.amount * -1}
                           </Badge>
                         ) : (
-                          <Badge theme="success" className="mb-0 mr-0">
+                          <Badge theme="danger" className="mb-0 mr-0">
                             -${transaction.amount}
                           </Badge>
                         )}
