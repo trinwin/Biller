@@ -16,15 +16,5 @@ export default function() {
       htmlBefore: '<i class="material-icons">add</i>',
       to: '/setup',
     },
-    {
-      title: 'Forms & Components',
-      htmlBefore: '<i class="material-icons">view_module</i>',
-      to: '/components-overview',
-    },
-    {
-      title: 'Errors',
-      htmlBefore: '<i class="material-icons">error</i>',
-      to: '/errors',
-    },
   ];
 }

@@ -185,6 +185,40 @@ describe('plaid reducer actions', () => {
     });
   });
 
+  it('returns PLAID_MARK_NOTIFICATION_READ_FAILED', () => {
+    action.type = consts.PLAID_MARK_NOTIFICATION_READ_FAILED;
+    expect(reducer(objectState, action)).toEqual({
+      loading: false,
+      errors: { str: action.payload.str },
+    });
+  });
+
+  it('returns PLAID_MARK_NOTIFICATION_READ_SUCCESS', () => {
+    action.type = consts.PLAID_MARK_NOTIFICATION_READ_SUCCESS;
+    expect(reducer(objectState, action)).toEqual({
+      str: action.payload.str,
+      loading: false,
+      errors: null,
+    });
+  });
+
+  it('returns PLAID_GET_NOTIFICATIONS_FAILED', () => {
+    action.type = consts.PLAID_GET_NOTIFICATIONS_FAILED;
+    expect(reducer(objectState, action)).toEqual({
+      loading: false,
+      errors: { str: action.payload.str },
+    });
+  });
+
+  it('returns PLAID_GET_NOTIFICATIONS_SUCCESS', () => {
+    action.type = consts.PLAID_GET_NOTIFICATIONS_SUCCESS;
+    expect(reducer(objectState, action)).toEqual({
+      str: action.payload.str,
+      loading: false,
+      errors: null,
+    });
+  });
+
   it('returns state when other cases fail', () => {
     expect(reducer(objectState, action)).toEqual( objectState );
   });

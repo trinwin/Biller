@@ -29,9 +29,10 @@ class Banner extends React.PureComponent {
               Your Personal Bill Assistant. <br />
               Join us for free today and never worry about your bill again
             </p>
-            <span key="button">
+            <span key="buttons" className="buttonSpan">
               <Link to="/register">
                 <Button
+                  className="landing-register-button"
                   type="primary"
                   shape="round"
                   onClick={() => {
@@ -42,8 +43,9 @@ class Banner extends React.PureComponent {
                 </Button>
               </Link>
               {token ? (
-                <Link to="/login">
+                <Link to="/dashboard">
                   <Button
+                    className="landing-dashboard-button"
                     type="primary"
                     shape="round"
                     onClick={() => {
@@ -56,6 +58,7 @@ class Banner extends React.PureComponent {
               ) : (
                 <Link to="/login">
                   <Button
+                    className="landing-login-button"
                     type="primary"
                     shape="round"
                     onClick={() => {

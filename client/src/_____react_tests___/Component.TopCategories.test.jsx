@@ -36,9 +36,9 @@ describe('TopCategories components', () => {
     });
 
     it(' should render TopCategories correctly', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
             <TopCategories 
-            category_expense = {[  ]}
+              category_expense = {[  ]}
             />
         );
 

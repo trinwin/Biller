@@ -2,9 +2,11 @@ from .models import Bill, Transactions, BankAccounts, Notification
 from .email import send_email
 from .__init__ import plaid_client
 from dateutil.relativedelta import relativedelta
-import datetime, threading
+import datetime
+import threading
 
 client = plaid_client()
+
 
 def check_if_passed_due_date():
     today = '{:%Y-%m-%d}'.format(datetime.datetime.today())
@@ -14,7 +16,7 @@ def check_if_passed_due_date():
             bill.notified = False
             bill.save()
     except Exception as e:
-        print(e.body)
+        print(e)
     threading.Timer(60, check_if_passed_due_date).start()
 
 
@@ -28,11 +30,11 @@ def check_due_date():
                 account = bill.account_id
                 send_email(account, bill)
                 message = "Bill for " + account.name + " with amount $" + str(bill.amount) + \
-                      " is due on " + str(bill.due_date)
+                    " is due on " + str(bill.due_date)
                 user = account.user
                 Notification.objects.create(user=user, message=message)
     except Exception as e:
-        print(e.body)
+        print(e)
     threading.Timer(60, check_due_date).start()
 
 
@@ -73,5 +75,5 @@ def check_transactions_and_balance():
                             pending_status=transaction['pending'],
                             date=date, transaction_id=transaction['transaction_id'])
     except Exception as e:
-        print(e.body)
+        print(e)
     threading.Timer(60, check_transactions_and_balance).start()

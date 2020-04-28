@@ -355,15 +355,23 @@ describe('plaid API actions', () => {
 
       const mockData = {
         data: "mock",
-        email: "mock@mock.com"
+        email: "mock@mock.com",
+        token: "mock"
       }
 
-      mockAxios.onPost(`${consts.HOST}${consts.PLAID_BILLS_DATE_UPDATE}`, mockData).reply(200, payload);
+      const mockConfig = { 
+        headers: { Authorization: `Bearer ${mockData.token}` } 
+      };
+
+      mockAxios
+      .onPost(`${consts.HOST}${consts.PLAID_CHANGE_BILL_DUE_DATE_URI}`,
+        mockData
+      ).reply(200, payload);
 
       const expectedActions = [{ type: consts.PLAID_UPDATE_DUE_DATE_SUCCESS, payload }]
       const store = mockStore({});
 
-      return store.dispatch(plaidAct.changeDueDate(mockData)).then(() => {
+      return store.dispatch(plaidAct.changeBillDueDate(mockData)).then(() => {
         // return of async actions
         expect(store.getActions()).toEqual(expectedActions)
       })
@@ -374,12 +382,112 @@ describe('plaid API actions', () => {
         data: "bad mock"
       }
 
-      mockAxios.onGet(`${consts.HOST}${consts.PLAID_BILLS_DATE_UPDATE}`, mockData).reply(405, {'message': "bad"});
+      mockAxios.onGet(`${consts.HOST}${consts.PLAID_CHANGE_BILL_DUE_DATE_URI}`, mockData).reply(405, {'message': "bad"});
       const store = mockStore({});
 
-      return store.dispatch(plaidAct.changeDueDate(mockData)).then(() => {
+      return store.dispatch(plaidAct.changeBillDueDate(mockData)).then(() => {
         // return of async actions
         expect(store.getActions()[0].type).toEqual(consts.PLAID_UPDATE_DUE_DATE_FAILED)
+      })
+    });
+  });
+
+  describe('plaid API get notification', () => {
+    it('creates PLAID_GET_NOTIFICATIONS_SUCCESS', () => {
+      const payload = {
+        isGood: true
+      };
+
+      const mockData = {
+        data: "mock",
+        email: "mock@mock.com",
+        token: "mock"
+      }
+
+      const mockConfig = { 
+        headers: { Authorization: `Bearer ${mockData.token}` } 
+      };
+
+      mockAxios.onGet(
+        `${consts.HOST}${consts.PLAID_GET_NOTIFICATIONS_URI}?email=${mockData.email}`,
+        mockData
+      ).reply(200, payload);
+
+      console.log(`${consts.HOST}${consts.PLAID_GET_NOTIFICATIONS_URI}?email=${mockData.email}`);
+
+      const expectedActions = [{
+         type: consts.PLAID_GET_NOTIFICATIONS_SUCCESS,
+         payload 
+        }]
+      const store = mockStore({});
+
+      return store.dispatch(plaidAct.getNotification(mockData)).then(() => {
+        // return of async actions
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    });
+
+    it('creates PLAID_GET_NOTIFICATIONS_FAILED', () => {
+      const mockData = {
+        data: "bad mock"
+      }
+
+      mockAxios.onGet(`${consts.HOST}${consts.PLAID_GET_NOTIFICATIONS_URI}?email=${mockData.email}`, mockData).reply(405, {'message': "bad"});
+      const store = mockStore({});
+
+      return store.dispatch(plaidAct.getNotification(mockData)).then(() => {
+        // return of async actions
+        expect(store.getActions()[0].type).toEqual(consts.PLAID_GET_NOTIFICATIONS_FAILED)
+      })
+    });
+  });
+
+  describe('plaid API mark notification', () => {
+    it('creates PLAID_MARK_NOTIFICATION_READ_SUCCESS', () => {
+      const payload = {
+        isGood: true
+      };
+
+      const mockData = {
+        data: "mock",
+        email: "mock@mock.com",
+        token: "mock"
+      }
+
+      const mockConfig = { 
+        headers: { 
+          Authorization: `Bearer ${mockData.token}` 
+        } 
+      };
+
+      mockAxios.onPost(
+        `${consts.HOST}${consts.PLAID_MARK_NOTIFICATION_READ_URI}`,
+        mockData
+      ).reply(200, payload);
+
+      const expectedActions = [{
+         type: consts.PLAID_MARK_NOTIFICATION_READ_SUCCESS,
+         payload 
+        }]
+      const store = mockStore({});
+
+      return store.dispatch(plaidAct.markNotificationAsRead(mockData)).then(() => {
+        // return of async actions
+        expect(store.getActions()).toEqual(expectedActions)
+      })
+    });
+
+    it('creates PLAID_MARK_NOTIFICATION_READ_FAILED', () => {
+      const mockData = {
+        data: "bad mock"
+      }
+
+      mockAxios.onPost(`${consts.HOST}${consts.PLAID_MARK_NOTIFICATION_READ_URI}`, mockData).reply(405, {'message': "bad"});
+      const store = mockStore({});
+
+      return store.dispatch(plaidAct.markNotificationAsRead(mockData)).then(() => {
+        // return of async actions
+        expect(store.getActions()[0].type).toEqual(consts.PLAID_MARK_NOTIFICATION_READ_FAILED)
       })
     });
   });

@@ -6,11 +6,11 @@ import history from './History';
 
 class RouterComponent extends Component {
   render() {
-    const user = this.props.user || {};
+    const { user, plaid } = this.props || {};
     return (
       <Router basename={process.env.REACT_APP_BASENAME || ''} history={history}>
         <div>
-          <RoutesComponent user={user} />
+          <RoutesComponent user={user} plaid={plaid} />
         </div>
       </Router>
     );

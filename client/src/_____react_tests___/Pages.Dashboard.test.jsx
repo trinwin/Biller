@@ -45,13 +45,8 @@ describe('bill overview page', () => {
     });
 
     it('should render correctly', () => {
-        const wrapper = mount(
-        <Provider store={store}>
-            <MemoryRouter initialEntries={['/dashboard']}>
-              {/* <BillOverview /> */}
-                <div />
-            </MemoryRouter>,
-        </Provider>
+        const wrapper = shallow(
+          <BillOverview store={store} />
         );
 
         expect(wrapper).toMatchSnapshot();

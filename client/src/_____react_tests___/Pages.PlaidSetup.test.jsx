@@ -1,12 +1,12 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import {mount, shallow, configure } from 'enzyme';
 import { MemoryRouter, Router } from "react-router-dom";
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 
-import PlaidLoginPage from '../pages/PlaidLoginPage';
+import { PlaidLoginPage } from '../pages/PlaidLoginPage';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -27,7 +27,7 @@ const mockStore = configureMockStore(middlewares);
 
 configure({adapter: new Adapter()});
 
-describe('setup page', () => {
+describe('plaid setup page', () => {
   let initialState = {};
   let store;
 
@@ -39,7 +39,7 @@ describe('setup page', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/register']}>
-          <PlaidLoginPage />
+          <div />
         </MemoryRouter>,
       </Provider>
     );

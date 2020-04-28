@@ -4,7 +4,6 @@ import { Container, Row, Col, Card, CardBody, Badge } from 'shards-react';
 import PageTitle from '../common/PageTitle';
 
 const Transaction = props => {
-  console.log('props: ', props);
   return props.transactions ? (
     <Container fluid className="main-content-container px-4">
       {/* Page Header */}

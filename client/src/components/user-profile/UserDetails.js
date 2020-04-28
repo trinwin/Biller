@@ -62,7 +62,7 @@ UserDetails.propTypes = {
 UserDetails.defaultProps = {
   userDetails: {
     name: 'Trinh Nguyen',
-    avatar: require('./../../assets/user-profile/female.png'),
+    avatar: require('./../../assets/user-profile/Trinh.png'),
     jobTitle: 'Biller Founder',
     performanceReportTitle: 'Biller Progress',
     performanceReportValue: 100,

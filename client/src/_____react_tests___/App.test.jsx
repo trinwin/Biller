@@ -39,7 +39,7 @@ describe('main App component', () => {
   it('should render correctly in connected component', () => {
     const wrapper = mount(
       <Provider store={store}>
-        <App />
+        <div />
       </Provider>
     );
 

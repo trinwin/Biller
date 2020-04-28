@@ -3,13 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { Redirect, withRouter } from 'react-router-dom';
-import {
-  USER_TOKEN,
-  ACCOUNTS_INFO,
-  PLAID_CHECKING,
-  PLAID_SAVINGS,
-  PLAID_CREDIT_CARD,
-} from '../../constants';
 
 import { Container, Row, Col } from 'shards-react';
 import PageTitle from '../../components/common/PageTitle';
@@ -18,8 +11,14 @@ import MonthlyBills from '../../components/dashboard/MonthlyBills';
 import AccountBalances from '../../components/dashboard/AccountBalances';
 import TopCategories from '../../components/dashboard/TopCategories';
 import BillDueDate from '../../components/dashboard/BillDueDate';
-
 import chartOptions from './BillOverViewHelper';
+
+import {
+  USER_TOKEN,
+  PLAID_CHECKING,
+  PLAID_SAVINGS,
+  PLAID_CREDIT_CARD,
+} from '../../constants';
 
 class BillOverview extends Component {
   monthlyChart(monthly_expenses, monthly_income) {
@@ -99,33 +98,7 @@ class BillOverview extends Component {
     return accountBalanceChartData;
   }
 
-  render() {
-    const { plaid } = this.props || {};
-    const token = localStorage.getItem(USER_TOKEN);
-    const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_INFO)) || [];
-    const has_profile = accounts ? true : false;
-    const graph_data = plaid.graph_data || [];
-
-    /* */
-    const net_worth = plaid.net_worth || 0;
-    /* */
-    const category_expense = plaid.category_expense || [];
-
-    /* */
-    const monthly_expenses = plaid.monthly_expenses || [];
-    const monthly_income = plaid.monthly_income || [];
-    const monthlyExpenseChartData = this.monthlyChart(
-      monthly_expenses,
-      monthly_income
-    );
-
-    /* */
-    const transactions_each = plaid.transactions_each || [[0]];
-    if (transactions_each.length > 1) {
-      var accountBalanceChartData = this.accountBalanceChart(transactions_each);
-      var accountNum = transactions_each.length;
-    }
-
+  summaryStats(net_worth, accountNum, graph_data) {
     const smallStats = [
       {
         label: 'Net Worth',
@@ -214,6 +187,38 @@ class BillOverview extends Component {
           break;
       }
     });
+    return smallStats;
+  }
+
+  render() {
+    const { plaid } = this.props || {};
+    const { user } = this.props || {};
+    const token = localStorage.getItem(USER_TOKEN);
+
+    const graph_data = plaid.graph_data || [];
+
+    /* */
+    const net_worth = plaid.net_worth || 0;
+    /* */
+    const category_expense = plaid.category_expense || [];
+
+    /* */
+    const monthly_expenses = plaid.monthly_expenses || [];
+    const monthly_income = plaid.monthly_income || [];
+    const monthlyExpenseChartData = this.monthlyChart(
+      monthly_expenses,
+      monthly_income
+    );
+
+    /* */
+    const transactions_each = plaid.transactions_each || [[0]];
+    if (transactions_each.length > 1) {
+      var accountBalanceChartData = this.accountBalanceChart(transactions_each);
+      var accountNum = transactions_each.length;
+    }
+    const has_profile = user.has_profile || transactions_each.length;
+
+    const smallStats = this.summaryStats(net_worth, accountNum, graph_data);
 
     return token ? (
       has_profile ? (

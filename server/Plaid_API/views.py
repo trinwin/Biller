@@ -105,7 +105,7 @@ def get_access_token(request):
             # This part for adding a bill object if the account is a credit type
             if account['subtype'] == 'credit card' or account['subtype'] == 'credit'\
                     or account['type'] == 'credit card' or account['type'] == 'credit'\
-            or account['official_name'] == 'Bill':
+                or account['official_name'] == 'Bill':
                 Bill.objects.create(
                     account_id=new_account, amount=account['balances']['current'],
                     due_date=None, notified=False)
@@ -529,15 +529,12 @@ def change_due_date(request):
 
     today = datetime.datetime.today().strftime('%Y-%m-%d')
     days_between = calculate_days_between("-".join(due_date), str(today))
-    print(days_between)
+    print("days_between: ", days_between)
     if days_between <= 7 and days_between >= -1:
-        if bill.notified == False:
-            send_email(account[0], bill)
-            message = "Bill for " + account[0].name + " with amount $" + str(bill.amount) + \
-                " is due on " + str(bill.due_date)
-            Notification.objects.create(user=user[0], message=message)
-        else:
-            pass
+        send_email(account[0], bill)
+        message = "Bill for " + account[0].name + " with amount $" + str(bill.amount) + \
+            " is due on " + str(bill.due_date)
+        Notification.objects.create(user=user[0], message=message)
 
     return Response(
         {"response": {account[0].name: [bill.amount, str(bill.due_date),

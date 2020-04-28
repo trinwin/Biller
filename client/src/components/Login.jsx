@@ -6,7 +6,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const Login = props => {
   const onFinish = values => {
-    console.log('Sent values:', values);
     props.onClick(values);
   };
 
@@ -16,7 +15,7 @@ const Login = props => {
         <img src={require('../assets/logo.png')} alt="logo" />
       </Link>
 
-      <h1>Login</h1>
+      <h2>Login</h2>
       <Form.Item
         name="email"
         rules={[{ required: true, message: 'Please input your email!' }]}
