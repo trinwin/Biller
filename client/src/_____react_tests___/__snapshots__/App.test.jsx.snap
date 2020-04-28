@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`main App component should render correctly as connected component 1`] = `ReactWrapper {}`;
+
 exports[`main App component should render correctly in connected component 1`] = `ReactWrapper {}`;
