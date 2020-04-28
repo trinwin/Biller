@@ -135,7 +135,7 @@ class BillOverview extends Component {
         case PLAID_CHECKING:
           const check_data = {
             label: 'Checking',
-            value: `$${account.data[account.data.length - 1]}`,
+            value: `$${account.data[account.data.length - 1].toFixed(2)}`,
             chartLabels: account.data,
             attrs: { md: '4', sm: '6' },
             datasets: [
@@ -152,7 +152,7 @@ class BillOverview extends Component {
         case PLAID_SAVINGS:
           const savings_data = {
             label: 'Savings',
-            value: `$${account.data[account.data.length - 1]}`,
+            value: `$${account.data[account.data.length - 1].toFixed(2)}`,
             chartLabels: account.data,
             attrs: { md: '4', sm: '6' },
             datasets: [
@@ -169,7 +169,7 @@ class BillOverview extends Component {
         case PLAID_CREDIT_CARD:
           const credit_card_data = {
             label: 'Credit Card',
-            value: `$${account.data[account.data.length - 1]}`,
+            value: `$${account.data[account.data.length - 1].toFixed(2)}`,
             chartLabels: account.data,
             attrs: { md: '4', sm: '6' },
             datasets: [
