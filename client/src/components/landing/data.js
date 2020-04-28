@@ -3,31 +3,31 @@ import React from 'react';
 export const page1 = [
   {
     title: 'Store of all your bills',
-    content: 'Feature 1 Note',
+    content: 'Connect your bank accounts and Biller will manage your banking.',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/MmROsqZndrFBrIspzLlL.png',
   },
   {
     title: 'Manage your expenses',
-    content: 'Feature 2 Note',
+    content:
+      'Built in various analytical tools to help you manage your finances.',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/ONvKhpRAmkCfdEhkUZkJ.png',
   },
   {
     title: 'Help you save money',
-    content: 'Feature 3 Note',
+    content: 'Biller notifies you of any incomming due dates for your bills',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/oxmXLgGjCeXfYPcVSbKg.png',
   },
 ];
 
 export const page2 = [
   {
-    title: 'Individual',
+    title: 'Free',
     content: [
-      <p key="1">Feature List</p>,
-      <p key="2">...</p>,
-      <p key="3">...</p>,
-      <p key="4">...</p>,
+      <p key="1">Connect and view your bank accounts</p>,
+      <p key="2">View the last 6 months of your bills</p>,
+      <p key="3">Set up notifications on monthly bills</p>,
     ],
-    // exp: '免费使用',
+
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
         <defs>
@@ -71,13 +71,12 @@ export const page2 = [
     ),
   },
   {
-    title: 'Family',
+    title: 'Basic',
     content: [
-      <p key="1">Feature List</p>,
-      <p key="2">...</p>,
-      <p key="3">...</p>,
-      <p key="4">...</p>,
-      <p key="5">...</p>,
+      <p key="1">All the features from the free model</p>,
+      <p key="2">Connect to your utility accounts</p>,
+      <p key="3">View projections on your expenses</p>,
+      <p key="4">Set up custom notifications</p>,
     ],
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
@@ -110,13 +109,12 @@ export const page2 = [
     ),
   },
   {
-    title: 'Enterprise',
+    title: 'Plus',
     content: [
-      <p key="1">Feature List</p>,
-      <p key="2">...</p>,
-      <p key="3">...</p>,
-      <p key="4">...</p>,
-      <p key="5">...</p>,
+      <p key="1">All the features from the plus model</p>,
+      <p key="2">Add unlimited bills</p>,
+      <p key="3">Add up to 2 authorized users</p>,
+      <p key="4">Compare or combine each others' data</p>,
     ],
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
@@ -227,13 +225,13 @@ export const page2 = [
 export const page3 = [
   {
     title: 'Trinh Nguyen',
-    content: 'Project Manager',
+    content: 'Project Lead / Frontend Lead',
     src:
       'https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png',
   },
   {
     title: 'Au Tran',
-    content: 'Backend Developer',
+    content: 'Backend Lead',
     src:
       'https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-512.png',
   },
@@ -247,7 +245,6 @@ export const page3 = [
 export const footer = [
   { text: 'About Us', src: '#' },
   { text: 'Contact Us', src: '#' },
-  { text: 'Careers', src: '#' },
   { text: 'Terms Of Service', src: '#' },
-  { text: 'Privacy Policy', src: 'mailto:zhao.wuz@antfin.com' },
+  { text: 'Privacy Policy', src: '#' },
 ];
