@@ -68,13 +68,13 @@ class BillOverview extends Component {
     transactions_each.forEach((account, idx) => {
       switch (account.type) {
         case PLAID_CHECKING:
-          data[0] += parseFloat(account.balance);
+          data[0] += parseInt(account.balance);
           break;
         case PLAID_SAVINGS:
-          data[1] += parseFloat(account.balance);
+          data[1] += parseInt(account.balance);
           break;
         case PLAID_CREDIT_CARD:
-          data[2] += parseFloat(account.balance) * -1;
+          data[2] += parseInt(account.balance) * -1;
           break;
         default:
           break;

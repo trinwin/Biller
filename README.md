@@ -23,6 +23,9 @@ A 3-tier web application for monitor financial status and monthly spending. </br
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/trinityng/bills">
 <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/trinityng/bills">
 <img alt="GitHub stars" src="https://img.shields.io/github/stars/trinityng/bills?style=social">
+
+![Biller gif demo](./doc/Biller_demo.gif)
+
 </div>
 
 ### 📊 Project Storyboard: [Biller](https://github.com/trinityng/bills/projects/1)

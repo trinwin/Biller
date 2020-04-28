@@ -7,7 +7,7 @@ export default function Header(props) {
       <div className="header-content">
         <Link to="/">
           <h1>
-            <img src={require('../../assets/logo.png')} alt="logo" />
+            <img src={require('../../assets/biller_logo.png')} alt="logo" />
             <p>Biller</p>
           </h1>
         </Link>

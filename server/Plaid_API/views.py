@@ -211,7 +211,7 @@ def net_worth(request):
 
     net_worth = 0
     for account in accounts:
-        if account.type != 'credit card' or account.type != 'credit':
+        if account.type != 'credit card' and account.type != 'credit':
             net_worth += account.balance
         else:
             net_worth -= account.balance

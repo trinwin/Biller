@@ -11,7 +11,7 @@ const Register = props => {
   return (
     <Form name="register" className="input-form" onFinish={onFinish}>
       <Link to="/" className="register-sign-up">
-        <img src={require('../assets/logo.png')} alt="logo" />
+        <img src={require('../assets/biller_logo.png')} alt="logo" />
       </Link>
       <h2>Register</h2>
       <Form.Item

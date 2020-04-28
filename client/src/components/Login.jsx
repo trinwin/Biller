@@ -12,7 +12,7 @@ const Login = props => {
   return (
     <Form name="normal_login" className="login-form" onFinish={onFinish}>
       <Link to="/">
-        <img src={require('../assets/logo.png')} alt="logo" />
+        <img src={require('../assets/biller_logo.png')} alt="logo" />
       </Link>
 
       <h2>Login</h2>
