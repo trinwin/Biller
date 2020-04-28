@@ -1,14 +1,40 @@
-<h1 align="center">Biller 💰</h1>
+<p align="center">
+    <img width="150" src="./client/src/assets/biller_logo.png">
+</p>
 
-A web application that helps user to conveniently monitor and control financial status and monthly spending.
+<h1 align="center">Biller</h1>
+
+<div align="center">
+A 3-tier web application for monitor financial status and monthly spending. </br></br>
+
+<a href="https://github.com/trinityng/bills/pulls">
+    <img src="https://img.shields.io/badge/PRs-welcome-green.svg" alt="PRs Welcome" />
+</a>
+<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/trinityng/bills">
+<a href="https://www.javascript.com/">
+    <img src="https://img.shields.io/github/languages/top/trinityng/bills" alt="Top Language" />
+</a>
+<a href="https://github.com/trinityng/bills/pulls">
+    <img src="https://img.shields.io/david/trinityng/chatbox" alt="Dependencies" />
+</a>
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/trinityng/bills">
+<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/trinityng/bills">
+<img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/trinityng/bills">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/trinityng/bills">
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/trinityng/bills">
+<img alt="GitHub stars" src="https://img.shields.io/github/stars/trinityng/bills?style=social">
+</div>
+
+### 📊 Project Storyboard: [Biller](https://github.com/trinityng/bills/projects/1)
 
 ## 🌟 Features
 
-- 🏦
-- 💳
-- 💵
-- 📈
-- ⏰
+- 🏦 Connect to your Bank online account (Chase, Wells Fargo, etc.)
+- 📑 Connect to utilities account (PG&E, comcast, etc.)
+- 💳 Manage your credit card usage
+- 💵 Monitor your income and expenses' transactions
+- 📈 Visualize your income and spending in a graph
+- ⏰ Alert incoming bills
 
 ## 📂 Technologies Used
 
@@ -28,8 +54,6 @@ A web application that helps user to conveniently monitor and control financial 
 - [MySQL](https://www.mysql.com/)
 - [JWT](https://github.com/jpadilla/pyjwt)
 - [Plaid API](https://github.com/plaid/plaid-python)
-
-## 📊 Project Storyboard: [Biller](https://github.com/trinityng/bills/projects/1)
 
 ## ✅ Getting Started
 
@@ -69,19 +93,31 @@ npm start
 ```
 # Create virtual environment (recommend) using conda/virtualenv
 conda create --name your_env_name
+
 # Start virtual env
 source activate your_env_name
 ```
 
 ```
+# Setup Plaid API Keys
+
 # Go into server folder
 cd server
+
+# Create a file in a root server folder called "Plaid_API_Keys"
+# Place your PLAID_CLIENT_ID, PLAID_SECRET, and PLAID_PUBLIC_KEY in the file
+```
+
+```
 # Install server packages from requirements.txt
 pip3 install -r requirements.txt or python -m pip3 install -r requirements.txt
+
 # Create new migrations
 python3 manage.py makemigrations
+
 # Apply new migrations
 python3 manage.py migrate
+
 # Start server on localhost:8000
 python3 manage.py runserver
 ```
