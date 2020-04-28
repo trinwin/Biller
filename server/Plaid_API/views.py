@@ -12,6 +12,7 @@ from .__init__ import plaid_client
 from .email import send_email
 from .threads import check_if_passed_due_date, check_due_date, check_transactions_and_balance
 from .helpers import calculate_daily_balances, calculate_days_between, calculate_total_balance
+import plaid
 import time
 import datetime
 import json
@@ -21,9 +22,9 @@ import threading
 client = plaid_client()
 
 # Add the initial Timer threads
-threading.Timer(60, check_if_passed_due_date).start()
-threading.Timer(60, check_due_date).start()
-threading.Timer(60, check_transactions_and_balance).start()
+threading.Timer(6400, check_if_passed_due_date).start()
+threading.Timer(6400, check_due_date).start()
+threading.Timer(6400, check_transactions_and_balance).start()
 
 
 @csrf_exempt
@@ -86,22 +87,18 @@ def get_access_token(request):
                     name=name,
                     balance=account['balances']['current'])
 
-            # Add a bill object if the account is a credit type
             if account['subtype'] == 'credit card' or account['subtype'] == 'credit'\
                     or account['type'] == 'credit card' or account['type'] == 'credit'\
-            or account['official_name'] == 'Bill':
+                or account['official_name'] == 'Bill':
                 Bill.objects.create(
                     account_id=new_account, amount=account['balances']['current'],
                     due_date=None, notified=False)
 
-            # Add the transactions of each account from the last 180 days
             transactions = client.Transactions.get(access_token, start_date, end_date,
                                                    account_ids=[account["account_id"]])
             for transaction in transactions["transactions"]:
                 d = transaction['date'].split("-")
                 date = datetime.date(int(d[0]), int(d[1]), int(d[2]))
-                # If the name of the transaction it > 255
-                # slice it so that the length is 255 max
                 if len(Transactions.objects.filter(
                         transaction_id=transaction['transaction_id'])) == 0:
                     if len(transaction['name']) < 255:
@@ -165,9 +162,6 @@ def get_transactions_of_each_account(request):
             temp['transactions'] = reversed(t)
 
         response.append(temp)
-    for r in response:
-        print(r)
-
     return Response({'transactions_each': response})
 
 
@@ -213,17 +207,13 @@ def net_worth(request):
     user = User_Model.objects.filter(email=email)
     if user is None or len(user) == 0:
         return Response({"err": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
     accounts = BankAccounts.objects.filter(user=user[0])
 
     net_worth = 0
-    # For each account, add the balance to the total if
-    # the account is not credit card type
     for account in accounts:
         if account.type != 'credit card' or account.type != 'credit':
             net_worth += account.balance
         else:
-            # If it is a credit card account, subtracts the balance
             net_worth -= account.balance
 
     return Response({"net_worth": net_worth})
@@ -303,7 +293,6 @@ def monthly_total_expenses(request):
     accounts = BankAccounts.objects.filter(user=user[0])
 
     date_range = []
-    # Find the last 12 months and year
     for i in range(12):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
@@ -386,7 +375,6 @@ def monthly_total_income(request):
     accounts = BankAccounts.objects.filter(user=user[0])
 
     date_range = []
-    # Find the last 12 months and year
     for i in range(12):
         time = datetime.date.today() + relativedelta(months=-i)
         time = str(time).split("-")
@@ -430,7 +418,7 @@ def change_due_date(request):
     if account_name is None:
         return Response({"err": "Account name ot provided"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-    account = BankAccounts.objects.filter(name=account_name)
+    account = BankAccounts.objects.filter(user=user[0], name=account_name)
     if len(account) == 0:
         return Response({"err": "Account not found"}, status=status.HTTP_404_NOT_FOUND)
 

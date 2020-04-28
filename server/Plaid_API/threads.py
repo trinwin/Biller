@@ -17,7 +17,7 @@ def check_if_passed_due_date():
             bill.save()
     except Exception as e:
         print(e)
-    threading.Timer(60, check_if_passed_due_date).start()
+    threading.Timer(6400, check_if_passed_due_date).start()
 
 
 def check_due_date():
@@ -35,7 +35,7 @@ def check_due_date():
                 Notification.objects.create(user=user, message=message)
     except Exception as e:
         print(e)
-    threading.Timer(60, check_due_date).start()
+    threading.Timer(6400, check_due_date).start()
 
 
 def check_transactions_and_balance():
@@ -76,4 +76,4 @@ def check_transactions_and_balance():
                             date=date, transaction_id=transaction['transaction_id'])
     except Exception as e:
         print(e)
-    threading.Timer(60, check_transactions_and_balance).start()
+    threading.Timer(6400, check_transactions_and_balance).start()
