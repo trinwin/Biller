@@ -171,6 +171,7 @@ export const changeBillDueDate = userData => dispatch => {
 export const getNotification = userData => async dispatch => {
   const config = { headers: { Authorization: `Bearer ${userData.token}` } };
   try {
+    console.log(`${HOST}${PLAID_GET_NOTIFICATIONS_URI}?email=${userData.email}`);
     const { data } = await axios.get(
       `${HOST}${PLAID_GET_NOTIFICATIONS_URI}?email=${userData.email}`,
       config

@@ -1,10 +1,11 @@
 import React from 'react';
 import { footer } from './data';
+import Popup from './Popup'
 
 function antCloudFooter() {
   const children = footer.map((item, i) => (
     <div key={i}>
-      <a href={item.src}>{item.text}</a>
+      <Popup text={item.text} content={item.content} />
     </div>
   ));
   return (

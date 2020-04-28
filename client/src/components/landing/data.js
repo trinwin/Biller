@@ -3,17 +3,20 @@ import React from 'react';
 export const page1 = [
   {
     title: 'Store of all your bills',
-    content: 'Through connecting your bank accounts with Plaid, Biller can gather and display all of your banking information.',
+    content:
+      'Through connecting your bank accounts with Plaid, Biller can gather and display all of your banking information.',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/MmROsqZndrFBrIspzLlL.png',
   },
   {
     title: 'Manage your expenses',
-    content: 'Biller contains various analytical tools to help you manage your finances across all of your connected bank accounts.',
+    content:
+      'Biller contains various analytical tools to help you manage your finances across all of your connected bank accounts.',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/ONvKhpRAmkCfdEhkUZkJ.png',
   },
   {
     title: 'Help you save money',
-    content: 'Biller notifies you of any incomming due dates for your bills. Never forget that one obscure subscription ever again!',
+    content:
+      'Biller notifies you of any incomming due dates for your bills. Never forget that one obscure subscription ever again!',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/oxmXLgGjCeXfYPcVSbKg.png',
   },
 ];
@@ -27,7 +30,7 @@ export const page2 = [
       <p key="3">View the last 6 months of your bills</p>,
       <p key="4">Set up notifications on monthly bills</p>,
     ],
-    
+
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
         <defs>
@@ -114,8 +117,13 @@ export const page2 = [
     content: [
       <p key="1">Feature List</p>,
       <p key="2">All the features from the plus model</p>,
-      <p key="3">Allow for up to 2 other people to have their own seperate accounts under you</p>,
-      <p key="4">Compare or combine each others' data (with their permission)</p>,
+      <p key="3">
+        Allow for up to 2 other people to have their own seperate accounts under
+        you
+      </p>,
+      <p key="4">
+        Compare or combine each others' data (with their permission)
+      </p>,
     ],
     svg: (
       <svg width="32px" height="32px" viewBox="0 0 32 32">
@@ -244,8 +252,445 @@ export const page3 = [
 ];
 
 export const footer = [
-  { text: 'About Us', src: '#' },
-  { text: 'Contact Us', src: '#' },
-  { text: 'Terms Of Service', src: '#' },
-  { text: 'Privacy Policy', src: '#' },
+  {
+    text: 'About Us',
+    content: (
+      <div>
+        <p class="c1">
+          <span class="c2">Project: Biller</span>
+        </p>
+        <p class="c1">
+          <span class="c5">Problem Statement</span>
+        </p>
+        <p class="c1 c8">
+          <span class="c4">
+            In this day and age, it is impractical to balance your checkbook as
+            all of your money as well as expenses can be handled online.
+            However, money and expenses are spread out in multiple accounts
+            linked to different institutions such that money management becomes
+            a series of cumbersome tasks such as reconciling multiple
+            bank/credit card statements and tracking your debt across multiple
+            cards for example. We are interested in doing a web application to
+            help us conveniently monitor and control financial status and
+            monthly spending.{' '}
+          </span>
+        </p>
+        <p class="c1 c11">
+          <span class="c3"></span>
+        </p>
+        <p class="c1">
+          <span class="c5">Background and Motivation</span>
+        </p>
+        <p class="c1 c8">
+          <span class="c4">Our team</span>
+          <span class="c4">
+            &nbsp;wants to proceed with this idea because we feel that this
+            project is{' '}
+          </span>
+          <span class="c4 c8 c16">achievable</span>
+          <span class="c2">
+            &nbsp;within the semester while also being complex enough that we
+            can split the development into roles. We believe that users would be
+            interested in using this web application since it will not only be
+            convenient, time-saving, but also encourage the users to practice
+            better money management habits. Any expenses handled online ranging
+            from common household bills (PG&amp;E, Xfinity), credit cards from
+            various institutions (Chase, Discover), subscriptions
+            (Amazon/Netflix/Youtube), or services (Uber) can be linked to this
+            application. The app will essentially provide a platform to
+            centralize all of the user&rsquo;s bank accounts, monthly bill
+            payments across multiple accounts, and credit card expenses for
+            monitoring as well as notifying the user of impending bills due date
+            so that users can avoid late fee or interest fee. We also have plans
+            to add features that relate to spending habits to help the user plan
+            how they spend their money.
+          </span>
+        </p>
+        <p class="c1 c11 c8">
+          <span class="c6 c4"></span>
+        </p>
+        <p class="c1">
+          <span class="c5">Goal</span>
+        </p>
+        <p class="c1">
+          <span class="c2">
+            Our goal for the project is to develop a web application that allows
+            the user to concentrate their financial information in one location
+            for ease of access.{' '}
+          </span>
+        </p>
+        <p class="c1">
+          <span class="c2">
+            During the 3 month period developing this project we will
+            accomplish:
+          </span>
+        </p>
+        <ul class="c9 lst-kix_z3pfsnlff9jw-0 start">
+          <li class="c0">
+            <span class="c2">
+              Application allowing users to link their various accounts to the
+              application so the application can extract relevant information
+              for display to users.{' '}
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              Simple, responsive flow to the UI allowing users to easily
+              navigate.
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              Provide safety measures to secure users&rsquo; personal
+              information
+            </span>
+          </li>
+        </ul>
+        <p class="c1 c11">
+          <span class="c3"></span>
+        </p>
+        <p class="c1">
+          <span class="c5">Scope</span>
+        </p>
+        <p class="c1 c14">
+          <span class="c2">In scope</span>
+        </p>
+        <ul class="c9 lst-kix_i166n8yrxuwa-0 start">
+          <li class="c1 c10">
+            <span class="c2">
+              Front-end design with React (Ant Design library)
+            </span>
+          </li>
+          <li class="c1 c10">
+            <span class="c2">Cloud Database (Amazon RDS, MySQL)</span>
+          </li>
+          <li class="c1 c10">
+            <span class="c2">Backend (Django, Python)</span>
+          </li>
+          <li class="c1 c10">
+            <span class="c2">
+              Landing page, login/register, dashboard, setup page
+            </span>
+          </li>
+          <li class="c1 c10">
+            <span class="c2">Hosting (Amazon AWS)</span>
+          </li>
+        </ul>
+        <p class="c1 c14">
+          <span class="c2">Out of scope</span>
+        </p>
+        <ul class="c9 lst-kix_65gjy437av5i-0 start">
+          <li class="c1 c10">
+            <span class="c2">Email notifications to user</span>
+          </li>
+          <li class="c1 c10">
+            <span class="c2">Design a user-friendly UI</span>
+          </li>
+          <li class="c1 c10">
+            <span class="c2">
+              Organizes the billing information nicely for users to manage
+            </span>
+          </li>
+        </ul>
+        <p class="c1">
+          <span class="c5">Deliverables</span>
+        </p>
+        <p class="c1">
+          <span class="c2">We plan to deliver these features </span>
+        </p>
+        <ul class="c9 lst-kix_b6zfa2ty73h3-0 start">
+          <li class="c0">
+            <span class="c2">To see their bill history records</span>
+          </li>
+        </ul>
+        <ul class="c9 lst-kix_wcixg5ignizp-0 start">
+          <li class="c0">
+            <span class="c2">
+              To be able to link different accounts to the application
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              To be able to view information from different accounts in the
+              dashboard
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              To be notified with email of future bill payment due dates
+            </span>
+          </li>
+        </ul>
+        <p class="c1 c11">
+          <span class="c6 c4"></span>
+        </p>
+        <p class="c1">
+          <span class="c5">Risks and Rewards</span>
+        </p>
+        <p class="c1">
+          <span class="c2">What are the main risks of this project?</span>
+        </p>
+        <ul class="c9 lst-kix_f4go9x3tihsf-0 start">
+          <li class="c0">
+            <span class="c2">
+              The team is overall still getting familiar with the use of the
+              technology in the application. Though our team is familiar with
+              some of the technologies in this project, we still need to learn
+              all of the technologies in this project to deliver our application
+              successfully.
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              Due to the team&rsquo;s unfamiliarity of front-end development,
+              the application may look simplistic. Our team plans to allocate
+              more work to develop the application&rsquo;s interface to look
+              more well designed.
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              The amount of time alloted for this project is short. The amount
+              of sprints we can do are limited. As such, our scope for the
+              project reflects our assessment of the amount of work we can do
+              within the given time period.
+            </span>
+          </li>
+        </ul>
+        <p class="c1">
+          <span class="c2">
+            What are the main rewards if this project succeeds?
+          </span>
+        </p>
+        <ul class="c9 lst-kix_6rtlivk51yqw-0 start">
+          <li class="c0">
+            <span class="c2">
+              The main reward is a successful deployment of a 3-tier
+              architecture application developed using agile methodology,{' '}
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              In addition, we will have knowledge of new technologies we can
+              apply for other projects.
+            </span>
+          </li>
+        </ul>
+        <p class="c1 c11">
+          <span class="c4 c6"></span>
+        </p>
+        <p class="c1">
+          <span class="c5">User Stories</span>
+        </p>
+        <ol class="c9 lst-kix_199miuui8dyu-0 start" start="1">
+          <li class="c0">
+            <span class="c2">
+              As a user, I want to be able to register, login and logout.
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              As a user, I want to be able to see all third-party accounts with
+              most recent bills and their due date on user dashboard after I
+              logged in.
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              As a user, I want to login and connect to Chase account.{' '}
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              As a user, I want to see my credit card bill, its due date and
+              minimum payment.
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              As a user, I want to login and connect to an electricity and gas
+              service online account.
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c2">
+              As a user, I want to see electric and gas bill amount and due date
+            </span>
+          </li>
+          <li class="c0">
+            <span class="c4">
+              As a user, I want to receive notification through email before/on
+              the due date of all my bills.
+            </span>
+          </li>
+        </ol>
+      </div>
+    ),
+  },
+  {
+    text: 'Contact Us',
+    content: <div>
+      <h1>No</h1>
+    </div>,
+  },
+  {
+    text: 'Terms Of Service',
+    content: (
+      <div>
+        <h2>Web Site Terms and Conditions of Use</h2>
+
+        <h3>1. Terms</h3>
+
+        <p>
+          By accessing this web site, you are agreeing to be bound by these web
+          site Terms and Conditions of Use, all applicable laws and regulations,
+          and agree that you are responsible for compliance with any applicable
+          local laws. If you do not agree with any of these terms, you are
+          prohibited from using or accessing this site. The materials contained
+          in this web site are protected by applicable copyright and trade mark
+          law.
+        </p>
+
+        <h3>2. Use License</h3>
+
+        <ol type="a">
+          <li>
+            Permission is granted to use Biller's web site for personal,
+            non-commercial transitory viewing only. This is the grant of a
+            license, not a transfer of title, and under this license you may
+            not:
+            <ol type="i">
+              <li>modify or copy the materials;</li>
+              <li>
+                use the materials for any commercial purpose, or for any public
+                display (commercial or non-commercial);
+              </li>
+              <li>
+                attempt to decompile or reverse engineer any software contained
+                on test's web site; or
+              </li>
+              <li>
+                transfer the materials to another person or "mirror" the
+                materials on any other server.
+              </li>
+            </ol>
+          </li>
+          <li>
+            This license shall automatically terminate if you violate any of
+            these restrictions and may be terminated by test at any time. Upon
+            terminating your viewing of these materials or upon the termination
+            of this license, you must destroy any downloaded materials in your
+            possession whether in electronic or printed format.
+          </li>
+        </ol>
+
+        <h3>3. Disclaimer</h3>
+
+        <ol type="a">
+          <li>
+            The materials on Biller's web site are provided "as is". Biller
+            makes no warranties, expressed or implied, and hereby disclaims and
+            negates all other warranties, including without limitation, implied
+            warranties or conditions of merchantability, fitness for a
+            particular purpose, or non-infringement of intellectual property or
+            other violation of rights. Further, test does not warrant or make
+            any representations concerning the accuracy, likely results, or
+            reliability of the use of the materials on its Internet web site or
+            otherwise relating to such materials or on any sites linked to this
+            site.
+          </li>
+        </ol>
+
+        <h3>4. Limitations</h3>
+
+        <p>
+          In no event shall Biller or its suppliers be liable for any damages
+          (including, without limitation, damages for loss of data or profit, or
+          due to business interruption,) arising out of the use or inability to
+          use the materials on test's Internet site, even if test or a test
+          authorized representative has been notified orally or in writing of
+          the possibility of such damage. Because some jurisdictions do not
+          allow limitations on implied warranties, or limitations of liability
+          for consequential or incidental damages, these limitations may not
+          apply to you.
+        </p>
+
+        <h3>5. Site Terms of Use Modifications</h3>
+
+        <p>
+          Biller may revise these terms of use for its web site at any time
+          without notice. By using this web site you are agreeing to be bound by
+          the then current version of these Terms and Conditions of Use.
+        </p>
+
+        <h3>6. Governing Law</h3>
+
+        <p>
+          Any claim relating to Biller's web site shall be governed by the laws
+          of the State of California without regard to its conflict of law
+          provisions.
+        </p>
+
+        <p>General Terms and Conditions applicable to Use of a Web Site.</p>
+      </div>
+    ),
+  },
+  {
+    text: 'Privacy Policy',
+    content: (
+      <div>
+        <h2>Privacy Policy</h2>
+
+        <p>
+          Your privacy is very important to us. Accordingly, we have developed
+          this Policy in order for you to understand how we collect, use,
+          communicate and disclose and make use of personal information. The
+          following outlines our privacy policy.
+        </p>
+
+        <ul>
+          <li>
+            Before or at the time of collecting personal information, we will
+            identify the purposes for which information is being collected.
+          </li>
+          <li>
+            We will collect and use of personal information solely with the
+            objective of fulfilling those purposes specified by us and for other
+            compatible purposes, unless we obtain the consent of the individual
+            concerned or as required by law.
+          </li>
+          <li>
+            We will only retain personal information as long as necessary for
+            the fulfillment of those purposes.
+          </li>
+          <li>
+            We will collect personal information by lawful and fair means and,
+            where appropriate, with the knowledge or consent of the individual
+            concerned.
+          </li>
+          <li>
+            Personal data should be relevant to the purposes for which it is to
+            be used, and, to the extent necessary for those purposes, should be
+            accurate, complete, and up-to-date.
+          </li>
+          <li>
+            We will protect personal information by reasonable security
+            safeguards against loss or theft, as well as unauthorized access,
+            disclosure, copying, use or modification.
+          </li>
+          <li>
+            We will make readily available to customers information about our
+            policies and practices relating to the management of personal
+            information.
+          </li>
+        </ul>
+
+        <p>
+          We are committed to conducting our business in accordance with these
+          principles in order to ensure that the confidentiality of personal
+          information is protected and maintained.
+        </p>
+      </div>
+    ),
+  },
 ];
