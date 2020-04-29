@@ -24,7 +24,7 @@ A 3-tier web application for monitor financial status and monthly spending. </br
 <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/trinityng/bills">
 <img alt="GitHub stars" src="https://img.shields.io/github/stars/trinityng/bills?style=social">
 
-![Biller gif demo](./doc/Biller_demo.gif)
+![Biller gif demo](./doc/demo/Biller-Demo.gif)
 
 </div>
 
@@ -32,6 +32,8 @@ A 3-tier web application for monitor financial status and monthly spending. </br
 
 ## 🌟 Features
 
+- 🙍🏻‍♀️ Signup/Login with Biller
+- 🔏 Protect your data with JWT authentication
 - 🏦 Connect to your Bank online account (Chase, Wells Fargo, etc.)
 - 📑 Connect to utilities account (PG&E, comcast, etc.)
 - 💳 Manage your credit card usage
