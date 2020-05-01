@@ -7,28 +7,25 @@
 <div align="center">
 A 3-tier web application for monitor financial status and monthly spending. </br></br>
 
-<a href="https://github.com/trinityng/bills/pulls">
+<a href="https://github.com/trinityng/Biller/pulls">
     <img src="https://img.shields.io/badge/PRs-welcome-green.svg" alt="PRs Welcome" />
 </a>
-<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/trinityng/bills">
+<img alt="GitHub language count" src="https://img.shields.io/github/languages/count/trinityng/Biller">
 <a href="https://www.javascript.com/">
-    <img src="https://img.shields.io/github/languages/top/trinityng/bills" alt="Top Language" />
+    <img src="https://img.shields.io/github/languages/top/trinityng/Biller" alt="Top Language" />
 </a>
-<a href="https://github.com/trinityng/bills/pulls">
-    <img src="https://img.shields.io/david/trinityng/chatbox" alt="Dependencies" />
-</a>
-<img alt="GitHub issues" src="https://img.shields.io/github/issues/trinityng/bills">
-<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/trinityng/bills">
-<img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/trinityng/bills">
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/trinityng/bills">
-<img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/trinityng/bills">
-<img alt="GitHub stars" src="https://img.shields.io/github/stars/trinityng/bills?style=social">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/trinityng/Biller">
+<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/trinityng/Biller">
+<img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed/trinityng/Biller">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/trinityng/Biller">
+<img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/trinityng/Biller">
+<img alt="GitHub stars" src="https://img.shields.io/github/stars/trinityng/Biller?style=social">
 
 ![Biller gif demo](./doc/demo/Biller-Demo.gif)
 
 </div>
 
-### 📊 Project Storyboard: [Biller](https://github.com/trinityng/bills/projects/1)
+### 📊 Project Storyboard: [Biller](https://github.com/trinityng/Biller/projects/1)
 
 ## 🌟 Features
 
@@ -149,4 +146,4 @@ npm test
 
 👨🏻‍💻 **Matthew Vu** - [Redjay17](https://github.com/Redjay17) (Frontend Developer)
 
-See also the list of [contributors](https://github.com/trinityng/biller/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/trinityng/Biller/contributors) who participated in this project.
