@@ -140,7 +140,7 @@ npm test
 
 ## ⭐️ Authors
 
-👩🏻‍💻 **Trinity Nguyen** - [trinityng](https://github.com/trinityng) (Project Lead + Frontend Lead)
+👩🏻‍💻 **Trinity Nguyen** - [trinwin](https://github.com/trinwin) (Project Lead + Frontend Lead)
 
 👨🏻‍💻 **Au Tran** - [au-tran](https://github.com/au-tran) (Backend Lead)
 
