@@ -7,7 +7,7 @@ click==7.1.1
 Django==2.2.20
 django-cors-headers==3.2.1
 django-filter==2.2.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-simplejwt==4.4.0
 entrypoints==0.3
 ez-setup==0.9
